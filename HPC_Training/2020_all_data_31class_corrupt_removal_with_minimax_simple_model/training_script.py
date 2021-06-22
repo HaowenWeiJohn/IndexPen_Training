@@ -40,7 +40,7 @@ del Y
 
 model = simple_model(class_num=31)
 
-es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=100)
 csv_logger = CSVLogger("model_history_log.csv", append=True)
 mc = ModelCheckpoint(
     # filepath='AutoSave/' + str(datetime.datetime.now()).replace(':', '-').replace(' ',
