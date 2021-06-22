@@ -50,7 +50,7 @@ mc = ModelCheckpoint(
 
 history = model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                     validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
-                    epochs=2,
+                    epochs=20000,
                     batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
 plt.plot(history.history['accuracy'])
