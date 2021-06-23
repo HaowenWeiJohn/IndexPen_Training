@@ -11,8 +11,8 @@ from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
-sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/HPC_Training/data_utils')
-sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/HPC_Training/data')
+sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data_utils')
+sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data')
 
 from data_utils.make_model import *
 from data_utils.ploting import plot_confusion_matrix
