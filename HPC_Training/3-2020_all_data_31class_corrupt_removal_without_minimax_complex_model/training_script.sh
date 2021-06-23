@@ -15,6 +15,5 @@
 module purge
 module load gcc/6.3.0 slurm/17.02.11 cudnn/8.1.1.33-11.2/3k5bbs63 cuda/11.0.2/ur4svoci 
 
-nvidia-smi
-echo $CUDA_VISIBLE_DEVICES
+
 python training_script.py
