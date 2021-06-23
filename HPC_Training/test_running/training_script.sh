@@ -4,7 +4,7 @@
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
 
-#SBATCH --exclude=compute-0-02
+#SBATCH --exclude=compute-0-28
 
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
