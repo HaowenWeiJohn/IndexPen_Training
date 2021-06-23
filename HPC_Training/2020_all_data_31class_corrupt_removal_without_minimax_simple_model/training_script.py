@@ -17,7 +17,7 @@ sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPe
 from data_utils.make_model import *
 from data_utils.ploting import plot_confusion_matrix
 
-load_data_dir = 'data/IndexPenData/IndexPenData2020/2020_31classes_corrupt_frame_removal_(-1000,1500)_(0,2500)'
+load_data_dir = '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data/IndexPenData/IndexPenData2020/2020_31classes_corrupt_frame_removal_(-1000,1500)_(0,2500)'
 with open(load_data_dir, 'rb') as f:
     X_mmw_rD, X_mmw_rA, Y, encoder = pickle.load(f)
 
