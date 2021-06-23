@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="4-2020_all_data_31class_corrupt_removal_without_minimax_simple_model"
+#SBATCH --job-name="4_1-2020_all_data_31class_corrupt_removal_without_minimax_simple_model"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
