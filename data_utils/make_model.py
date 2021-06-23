@@ -29,7 +29,7 @@ rd_shape = (8, 16)
 ra_shape = (8, 64)
 
 
-def simple_model(class_num=31):
+def simple_model(class_num=31 ,learning_rate=1e-3, decay=1e-6):
     encoder1 = Sequential()
     encoder1.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 16, 1)))
     encoder1.add(TimeDistributed(Conv2D(filters=8, kernel_size=(2, 3),
@@ -74,12 +74,12 @@ def simple_model(class_num=31):
 
     model = Model(inputs=[encoder1.input, encoder2.input], outputs=merged_out)
 
-    adam = tf.keras.optimizers.Adam(learning_rate=1e-3, decay=1e-6)
+    adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
     return model
 
 
-def complex_model(class_num, points_per_sample=points_per_sample, channel_mode='channels_last'):
+def complex_model(class_num,learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample, channel_mode='channels_last'):
     # creates the Time Distributed CNN for range Doppler heatmap ##########################
     mmw_rdpl_input = (int(points_per_sample),) + rd_shape + (1,) if channel_mode == 'channels_last' else (
                                                                                                          points_per_sample,
@@ -170,6 +170,6 @@ def complex_model(class_num, points_per_sample=points_per_sample, channel_mode='
         regressive_tensor)
 
     model = Model(inputs=[mmw_rdpl_TDCNN.input, mmw_razi_TDCNN.input], outputs=regressive_tensor)
-    adam = tf.keras.optimizers.Adam(learning_rate=1e-4, decay=1e-7)
+    adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)
     model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
