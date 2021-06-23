@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="2020_all_data_31class_corrupt_removal_without_minimax_simple_model"
+#SBATCH --job-name="3-2020_all_data_31class_corrupt_removal_without_minimax_complex_model"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
@@ -8,7 +8,8 @@
 #SBATCH --mem=50G
 #SBATCH --cpus-per-task=2
 #SBATCH --gres=gpu:1
-#SBATCH --time=15:00:00
+#SBATCH --partition=long
+#SBATCH --time=90:00:00
 
 
 module purge
