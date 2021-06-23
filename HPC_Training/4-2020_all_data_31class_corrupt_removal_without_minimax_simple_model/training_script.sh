@@ -9,7 +9,7 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --gres=gpu:1
 #SBATCH --partition=long
-#SBATCH --time=30:00:00
+#SBATCH --time=60:00:00
 
 
 module purge
