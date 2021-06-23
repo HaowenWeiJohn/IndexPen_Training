@@ -70,7 +70,7 @@ plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.savefig('model_accuracy.png')
-plt.show()
+plt.clf()
 
 # summarize history for loss
 plt.plot(history.history['loss'])
@@ -80,7 +80,7 @@ plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.savefig('model_loss.png')
-plt.show()
+plt.clf()
 
 best_model_path = glob.glob('./*.h5')[0]
 best_model = tf.keras.models.load_model(best_model_path)
