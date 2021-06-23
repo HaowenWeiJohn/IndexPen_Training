@@ -1,11 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name="test_running"
+#SBATCH --job-name="1-2020_all_data_31class_corrupt_removal_with_minimax_complex_model"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
-
-#SBATCH --exclude=compute-0-28
-
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=50G
