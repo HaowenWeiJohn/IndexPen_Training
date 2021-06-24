@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # data dir
-data
+data/IndexPenData/IndexPenData2020
 test
 IndexPen_Training_venv
 
