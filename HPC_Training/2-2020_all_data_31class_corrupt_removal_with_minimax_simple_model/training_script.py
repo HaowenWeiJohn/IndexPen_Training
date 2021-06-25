@@ -45,7 +45,7 @@ X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, t
 del X_mmw_rA
 del Y
 
-model = simple_model(class_num=31)
+model = make_simple_model(class_num=31)
 
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
 csv_logger = CSVLogger("model_history_log.csv", append=True)

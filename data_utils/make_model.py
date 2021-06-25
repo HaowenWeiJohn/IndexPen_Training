@@ -15,6 +15,9 @@ from tensorflow.python.keras.models import load_model
 from tensorflow.python.keras import Sequential, Model, Input
 from tensorflow.python.keras.layers import TimeDistributed, Conv2D, BatchNormalization, MaxPooling2D, Flatten, \
     concatenate, LSTM, Dropout, Dense
+import os
+from tensorflow import keras
+
 from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 import matplotlib.pyplot as plt
@@ -29,7 +32,7 @@ rd_shape = (8, 16)
 ra_shape = (8, 64)
 
 
-def simple_model(class_num=31 ,learning_rate=1e-3, decay=1e-6):
+def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6):
     encoder1 = Sequential()
     encoder1.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 16, 1)))
     encoder1.add(TimeDistributed(Conv2D(filters=8, kernel_size=(2, 3),
@@ -79,7 +82,7 @@ def simple_model(class_num=31 ,learning_rate=1e-3, decay=1e-6):
     return model
 
 
-def complex_model(class_num,learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample, channel_mode='channels_last'):
+def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample, channel_mode='channels_last'):
     # creates the Time Distributed CNN for range Doppler heatmap ##########################
     mmw_rdpl_input = (int(points_per_sample),) + rd_shape + (1,) if channel_mode == 'channels_last' else (
                                                                                                          points_per_sample,
@@ -173,3 +176,27 @@ def complex_model(class_num,learning_rate=1e-4, decay=1e-7, points_per_sample=po
     adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)
     model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
+
+
+def make_transfer_model(pretrained_model, class_num=31, last_layer_name='last_layer', only_last_layer_trainable=True):
+    print("pretrained_model Summary")
+    pretrained_model.summary()
+
+    #remove last dence layer
+    x = pretrained_model.layers[-2].output
+    predictions = Dense(class_num, name=last_layer_name, activation="softmax", kernel_initializer='random_uniform')(x)
+    transfer_model = Model(inputs=pretrained_model.input, outputs=predictions)
+    print('transfer_model Summary')
+    transfer_model.summary()
+
+    # freeze model weight if only_last_layer_trainable
+    if only_last_layer_trainable:
+        for layer in transfer_model.layers:
+            if layer.name != last_layer_name:
+                layer.trainable = False
+        print('only last layer trainable')
+        transfer_model.summary()
+
+    # transfer model summary
+
+    return transfer_model
