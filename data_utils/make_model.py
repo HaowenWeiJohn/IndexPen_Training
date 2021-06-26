@@ -197,7 +197,7 @@ def make_transfer_model(pretrained_model, class_num=31,learning_rate=1e-4, decay
                 layer.trainable = False
         print('only last layer trainable')
         # transfer model summary
-        print('transfer_model after freezing last layer')
+        print('transfer_model only last layer trainable')
         transfer_model.summary()
 
     adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)

@@ -36,7 +36,7 @@ for train_size in train_sizes:
                                          class_num=31,
                                          learning_rate=1e-4,
                                          decay=1e-6,
-                                         only_last_layer_trainable=True)
+                                         only_last_layer_trainable=False)
 
     X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, train_size=train_size, random_state=3,
                                                                       shuffle=True)
