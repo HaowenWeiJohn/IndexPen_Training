@@ -72,7 +72,7 @@ for train_size in train_sizes:
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.savefig(str(train_size)+'_model_accuracy.png')
-    plt.clf()
+    plt.close()
 
     # summarize history for loss
     plt.plot(history.history['loss'])
@@ -82,7 +82,7 @@ for train_size in train_sizes:
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.savefig(str(train_size)+'_model_loss.png')
-    plt.clf()
+    plt.close()
 
     best_model_path = glob.glob(str(train_size)+'*.h5')[0]
     best_model = tf.keras.models.load_model(best_model_path)
@@ -91,7 +91,7 @@ for train_size in train_sizes:
     Y_test = np.argmax(Y_test, axis=1)
     cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
     plt.savefig(str(train_size)+'_confusion_matrix.png')
-    plt.clf()
+    plt.close()
 
     test_acc = accuracy_score(Y_test, Y_pred)
     print("best_accuracy_score:", test_acc)
