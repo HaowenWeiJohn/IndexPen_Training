@@ -18,8 +18,8 @@ from data_utils.make_model import *
 from data_utils.ploting import plot_confusion_matrix
 
 # load existing model
-model = tf.keras.models.load_model('../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
-load_data_dir  = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_sample_transfer_learning_test'
+model = tf.keras.models.load_model('../../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
+load_data_dir  = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_sample_transfer_learning_test'
 
 # load new user data
 with open(load_data_dir, 'rb') as f:
@@ -36,7 +36,7 @@ for train_size in train_sizes:
                                          class_num=31,
                                          learning_rate=1e-4,
                                          decay=1e-6,
-                                         only_last_layer_trainable=True)
+                                         only_last_layer_trainable=False)
 
     X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, train_size=train_size, random_state=3,
                                                                       shuffle=True)
@@ -72,7 +72,7 @@ for train_size in train_sizes:
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.savefig(str(train_size)+'_model_accuracy.png')
-    plt.close()
+    plt.clf()
 
     # summarize history for loss
     plt.plot(history.history['loss'])
@@ -82,7 +82,7 @@ for train_size in train_sizes:
     plt.xlabel('epoch')
     plt.legend(['train', 'test'], loc='upper left')
     plt.savefig(str(train_size)+'_model_loss.png')
-    plt.close()
+    plt.clf()
 
     best_model_path = glob.glob(str(train_size)+'*.h5')[0]
     best_model = tf.keras.models.load_model(best_model_path)
@@ -91,7 +91,7 @@ for train_size in train_sizes:
     Y_test = np.argmax(Y_test, axis=1)
     cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
     plt.savefig(str(train_size)+'_confusion_matrix.png')
-    plt.close()
+    plt.clf()
 
     test_acc = accuracy_score(Y_test, Y_pred)
     print("best_accuracy_score:", test_acc)

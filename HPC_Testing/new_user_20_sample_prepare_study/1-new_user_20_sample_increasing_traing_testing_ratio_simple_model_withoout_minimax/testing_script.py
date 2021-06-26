@@ -18,8 +18,8 @@ from data_utils.make_model import *
 from data_utils.ploting import plot_confusion_matrix
 
 # load existing model
-model = tf.keras.models.load_model('../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
-load_data_dir  = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_sample_transfer_learning_test'
+model = tf.keras.models.load_model('../../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
+load_data_dir  = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_sample_transfer_learning_test'
 
 # load new user data
 with open(load_data_dir, 'rb') as f:
