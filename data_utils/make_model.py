@@ -178,13 +178,14 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
     return model
 
 
-def make_transfer_model(pretrained_model, class_num=31, last_layer_name='last_layer', only_last_layer_trainable=True):
+def make_transfer_model(pretrained_model, class_num=31,learning_rate=1e-4, decay=1e-7, last_layer_name='last_layer', only_last_layer_trainable=True):
     print("pretrained_model Summary")
     pretrained_model.summary()
 
     #remove last dence layer
     x = pretrained_model.layers[-2].output
     predictions = Dense(class_num, name=last_layer_name, activation="softmax", kernel_initializer='random_uniform')(x)
+
     transfer_model = Model(inputs=pretrained_model.input, outputs=predictions)
     print('transfer_model Summary')
     transfer_model.summary()
@@ -195,8 +196,12 @@ def make_transfer_model(pretrained_model, class_num=31, last_layer_name='last_la
             if layer.name != last_layer_name:
                 layer.trainable = False
         print('only last layer trainable')
+        # transfer model summary
+        print('transfer_model after freezing last layer')
         transfer_model.summary()
 
-    # transfer model summary
+    adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)
+    transfer_model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
+
 
     return transfer_model
