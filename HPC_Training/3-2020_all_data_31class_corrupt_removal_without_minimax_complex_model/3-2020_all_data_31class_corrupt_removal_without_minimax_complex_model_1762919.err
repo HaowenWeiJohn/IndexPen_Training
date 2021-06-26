@@ -1,0 +1,64 @@
+/cm/local/apps/slurm/var/spool/job1762919/slurm_script: line 18: nvidia-smi: command not found
+2021-06-23 00:07:20.892292: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-23 00:07:56.728251: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-23 00:07:56.729854: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-06-23 00:07:56.758542: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:85:00.0 name: Tesla K80 computeCapability: 3.7
+coreClock: 0.8235GHz coreCount: 13 deviceMemorySize: 11.17GiB deviceMemoryBandwidth: 223.96GiB/s
+2021-06-23 00:07:56.758579: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-23 00:07:56.761977: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-06-23 00:07:56.762022: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-06-23 00:07:56.763536: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-23 00:07:56.764112: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-23 00:07:56.766821: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-23 00:07:56.767634: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-06-23 00:07:56.768092: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-06-23 00:07:56.769926: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-23 00:07:56.770359: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-06-23 00:07:56.770526: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-23 00:07:56.771532: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:85:00.0 name: Tesla K80 computeCapability: 3.7
+coreClock: 0.8235GHz coreCount: 13 deviceMemorySize: 11.17GiB deviceMemoryBandwidth: 223.96GiB/s
+2021-06-23 00:07:56.771556: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-23 00:07:56.771573: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-06-23 00:07:56.771588: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-06-23 00:07:56.771602: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-23 00:07:56.771615: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-23 00:07:56.771628: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-23 00:07:56.771641: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-06-23 00:07:56.771655: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-06-23 00:07:56.773464: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-23 00:07:56.773495: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-23 00:07:57.303753: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1261] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-06-23 00:07:57.303797: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1267]      0 
+2021-06-23 00:07:57.303805: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1280] 0:   N 
+2021-06-23 00:07:57.306781: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1406] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10623 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: 0000:85:00.0, compute capability: 3.7)
+2021-06-23 00:08:02.621683: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 3656908800 exceeds 10% of free system memory.
+2021-06-23 00:08:12.277894: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-23 00:08:12.278585: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2199965000 Hz
+2021-06-23 00:08:17.620386: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-06-23 00:08:17.833122: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-06-23 00:08:17.852681: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/sklearn/base.py:315: UserWarning: Trying to unpickle estimator OneHotEncoder from version 0.24.1 when using version 0.24.2. This might lead to breaking code or invalid results. Use at your own risk.
+  UserWarning)
+Traceback (most recent call last):
+  File "training_script.py", line 63, in <module>
+    batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 1105, in fit
+    callbacks.on_train_batch_end(end_step, logs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/callbacks.py", line 454, in on_train_batch_end
+    self._call_batch_hook(ModeKeys.TRAIN, 'end', batch, logs=logs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/callbacks.py", line 296, in _call_batch_hook
+    self._call_batch_end_hook(mode, batch, logs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/callbacks.py", line 316, in _call_batch_end_hook
+    self._call_batch_hook_helper(hook_name, batch, logs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/callbacks.py", line 356, in _call_batch_hook_helper
+    hook(batch, logs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/callbacks.py", line 1020, in on_train_batch_end
+    self._batch_update_progbar(batch, logs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/callbacks.py", line 1085, in _batch_update_progbar
+    self.progbar.update(self.seen, list(logs.items()), finalize=False)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/utils/generic_utils.py", line 641, in update
+    sys.stdout.flush()
+OSError: [Errno 28] No space left on device
