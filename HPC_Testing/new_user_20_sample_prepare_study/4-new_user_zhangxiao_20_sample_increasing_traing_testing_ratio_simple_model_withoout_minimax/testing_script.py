@@ -30,6 +30,10 @@ X_mmw_rA = X_dict[1]
 
 train_sizes = [0.1, 0.2, 0.3, 0.4, 0.5]
 # 20 samples in total increasing from 2
+
+# test_accuracy_curve = []
+# train_accuracy_curve =
+
 for train_size in train_sizes:
     # create transfer learning model
     transfer_model = make_transfer_model(pretrained_model=model,
@@ -60,7 +64,7 @@ for train_size in train_sizes:
 
     history = model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                         validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
-                        epochs=2000,
+                        epochs=2,
                         batch_size=8, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
     print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
@@ -93,6 +97,7 @@ for train_size in train_sizes:
     plt.savefig(str(train_size)+'_confusion_matrix.png')
     plt.close()
 
+    plt.rcdefaults()
     test_acc = accuracy_score(Y_test, Y_pred)
     print("best_accuracy_score:", test_acc)
 

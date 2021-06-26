@@ -93,6 +93,7 @@ for train_size in train_sizes:
     plt.savefig(str(train_size)+'_confusion_matrix.png')
     plt.close()
 
+    plt.rcdefaults()
     test_acc = accuracy_score(Y_test, Y_pred)
     print("best_accuracy_score:", test_acc)
 
