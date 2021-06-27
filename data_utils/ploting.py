@@ -4,7 +4,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 
 
-def plot_confusion_matrix(y_true, y_pred, classes, pred_classes=None,
+def plot_confusion_matrix(y_true, y_pred, classes, label_list=None,
                           normalize=False,
                           title=None,
                           cmap=plt.cm.Blues, axis_font_size=12):
