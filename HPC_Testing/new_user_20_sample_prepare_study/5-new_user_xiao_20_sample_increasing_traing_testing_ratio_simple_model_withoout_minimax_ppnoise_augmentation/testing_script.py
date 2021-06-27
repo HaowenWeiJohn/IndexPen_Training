@@ -17,8 +17,8 @@ import sys
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
 from data_utils.make_model import *
 from data_utils.data_preprocessing import *
-from data_utils.ploting import plot_confusion_matrix
-
+from data_utils.ploting import *
+from data_utils.data_config import *
 # load existing model
 model = tf.keras.models.load_model('../../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
 load_data_dir = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/Xiao_20_new_sample_transfer_learning_test'
@@ -103,13 +103,14 @@ for train_size in train_sizes:
     Y_pred = np.argmax(Y_pred1, axis=1)
     Y_test = np.argmax(Y_test, axis=1)
 
-    classes = ['A', 'B', 'C', 'D', 'E',
-               'F', 'G', 'H', 'I', 'J',
-               'K', 'L', 'M', 'N', 'O',
-               'P', 'Q', 'R', 'S', 'T',
-               'U', 'V', 'W', 'X', 'Y',
-               'Z', 'Spc', 'Bspc', 'Ent', 'Act', 'Nois']
-    cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
+    # classes = ['A', 'B', 'C', 'D', 'E',
+    #            'F', 'G', 'H', 'I', 'J',
+    #            'K', 'L', 'M', 'N', 'O',
+    #            'P', 'Q', 'R', 'S', 'T',
+    #            'U', 'V', 'W', 'X', 'Y',
+    #            'Z', 'Spc', 'Bspc', 'Ent', 'Act', 'Nois']
+
+    cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=indexpen_classes)
     plt.savefig(str(train_size) + '_confusion_matrix.png')
     plt.close()
 

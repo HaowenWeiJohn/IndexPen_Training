@@ -31,20 +31,24 @@ def noise_augmentation(x, y, mean=0, std=10, augmentation_factor=10, min_thresho
                        time_series=True):
     # self duplicate
     print(len(x))
-    x = np.repeat(x, repeats=augmentation_factor, axis=0)
-    y = np.repeat(y, repeats=augmentation_factor, axis=0)
+    x_repeat = np.repeat(x, repeats=augmentation_factor, axis=0)
+    y_repeat = np.repeat(y, repeats=augmentation_factor, axis=0)
+
 
     # augumentation
-    for sample_index in range(1, len(x)):
-        sample_shape = x[sample_index].shape
-        x[sample_index] = x[sample_index] + np.random.normal(mean, std, x[sample_index].shape)
-        a = x[sample_index]
+    for sample_index in range(0, len(x_repeat)):
+        sample_shape = x_repeat[sample_index].shape
+        x_repeat[sample_index] = x_repeat[sample_index] + np.random.normal(mean, std, x_repeat[sample_index].shape)
+        a = x_repeat[sample_index]
         # thresholding x sample
         if min_threshold:
-            x[sample_index][x[sample_index] <= min_threshold] = min_threshold
+            x_repeat[sample_index][x_repeat[sample_index] <= min_threshold] = min_threshold
 
         if max_threshold:
-            x[sample_index][x[sample_index] >= max_threshold] = max_threshold
+            x_repeat[sample_index][x_repeat[sample_index] >= max_threshold] = max_threshold
+
+    x = np.concatenate((x, x_repeat))
+    y = np.concatenate((y, y_repeat))
 
 
     return x, y
