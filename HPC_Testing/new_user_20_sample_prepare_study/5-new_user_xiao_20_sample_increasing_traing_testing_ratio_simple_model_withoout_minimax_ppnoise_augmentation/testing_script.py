@@ -14,10 +14,9 @@ import time
 import sys
 
 # insert at 1, 0 is the script path (or '' in REPL)
-from data_utils.data_preprocessing import noise_augmentation
-
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
 from data_utils.make_model import *
+from data_utils.data_preprocessing import *
 from data_utils.ploting import plot_confusion_matrix
 
 # load existing model
@@ -58,7 +57,7 @@ for train_size in train_sizes:
                                                  max_threshold=1500,
                                                  time_series=True)
 
-    X_mmw_rD_train, Y_train = noise_augmentation(X_mmw_rD_train, Y_train, mean=0, std=10, augmentation_factor=10, min_threshold=0,
+    X_mmw_rD_train,  dummy = noise_augmentation(X_mmw_rD_train, [1], mean=0, std=10, augmentation_factor=10, min_threshold=0,
                                                  max_threshold=2500,
                                                  time_series=True)
 
