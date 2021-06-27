@@ -1,0 +1,58 @@
+2021-06-26 21:19:44.148525: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-26 21:20:08.020589: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-26 21:20:08.021719: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-06-26 21:20:08.073339: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:03:00.0 name: Tesla K40m computeCapability: 3.5
+coreClock: 0.745GHz coreCount: 15 deviceMemorySize: 11.17GiB deviceMemoryBandwidth: 268.58GiB/s
+2021-06-26 21:20:08.073382: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-26 21:20:08.076760: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-06-26 21:20:08.076811: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-06-26 21:20:08.078381: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-26 21:20:08.078854: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-26 21:20:08.082162: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-26 21:20:08.083049: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-06-26 21:20:08.083386: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-06-26 21:20:08.104369: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-26 21:20:08.104967: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-06-26 21:20:08.106124: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:03:00.0 name: Tesla K40m computeCapability: 3.5
+coreClock: 0.745GHz coreCount: 15 deviceMemorySize: 11.17GiB deviceMemoryBandwidth: 268.58GiB/s
+2021-06-26 21:20:08.106175: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-26 21:20:08.106206: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-06-26 21:20:08.106233: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-06-26 21:20:08.106261: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-06-26 21:20:08.106287: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-06-26 21:20:08.106314: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-06-26 21:20:08.106340: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-06-26 21:20:08.106367: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-06-26 21:20:08.108904: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-06-26 21:20:08.108950: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-06-26 21:20:08.696188: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1261] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-06-26 21:20:08.696217: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1267]      0 
+2021-06-26 21:20:08.696227: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1280] 0:   N 
+2021-06-26 21:20:08.698799: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1406] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10615 MB memory) -> physical GPU (device: 0, name: Tesla K40m, pci bus id: 0000:03:00.0, compute capability: 3.5)
+WARNING:tensorflow:Layer lstm will not use cuDNN kernel since it doesn't meet the cuDNN kernel criteria. It will use generic GPU kernel as fallback when running on GPU
+2021-06-26 21:20:10.898550: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-06-26 21:20:10.899149: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2800045000 Hz
+2021-06-26 21:20:13.114075: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-06-26 21:20:13.400252: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-06-26 21:20:13.416802: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+WARNING:tensorflow:Layer lstm will not use cuDNN kernel since it doesn't meet the cuDNN kernel criteria. It will use generic GPU kernel as fallback when running on GPU
+Traceback (most recent call last):
+  File "testing_script.py", line 96, in <module>
+    cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data_utils/ploting.py", line 47, in plot_confusion_matrix
+    xlabel='Predicted label')
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/matplotlib/artist.py", line 1179, in set
+    return self.update(kwargs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/matplotlib/artist.py", line 1064, in update
+    ret.append(func(v))
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/matplotlib/axes/_base.py", line 73, in wrapper
+    return get_method(self)(*args, **kwargs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/matplotlib/_api/deprecation.py", line 471, in wrapper
+    return func(*args, **kwargs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/matplotlib/axis.py", line 1790, in _set_ticklabels
+    return self.set_ticklabels(labels, minor=minor, **kwargs)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/matplotlib/axis.py", line 1712, in set_ticklabels
+    "The number of FixedLocator locations"
+ValueError: The number of FixedLocator locations (30), usually from a call to set_ticks, does not match the number of ticklabels (31).
