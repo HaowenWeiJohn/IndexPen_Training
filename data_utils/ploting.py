@@ -4,7 +4,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
 
 
-def plot_confusion_matrix(y_true, y_pred, classes, label_list=None,
+def plot_confusion_matrix(y_true, y_pred, classes, pred_classes=None,
                           normalize=False,
                           title=None,
                           cmap=plt.cm.Blues, axis_font_size=12):
@@ -21,7 +21,7 @@ def plot_confusion_matrix(y_true, y_pred, classes, label_list=None,
     # Compute confusion matrix
     cm = confusion_matrix(y_true, y_pred)
     # Only use the labels that appear in the data
-    # classes = classes[unique_labels(y_true, y_pred)]
+    classes = classes[unique_labels(y_true, y_pred)]
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized confusion matrix")
