@@ -32,11 +32,12 @@ train_sizes = [0.1, 0.2, 0.3, 0.4, 0.5]
 # 20 samples in total increasing from 2
 for train_size in train_sizes:
     # create transfer learning model
-    transfer_model = make_transfer_model(pretrained_model=model,
-                                         class_num=31,
-                                         learning_rate=1e-4,
-                                         decay=1e-6,
-                                         only_last_layer_trainable=True)
+    # transfer_model = make_transfer_model(pretrained_model=model,
+    #                                      class_num=31,
+    #                                      learning_rate=1e-4,
+    #                                      decay=1e-6,
+    #                                      only_last_layer_trainable=True)
+    model = tf.keras.models.load_model('../../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
 
     X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, train_size=train_size, random_state=3,
                                                                       shuffle=True)
@@ -58,7 +59,7 @@ for train_size in train_sizes:
 
     training_start_time = time.time()
 
-    history = transfer_model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
+    history = model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                         validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                         epochs=2000,
                         batch_size=8, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
