@@ -32,7 +32,7 @@ def noise_augmentation(x, y, mean=0, std=10, augmentation_factor=10, min_thresho
     # self duplicate
     print(len(x))
     x = np.repeat(x, repeats=augmentation_factor, axis=0)
-    y = np.repeat(x, repeats=augmentation_factor, axis=0)
+    y = np.repeat(y, repeats=augmentation_factor, axis=0)
 
     # augumentation
     for sample_index in range(1, len(x)):

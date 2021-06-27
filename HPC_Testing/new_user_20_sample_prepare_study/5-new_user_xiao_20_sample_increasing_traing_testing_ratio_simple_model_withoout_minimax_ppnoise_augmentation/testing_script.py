@@ -57,7 +57,7 @@ for train_size in train_sizes:
                                                  max_threshold=1500,
                                                  time_series=True)
 
-    X_mmw_rD_train,  dummy = noise_augmentation(X_mmw_rD_train, [1], mean=0, std=10, augmentation_factor=10, min_threshold=0,
+    X_mmw_rA_train,  dummy = noise_augmentation(X_mmw_rA_train, [1], mean=0, std=10, augmentation_factor=10, min_threshold=0,
                                                  max_threshold=2500,
                                                  time_series=True)
 
@@ -74,7 +74,7 @@ for train_size in train_sizes:
     history = transfer_model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                                  validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                                  epochs=2000,
-                                 batch_size=8, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+                                 batch_size=round(len(X_mmw_rD_train)/100), callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
     print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
@@ -102,6 +102,13 @@ for train_size in train_sizes:
     Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
     Y_pred = np.argmax(Y_pred1, axis=1)
     Y_test = np.argmax(Y_test, axis=1)
+
+    classes = ['A', 'B', 'C', 'D', 'E',
+               'F', 'G', 'H', 'I', 'J',
+               'K', 'L', 'M', 'N', 'O',
+               'P', 'Q', 'R', 'S', 'T',
+               'U', 'V', 'W', 'X', 'Y',
+               'Z', 'Spc', 'Bspc', 'Ent', 'Act', 'Nois']
     cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
     plt.savefig(str(train_size) + '_confusion_matrix.png')
     plt.close()
