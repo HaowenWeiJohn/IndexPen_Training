@@ -27,21 +27,22 @@ import pickle
 from tensorflow.keras.callbacks import CSVLogger
 
 
-def noise_augmentation(x, y, mean=0, std=10, augmentation_factor=10,min_threshold = np.NINF, max_threshold = np.PINF, time_series=True):
+def noise_augmentation(x, y, mean=0, std=10, augmentation_factor=10, min_threshold=None, max_threshold=None,
+                       time_series=True):
     # self duplicate
-    x = np.repeat(x, repeats=len(x)*augmentation_factor, axis=0)
-    y = np.repeat(x, repeats=len(y)*augmentation_factor, axis=0)
+    x = np.repeat(x, repeats=len(x) * augmentation_factor, axis=0)
+    y = np.repeat(x, repeats=len(y) * augmentation_factor, axis=0)
 
     # augumentation
-    for sample_index in range(0, len(x)):
+    for sample_index in range(1, len(x)):
         sample_shape = x[sample_index].shape()
         x[sample_index] = x[sample_index] + np.random.normal(mean, std, x[sample_index].shape())
+        # thresholding x sample
+        if min_threshold:
+            x[sample_index][x[sample_index] <= max_threshold] = min_threshold
+
+        if max_threshold:
+            x[sample_index][x[sample_index] >= max_threshold] = max_threshold
+
 
     return x, y
-
-
-
-
-
-
-
