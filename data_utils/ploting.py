@@ -19,7 +19,7 @@ def plot_confusion_matrix(y_true, y_pred, classes, pred_classes=None,
             title = 'Confusion matrix, without normalization'
 
     # Compute confusion matrix
-    cm = confusion_matrix(y_true, y_pred, classes)
+    cm = confusion_matrix(y_true, y_pred)
     # Only use the labels that appear in the data
     # classes = classes[unique_labels(y_true, y_pred)]
     if normalize:
