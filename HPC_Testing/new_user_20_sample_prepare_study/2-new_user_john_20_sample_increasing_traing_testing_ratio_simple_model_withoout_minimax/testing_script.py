@@ -63,7 +63,7 @@ for train_size in train_sizes:
     history = transfer_model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                         validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                         epochs=2000,
-                        batch_size=round(len(X_mmw_rD_train)/100), callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+                        batch_size=8, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
     print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
