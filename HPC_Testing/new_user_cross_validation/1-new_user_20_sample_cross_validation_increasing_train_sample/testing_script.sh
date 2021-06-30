@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="1-new_user_john_20_sample_increasing_traing_testing_ratio_simple_model_withoout_minimax"
+#SBATCH --job-name="1-new_user_20_sample_cross_validation_increasing_train_sample"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
