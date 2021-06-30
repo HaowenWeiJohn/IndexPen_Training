@@ -32,7 +32,7 @@ X_mmw_rD = X_dict[0]
 X_mmw_rA = X_dict[1]
 
 # 20 round in total
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=2, random_state=3)
+rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=10, random_state=3)
 
 # feed in sample size from training
 feed_in_ratios = [0.1, 0.2, 0.3, 0.4, 0.5]
