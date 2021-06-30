@@ -32,10 +32,10 @@ X_mmw_rD = X_dict[0]
 X_mmw_rA = X_dict[1]
 
 # 20 round in total
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=10, random_state=3)
+rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=2, random_state=3)
 
 # feed in sample size from training
-feed_in_ratios = [0.1, 0.2, 0.3, 0.4, 0.5]
+feed_in_ratios = [0.2, 0.4, 0.6, 0.8, 1.0]
 
 # create cm dataframe
 best_cm_hist_dict = {}
@@ -60,18 +60,22 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
                                              decay=1e-5,
                                              only_last_layer_trainable=True)
         # feed in sample ratio equal to train size
+        if feed_in_ratio != 1.0:
+            X_mmw_rD_feed_in, X_mmw_rD_leave_out, Y_feed_in, Y_leave_out = train_test_split(X_mmw_rD_train, Y_train,
+                                                                                            stratify=Y_train,
+                                                                                            train_size=feed_in_ratio,
+                                                                                            random_state=3,
+                                                                                            shuffle=True)
 
-        X_mmw_rD_feed_in, X_mmw_rD_leave_out, Y_feed_in, Y_leave_out = train_test_split(X_mmw_rD_train, Y_train,
-                                                                                        stratify=Y_train,
-                                                                                        train_size=feed_in_ratio,
-                                                                                        random_state=3,
-                                                                                        shuffle=True)
-
-        X_mmw_rA_feed_in, X_mmw_rA_leave_out, Y_feed_in, Y_leave_out = train_test_split(X_mmw_rA_train, Y_train,
-                                                                                        stratify=Y_train,
-                                                                                        train_size=feed_in_ratio,
-                                                                                        random_state=3,
-                                                                                        shuffle=True)
+            X_mmw_rA_feed_in, X_mmw_rA_leave_out, Y_feed_in, Y_leave_out = train_test_split(X_mmw_rA_train, Y_train,
+                                                                                            stratify=Y_train,
+                                                                                            train_size=feed_in_ratio,
+                                                                                            random_state=3,
+                                                                                            shuffle=True)
+        else:
+            X_mmw_rD_feed_in = X_mmw_rD_train
+            X_mmw_rA_feed_in = X_mmw_rA_train
+            Y_feed_in = Y_train
 
         es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20)
         csv_logger = CSVLogger(str(split_round) + '_' + str(feed_in_ratio) + "_model_history_log.csv", append=True)

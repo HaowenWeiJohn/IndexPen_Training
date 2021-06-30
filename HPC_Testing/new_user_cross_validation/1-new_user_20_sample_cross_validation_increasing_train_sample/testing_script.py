@@ -35,7 +35,7 @@ X_mmw_rA = X_dict[1]
 rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=2, random_state=3)
 
 # feed in sample size from training
-feed_in_ratios = [0.1, 0.2, 0.3, 0.4, 0.5]
+feed_in_ratios = [0.2, 0.4, 0.6, 0.8, 1.0]
 
 # create cm dataframe
 best_cm_hist_dict = {}
@@ -87,7 +87,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
 
         history = transfer_model.fit([X_mmw_rD_feed_in, X_mmw_rA_feed_in], Y_feed_in,
                                      validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
-                                     epochs=2,
+                                     epochs=2000,
                                      batch_size=round(len(X_mmw_rD_train) / 15), callbacks=[es, mc, csv_logger],
                                      verbose=1, shuffle=True)
 
