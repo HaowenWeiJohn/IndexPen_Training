@@ -32,7 +32,7 @@ X_mmw_rD = X_dict[0]
 X_mmw_rA = X_dict[1]
 
 # 20 round in total
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=2, random_state=3)
+rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=10, random_state=3)
 
 # feed in sample size from training
 feed_in_ratios = [0.2, 0.4, 0.6, 0.8, 1.0]
@@ -57,7 +57,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
         transfer_model = make_transfer_model(pretrained_model=model,
                                              class_num=31,
                                              learning_rate=1e-3,
-                                             decay=1e-5,
+                                             decay=4e-5,
                                              only_last_layer_trainable=True)
         # feed in sample ratio equal to train size
         if feed_in_ratio != 1.0:
@@ -92,7 +92,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
         history = transfer_model.fit([X_mmw_rD_feed_in, X_mmw_rA_feed_in], Y_feed_in,
                                      validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                                      epochs=2000,
-                                     batch_size=round(len(X_mmw_rD_train) / 15), callbacks=[es, mc, csv_logger],
+                                     batch_size=round(len(X_mmw_rD_feed_in) / 16), callbacks=[es, mc, csv_logger],
                                      verbose=1, shuffle=True)
 
         print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
