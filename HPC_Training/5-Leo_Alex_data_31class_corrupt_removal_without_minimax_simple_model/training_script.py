@@ -12,11 +12,12 @@ import time
 
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
+
+
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
-
-
+from data_utils.data_config import *
 from data_utils.make_model import *
-from data_utils.ploting import plot_confusion_matrix
+from data_utils.ploting import *
 
 load_data_dir = '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data/IndexPenData/IndexPenData2020/2020_31classes_corrupt_frame_removal_(-1000,1500)_(0,2500)'
 with open(load_data_dir, 'rb') as f:
@@ -89,10 +90,12 @@ plt.clf()
 best_model_path = glob.glob('./*.h5')[0]
 best_model = tf.keras.models.load_model(best_model_path)
 Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
-Y_pred = np.argmax(Y_pred1, axis=1)
-Y_test = np.argmax(Y_test, axis=1)
-cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
+Y_pred_class = np.argmax(Y_pred1, axis=1)
+Y_test_class = np.argmax(Y_test, axis=1)
+
+_, cm = plot_confusion_matrix(y_true=Y_test_class, y_pred=Y_pred_class, classes=indexpen_classes,
+                              normalize=False)
 plt.savefig('confusion_matrix.png')
-test_acc = accuracy_score(Y_test, Y_pred)
+test_acc = accuracy_score(Y_test_class, Y_pred_class)
 print("best_accuracy_score:", test_acc)
 
