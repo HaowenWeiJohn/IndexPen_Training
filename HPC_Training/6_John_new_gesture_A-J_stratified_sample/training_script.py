@@ -19,7 +19,7 @@ from data_utils.data_config import *
 from data_utils.make_model import *
 from data_utils.ploting import *
 load_data_dir = '../../data/IndexPenData/IndexPenData2021/hw_new_gesture_A-J_1900_sample'
-# load_data_dir = '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data/IndexPenData/IndexPenData2020/2020_31classes_corrupt_frame_removal_(-1000,1500)_(0,2500)'
+
 with open(load_data_dir, 'rb') as f:
     X_dict, Y, encoder = pickle.load(f)
 
@@ -62,7 +62,7 @@ training_start_time = time.time()
 
 history = model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                     validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
-                    epochs=20000,
+                    epochs=4,
                     batch_size=48, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
 print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
