@@ -21,8 +21,8 @@ from data_utils.ploting import *
 from data_utils.data_config import *
 
 # load existing model ## Simple model without minimax
-model = tf.keras.models.load_model('../../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
-load_data_dir = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_sample_transfer_learning_test'
+model = tf.keras.models.load_model('../../../model/5-Alex_Leo_simple_model2021-07-02_13-21-13.126725.h5')
+load_data_dir = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/Xiao_20_new_gesture_sample_transfer_learning_test'
 
 # cross_validation
 
@@ -120,5 +120,5 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
             best_cm_hist_dict[str(feed_in_ratio)].append(cm)
             best_acc_hist_dict[str(feed_in_ratio)].append(test_acc)
 
-with open('John_best_cm_acc_hist_dict', 'wb') as f:
+with open('John_new_gesture_cv_best_cm_acc_hist_dict', 'wb') as f:
     pickle.dump([best_cm_hist_dict, best_acc_hist_dict], f)
