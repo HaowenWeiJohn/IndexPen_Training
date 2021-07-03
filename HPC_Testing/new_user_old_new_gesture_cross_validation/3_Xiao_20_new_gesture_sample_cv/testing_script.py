@@ -121,5 +121,5 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
             best_cm_hist_dict[str(feed_in_ratio)].append(cm)
             best_acc_hist_dict[str(feed_in_ratio)].append(test_acc)
 
-with open('John_new_gesture_cv_best_cm_acc_hist_dict', 'wb') as f:
+with open('Xiao_new_gesture_cv_best_cm_acc_hist_dict', 'wb') as f:
     pickle.dump([best_cm_hist_dict, best_acc_hist_dict], f)
