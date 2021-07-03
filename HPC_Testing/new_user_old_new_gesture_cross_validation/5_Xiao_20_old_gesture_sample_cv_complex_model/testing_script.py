@@ -58,7 +58,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
         transfer_model = make_transfer_model(pretrained_model=model,
                                              class_num=31,
                                              learning_rate=1e-4,
-                                             decay=6e-4,
+                                             decay=6e-2,
                                              only_last_layer_trainable=True)
         # feed in sample ratio equal to train size
         if feed_in_ratio != 1.0:
@@ -78,7 +78,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
             X_mmw_rA_feed_in = X_mmw_rA_train
             Y_feed_in = Y_train
 
-        es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=30)
+        es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
         csv_logger = CSVLogger(str(split_round) + '_' + str(feed_in_ratio) + "_model_history_log.csv", append=True)
         mc = ModelCheckpoint(
             # filepath='AutoSave/' + str(datetime.datetime.now()).replace(':', '-').replace(' ',
