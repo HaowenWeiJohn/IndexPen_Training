@@ -20,7 +20,8 @@ from data_utils.ploting import *
 from data_utils.data_config import *
 
 # load existing model
-model = tf.keras.models.load_model('../../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
+model = tf.keras.models.load_model(
+    '../../../model/4-Alex_John_Leo_simple_model_without_minimax_2021-06-23_00-12-01.031452.h5')
 load_data_dir  = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_gesture_sample_transfer_learning_test'
 
 # load new user data
@@ -39,7 +40,8 @@ for train_size in train_sizes:
     #                                      learning_rate=1e-4,
     #                                      decay=1e-6,
     #                                      only_last_layer_trainable=True)
-    model = tf.keras.models.load_model('../../../model/4-simple_model_2021-06-23_00-12-01.031452.h5')
+    model = tf.keras.models.load_model(
+        '../../../model/4-Alex_John_Leo_simple_model_without_minimax_2021-06-23_00-12-01.031452.h5')
 
     X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, train_size=train_size, random_state=3,
                                                                       shuffle=True)
