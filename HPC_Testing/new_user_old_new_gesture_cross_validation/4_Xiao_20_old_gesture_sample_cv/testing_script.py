@@ -93,7 +93,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
         history = transfer_model.fit([X_mmw_rD_feed_in, X_mmw_rA_feed_in], Y_feed_in,
                                      validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                                      epochs=2000,
-                                     batch_size=round(len(X_mmw_rD_feed_in) / 16), callbacks=[es, mc, csv_logger],
+                                     batch_size=round(len(X_mmw_rD_feed_in) / 24), callbacks=[es, mc, csv_logger],
                                      verbose=1, shuffle=True)
 
         print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
