@@ -57,8 +57,8 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
         # create transfer model
         transfer_model = make_transfer_model(pretrained_model=model,
                                              class_num=31,
-                                             learning_rate=1e-3,
-                                             decay=4e-5,
+                                             learning_rate=1e-4,
+                                             decay=6e-4,
                                              only_last_layer_trainable=True)
         # feed in sample ratio equal to train size
         if feed_in_ratio != 1.0:
