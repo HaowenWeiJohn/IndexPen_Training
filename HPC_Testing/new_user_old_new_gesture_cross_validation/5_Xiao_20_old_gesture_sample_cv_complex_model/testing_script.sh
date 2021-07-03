@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="4_Xiao_20_old_gesture_sample_cv"
+#SBATCH --job-name="5_Xiao_20_old_gesture_sample_cv_complex_model"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
