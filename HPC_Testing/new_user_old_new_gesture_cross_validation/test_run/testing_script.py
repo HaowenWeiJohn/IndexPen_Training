@@ -77,7 +77,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD, y=np.argmax(Y, axis=1)):
             X_mmw_rA_feed_in = X_mmw_rA_train
             Y_feed_in = Y_train
 
-        es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20)
+        es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=30)
         csv_logger = CSVLogger(str(split_round) + '_' + str(feed_in_ratio) + "_model_history_log.csv", append=True)
         mc = ModelCheckpoint(
             # filepath='AutoSave/' + str(datetime.datetime.now()).replace(':', '-').replace(' ',
