@@ -85,6 +85,9 @@ def make_simple_model_capacity_increase(class_num=31, learning_rate=1e-3, decay=
     encoder1 = Sequential()
     encoder1.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 16, 1)))
     encoder1.add(TimeDistributed(Conv2D(filters=16, kernel_size=(2, 3),
+                                        kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         data_format='channels_last')))
     encoder1.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.15)))
 
@@ -98,6 +101,9 @@ def make_simple_model_capacity_increase(class_num=31, learning_rate=1e-3, decay=
     encoder2 = Sequential()
     encoder2.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 64, 1)))
     encoder2.add(TimeDistributed(Conv2D(filters=32, kernel_size=(3, 3),
+                                        kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         data_format='channels_last')))
     encoder2.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.15)))
     encoder2.add(TimeDistributed(MaxPooling2D(pool_size=2)))
@@ -121,7 +127,7 @@ def make_simple_model_capacity_increase(class_num=31, learning_rate=1e-3, decay=
     merged_out = Dense(512,
                        activation='relu'
                        )(merged_out)
-    merged_out = Dropout(rate=0.2)(merged_out)
+    merged_out = Dropout(rate=0.4)(merged_out)
     merged_out = Dense(class_num, activation='softmax', kernel_initializer='random_uniform')(merged_out)
 
     model = Model(inputs=[encoder1.input, encoder2.input], outputs=merged_out)
