@@ -40,18 +40,18 @@ rA_max = 2500
 # X_mmw_rD = (X_mmw_rD - rD_min) / (rD_max - rD_min)
 # X_mmw_rA = (X_mmw_rA - rA_min) / (rA_max - rA_min)
 
-X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y,test_size=0.20, random_state=3,
+X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
 
 
-X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, stratify=Y, test_size=0.20, random_state=3,
+X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
 
 
-model = make_simple_model(class_num=10, learning_rate=1e-3, decay=1e-5)
+model = make_simple_model(class_num=10, learning_rate=1e-3, decay=1e-7)
 
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
-csv_logger = CSVLogger("model_history_log.csv", append=True)
+csv_logger = CSVLogger("../../test/model_history_log.csv", append=True)
 mc = ModelCheckpoint(
     # filepath='AutoSave/' + str(datetime.datetime.now()).replace(':', '-').replace(' ',
     filepath=str(datetime.datetime.now()).replace(':', '-').replace(' ',
@@ -63,7 +63,7 @@ training_start_time = time.time()
 history = model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                     validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                     epochs=4000,
-                    batch_size=48, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+                    batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
 print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
