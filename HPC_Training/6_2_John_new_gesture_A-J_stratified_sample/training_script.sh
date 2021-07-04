@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="6_John_new_gesture_A-J_stratified_sample"
+#SBATCH --job-name="6_2_John_new_gesture_A-J_stratified_sample"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
