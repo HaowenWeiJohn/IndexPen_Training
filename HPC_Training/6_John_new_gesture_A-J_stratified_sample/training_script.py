@@ -40,11 +40,11 @@ rA_max = 2500
 # X_mmw_rD = (X_mmw_rD - rD_min) / (rD_max - rD_min)
 # X_mmw_rA = (X_mmw_rA - rA_min) / (rA_max - rA_min)
 
-X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, test_size=0.20, random_state=3,
+X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
 
 
-X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, test_size=0.20, random_state=3,
+X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, stratify=Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
 
 
