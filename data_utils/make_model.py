@@ -81,7 +81,7 @@ def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6):
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
     return model
 
-def make_simple_model_capacity_increase(class_num=31, learning_rate=1e-3, decay=1e-6):
+def make_simple_model_capacity_increase(class_num=31, learning_rate=5e-4, decay=5e-7):
     encoder1 = Sequential()
     encoder1.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 16, 1)))
     encoder1.add(TimeDistributed(Conv2D(filters=12, kernel_size=(2, 3),
