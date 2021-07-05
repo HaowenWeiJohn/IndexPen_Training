@@ -43,10 +43,10 @@ X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, s
                                                                   shuffle=True)
 
 
-X_mmw_rD_val, X_mmw_rD_test, Y_val, Y_test = train_test_split(X_mmw_rD_test, Y_test, stratify=Y, test_size=0.50, random_state=3,
+X_mmw_rD_val, X_mmw_rD_test, Y_val, Y_test = train_test_split(X_mmw_rD_test, Y_test, stratify=Y_test, test_size=0.50, random_state=3,
                                                                   shuffle=True)
 
-X_mmw_rA_val, X_mmw_rA_test, Y_val, Y_test = train_test_split(X_mmw_rA_test, Y_test, stratify=Y, test_size=0.50, random_state=3,
+X_mmw_rA_val, X_mmw_rA_test, Y_val, Y_test = train_test_split(X_mmw_rA_test, Y_test, stratify=Y_test, test_size=0.50, random_state=3,
                                                                   shuffle=True)
 
 model = make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-5)
