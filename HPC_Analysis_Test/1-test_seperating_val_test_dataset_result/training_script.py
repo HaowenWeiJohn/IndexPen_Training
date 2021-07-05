@@ -96,7 +96,8 @@ Y_pred = np.argmax(Y_pred1, axis=1)
 Y_val = np.argmax(Y_val, axis=1)
 cm = plot_confusion_matrix(y_true=Y_val, y_pred=Y_pred, classes=encoder.categories_[0])
 plt.savefig('val_confusion_matrix.png')
-test_acc = accuracy_score(Y_test, Y_pred)
+plt.clf()
+test_acc = accuracy_score(Y_val, Y_pred)
 print("val_best_accuracy_score:", test_acc)
 
 
