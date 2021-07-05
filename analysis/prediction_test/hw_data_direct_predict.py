@@ -23,18 +23,30 @@ from data_utils.data_config import *
 # load existing model ## Simple model without minimax
 
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_gesture_sample_transfer_learning_test'
-# load_data_dir = 'C:/Users/Haowe/OneDrive/Desktop/IndexPenData2020/2020_31classes_corrupt_frame_removal_(-1000,1500)_(0,2500)'
+# load_data_dir = '../../data/IndexPenData/IndexPenData2021/C-G_test'
+
 with open(load_data_dir, 'rb') as f:
     X_dict, Y, encoder = pickle.load(f)
 X_mmw_rD_test = X_dict[0]
 X_mmw_rA_test = X_dict[1]
+
+# minimax normalization
+rD_min = -1000
+rD_max = 1500
+rA_min = 0
+rA_max = 2500
+
+X_mmw_rD_test = (X_mmw_rD_test - rD_min) / (rD_max - rD_min)
+X_mmw_rA_test = (X_mmw_rA_test - rA_min) / (rA_max - rA_min)
+
+
 
 # load_data_dir = '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data/IndexPenData/IndexPenData2020/2020_31classes_corrupt_frame_removal_(-1000,1500)_(0,2500)'
 # with open(load_data_dir, 'rb') as f:
 #     X_mmw_rD_test, X_mmw_rA_test, Y, encoder = pickle.load(f)
 
 best_model_path = glob.glob(
-    '../../model/4-Alex_John_Leo_simple_model_without_minimax_2021-06-23_00-12-01.031452.h5')[0]
+    '../../model/1-2020_all_data_31class_corrupt_removal_with_minimax_complex_model_2021-06-23_14-10-40.251488.h5')[0]
 best_model = tf.keras.models.load_model(best_model_path)
 Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
 Y_pred_class = np.argmax(Y_pred1, axis=1)
@@ -42,6 +54,6 @@ Y_test_class = np.argmax(Y, axis=1)
 
 _, cm = plot_confusion_matrix(y_true=Y_test_class, y_pred=Y_pred_class, classes=indexpen_classes,
                               normalize=False)
-plt.savefig('confusion_matrix_6.png')
+plt.savefig('confusion_matrix.png')
 test_acc = accuracy_score(Y_test_class, Y_pred_class)
 print("best_accuracy_score:", test_acc)
