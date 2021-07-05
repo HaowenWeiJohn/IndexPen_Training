@@ -52,7 +52,7 @@ Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
 Y_pred_class = np.argmax(Y_pred1, axis=1)
 Y_test_class = np.argmax(Y, axis=1)
 
-_, cm = plot_confusion_matrix(y_true=Y_test_class, y_pred=Y_pred_class, classes=indexpen_classes,
+_, cm = plot_confusion_matrix(y_true=Y_test_class, y_pred=Y_pred_class, classes=encoder.categories_[0],
                               normalize=False)
 plt.savefig('confusion_matrix.png')
 test_acc = accuracy_score(Y_test_class, Y_pred_class)
