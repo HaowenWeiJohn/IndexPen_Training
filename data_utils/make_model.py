@@ -32,10 +32,10 @@ rd_shape = (8, 16)
 ra_shape = (8, 64)
 
 
-def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6):
+def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6, rd_kernel_size=(2, 3), ra_kernel_size=(3, 3)):
     encoder1 = Sequential()
     encoder1.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 16, 1)))
-    encoder1.add(TimeDistributed(Conv2D(filters=8, kernel_size=(2, 3),
+    encoder1.add(TimeDistributed(Conv2D(filters=8, kernel_size=rd_kernel_size,
                                         data_format='channels_last')))
     encoder1.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
 
@@ -48,7 +48,7 @@ def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6):
     # ENcoder2
     encoder2 = Sequential()
     encoder2.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 64, 1)))
-    encoder2.add(TimeDistributed(Conv2D(filters=16, kernel_size=(3, 3),
+    encoder2.add(TimeDistributed(Conv2D(filters=16, kernel_size=ra_kernel_size,
                                         data_format='channels_last')))
     encoder2.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
     encoder2.add(TimeDistributed(MaxPooling2D(pool_size=2)))
