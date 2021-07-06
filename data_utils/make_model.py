@@ -36,6 +36,9 @@ def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6, rd_kernel_si
     encoder1 = Sequential()
     encoder1.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 16, 1)))
     encoder1.add(TimeDistributed(Conv2D(filters=8, kernel_size=rd_kernel_size,
+                                        # kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        # bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        # activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         data_format='channels_last')))
     encoder1.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
 
@@ -49,6 +52,9 @@ def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6, rd_kernel_si
     encoder2 = Sequential()
     encoder2.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 64, 1)))
     encoder2.add(TimeDistributed(Conv2D(filters=16, kernel_size=ra_kernel_size,
+                                        # kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        # bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                                        # activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         data_format='channels_last')))
     encoder2.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
     encoder2.add(TimeDistributed(MaxPooling2D(pool_size=2)))
