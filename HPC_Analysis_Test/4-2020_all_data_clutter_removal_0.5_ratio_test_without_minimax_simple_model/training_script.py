@@ -12,19 +12,15 @@ import time
 
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
-
-
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
-from data_utils.data_config import *
+
+
 from data_utils.make_model import *
 from data_utils.ploting import plot_confusion_matrix
 
-load_data_dir = '../../data/IndexPenData/IndexPenData2021/hw_new_gesture_A-J_1900_sample'
+load_data_dir = '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/data/IndexPenData/IndexPenData2020/2020_31classes_corrupt_frame_removal_(-1000,1500)_(0,2500)_clutter_removal_(0.5)_(0.5)'
 with open(load_data_dir, 'rb') as f:
-    X_dict, Y, encoder = pickle.load(f)
-
-X_mmw_rD = X_dict[0]
-X_mmw_rA = X_dict[1]
+    X_mmw_rD, X_mmw_rA, Y, encoder = pickle.load(f)
 
 print(np.min(X_mmw_rD))
 print(np.max(X_mmw_rD))
@@ -39,23 +35,18 @@ rA_max = 2500
 # X_mmw_rD = (X_mmw_rD - rD_min) / (rD_max - rD_min)
 # X_mmw_rA = (X_mmw_rA - rA_min) / (rA_max - rA_min)
 
-X_mmw_rD_train, X_mmw_rD_test, _, _ = train_test_split(X_mmw_rD, Y, stratify=Y, test_size=0.30, random_state=3,
+X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
+del X_mmw_rD
 
-
-X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, stratify=Y, test_size=0.30, random_state=3,
+X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
+del X_mmw_rA
+del Y
 
+model = make_simple_model(class_num=31,  learning_rate=1e-3, decay=2e-5)
 
-X_mmw_rD_val, X_mmw_rD_test, _, _ = train_test_split(X_mmw_rD_test, Y_test, stratify=Y_test, test_size=0.50, random_state=3,
-                                                                  shuffle=True)
-
-X_mmw_rA_val, X_mmw_rA_test, Y_val, Y_test = train_test_split(X_mmw_rA_test, Y_test, stratify=Y_test, test_size=0.50, random_state=3,
-                                                                  shuffle=True)
-
-model = make_simple_model(class_num=10, learning_rate=1e-3, decay=1e-5)
-
-es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=30)
+es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
 csv_logger = CSVLogger("model_history_log.csv", append=True)
 mc = ModelCheckpoint(
     # filepath='AutoSave/' + str(datetime.datetime.now()).replace(':', '-').replace(' ',
@@ -66,7 +57,7 @@ mc = ModelCheckpoint(
 training_start_time = time.time()
 
 history = model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
-                    validation_data=([X_mmw_rD_val, X_mmw_rA_val], Y_val),
+                    validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                     epochs=20000,
                     batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
@@ -93,28 +84,11 @@ plt.clf()
 
 best_model_path = glob.glob('./*.h5')[0]
 best_model = tf.keras.models.load_model(best_model_path)
-
-
-Y_pred1 = best_model.predict([X_mmw_rD_val, X_mmw_rA_val])
-Y_pred = np.argmax(Y_pred1, axis=1)
-Y_val = np.argmax(Y_val, axis=1)
-cm = plot_confusion_matrix(y_true=Y_val, y_pred=Y_pred, classes=indexpen_classes[0:10])
-plt.savefig('val_confusion_matrix.png')
-plt.clf()
-test_acc = accuracy_score(Y_val, Y_pred)
-print("val_best_accuracy_score:", test_acc)
-
-
-
 Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
 Y_pred = np.argmax(Y_pred1, axis=1)
 Y_test = np.argmax(Y_test, axis=1)
-cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=indexpen_classes[0:10])
-plt.savefig('test_confusion_matrix.png')
-plt.clf()
+cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
+plt.savefig('confusion_matrix.png')
 test_acc = accuracy_score(Y_test, Y_pred)
-print("test_best_accuracy_score:", test_acc)
-
-
-
+print("best_accuracy_score:", test_acc)
 
