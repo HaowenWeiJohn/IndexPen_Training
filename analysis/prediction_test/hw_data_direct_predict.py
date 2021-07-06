@@ -22,7 +22,7 @@ from data_utils.data_config import *
 
 # load existing model ## Simple model without minimax
 
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_gesture_sample_transfer_learning_test'
+load_data_dir = '../../data/IndexPenData/IndexPenData2021/hw_A-J_2sample'
 # load_data_dir = '../../data/IndexPenData/IndexPenData2021/C-G_test'
 
 with open(load_data_dir, 'rb') as f:
@@ -36,8 +36,8 @@ rD_max = 1500
 rA_min = 0
 rA_max = 2500
 
-X_mmw_rD_test = (X_mmw_rD_test - rD_min) / (rD_max - rD_min)
-X_mmw_rA_test = (X_mmw_rA_test - rA_min) / (rA_max - rA_min)
+# X_mmw_rD_test = (X_mmw_rD_test - rD_min) / (rD_max - rD_min)
+# X_mmw_rA_test = (X_mmw_rA_test - rA_min) / (rA_max - rA_min)
 
 
 
@@ -46,7 +46,7 @@ X_mmw_rA_test = (X_mmw_rA_test - rA_min) / (rA_max - rA_min)
 #     X_mmw_rD_test, X_mmw_rA_test, Y, encoder = pickle.load(f)
 
 best_model_path = glob.glob(
-    '../../model/1-2020_all_data_31class_corrupt_removal_with_minimax_complex_model_2021-06-23_14-10-40.251488.h5')[0]
+    '../../model/6_1_John_new_gesture_A-J_stratified_sample_2021-07-03_23-17-20.452401.h5')[0]
 best_model = tf.keras.models.load_model(best_model_path)
 Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
 Y_pred_class = np.argmax(Y_pred1, axis=1)

@@ -21,7 +21,10 @@ from data_utils.ploting import plot_confusion_matrix
 
 load_data_dir = '../../data/IndexPenData/IndexPenData2021/hw_new_gesture_A-J_1900_sample'
 with open(load_data_dir, 'rb') as f:
-    X_mmw_rD, X_mmw_rA, Y, encoder = pickle.load(f)
+    X_dict, Y, encoder = pickle.load(f)
+
+X_mmw_rD = X_dict[0]
+X_mmw_rA = X_dict[1]
 
 print(np.min(X_mmw_rD))
 print(np.max(X_mmw_rD))
