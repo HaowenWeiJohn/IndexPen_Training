@@ -23,9 +23,8 @@ load_data_dir = '../../data/IndexPenData/IndexPenData2020/2020_31classes_corrupt
 with open(load_data_dir, 'rb') as f:
     X_mmw_rD, X_mmw_rA, Y, encoder = pickle.load(f)
 
-X_mmw_rD = X_mmw_rD[np.r_[6100:18600]]
-X_mmw_rA = X_mmw_rA[np.r_[6100:18600]]
-Y = Y[np.r_[6100:18600]]
+X_mmw_rD[X_mmw_rD<0] = 0
+X_mmw_rA[X_mmw_rA<0] = 0
 
 print(np.min(X_mmw_rD))
 print(np.max(X_mmw_rD))
@@ -49,9 +48,9 @@ X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, s
 del X_mmw_rA
 del Y
 
-model = make_simple_model(class_num=31, learning_rate=1e-3, decay=2e-5)
+model = make_complex_model(class_num=31, learning_rate=1e-4, decay=2e-7)
 
-es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=300)
 csv_logger = CSVLogger("model_history_log.csv", append=True)
 mc = ModelCheckpoint(
     # filepath='AutoSave/' + str(datetime.datetime.now()).replace(':', '-').replace(' ',
@@ -90,12 +89,9 @@ plt.clf()
 best_model_path = glob.glob('./*.h5')[0]
 best_model = tf.keras.models.load_model(best_model_path)
 Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
-Y_pred_class = np.argmax(Y_pred1, axis=1)
-Y_test_class = np.argmax(Y_test, axis=1)
-
-_, cm = plot_confusion_matrix(y_true=Y_test_class, y_pred=Y_pred_class, classes=indexpen_classes,
-                              normalize=False)
+Y_pred = np.argmax(Y_pred1, axis=1)
+Y_test = np.argmax(Y_test, axis=1)
+cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=indexpen_classes)
 plt.savefig('confusion_matrix.png')
-test_acc = accuracy_score(Y_test_class, Y_pred_class)
+test_acc = accuracy_score(Y_test, Y_pred)
 print("best_accuracy_score:", test_acc)
-

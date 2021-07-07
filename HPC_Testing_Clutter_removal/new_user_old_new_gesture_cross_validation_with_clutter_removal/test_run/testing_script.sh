@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="4_Xiao_20_old_gesture_sample_cv_clutter_removal_(0.8)_(0.6)"
+#SBATCH --job-name="test_run_cv"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
@@ -9,7 +9,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --gres=gpu:1
 #SBATCH --partition=long
-#SBATCH --time=90:00:00
+#SBATCH --time=30:00:00
 
 
 module purge
