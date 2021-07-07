@@ -22,7 +22,7 @@ from data_utils.data_config import *
 # load existing model
 model = tf.keras.models.load_model(
     '../../../model/4-Alex_John_Leo_simple_model_without_minimax_2021-06-23_00-12-01.031452.h5')
-load_data_dir  = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/Xiao_20_new_gesture_sample_transfer_learning_test'
+load_data_dir  = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/Xiao/Xiao_20_new_gesture_sample_transfer_learning_test'
 
 # load new user data
 with open(load_data_dir, 'rb') as f:
