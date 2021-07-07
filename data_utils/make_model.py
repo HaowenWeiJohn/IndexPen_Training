@@ -87,10 +87,10 @@ def make_simple_model(class_num=31, learning_rate=1e-3, decay=1e-6, rd_kernel_si
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
     return model
 
-def make_simple_model_capacity_increase(class_num=31, learning_rate=5e-4, decay=5e-7):
+def make_simple_model_capacity_increase(class_num=31, learning_rate=5e-4, decay=5e-7, rd_kernel_size=(2, 3), ra_kernel_size=(3, 3)):
     encoder1 = Sequential()
     encoder1.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 16, 1)))
-    encoder1.add(TimeDistributed(Conv2D(filters=12, kernel_size=(2, 3),
+    encoder1.add(TimeDistributed(Conv2D(filters=12, kernel_size=rd_kernel_size,
                                         # kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         # bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         # activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
@@ -106,7 +106,7 @@ def make_simple_model_capacity_increase(class_num=31, learning_rate=5e-4, decay=
     # ENcoder2
     encoder2 = Sequential()
     encoder2.add(tf.keras.layers.InputLayer(input_shape=(120, 8, 64, 1)))
-    encoder2.add(TimeDistributed(Conv2D(filters=24, kernel_size=(3, 3),
+    encoder2.add(TimeDistributed(Conv2D(filters=24, kernel_size=ra_kernel_size,
                                         # kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         # bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                         # activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
