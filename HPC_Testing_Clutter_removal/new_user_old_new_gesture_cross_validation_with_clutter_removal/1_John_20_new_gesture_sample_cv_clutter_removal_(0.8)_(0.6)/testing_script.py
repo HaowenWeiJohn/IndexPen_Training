@@ -23,7 +23,7 @@ from data_utils.data_config import *
 # load existing model ## Simple model without minimax
 model = tf.keras.models.load_model(
     '../../../HPC_Training_Clutter_removal/1_1-Leo_Alex_data_stratify_31class_clutter_removal_(0.8_(0.6)_without_minimax_simple_model/2021-07-06_22-03-45.174767.h5')
-load_data_dir = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_gesture_sample_clutter_removal_(0.8)_(0.6)_transfer_learning_test'
+load_data_dir = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John/John_20_new_gesture_sample_clutter_removal_(0.8)_(0.6)_transfer_learning_test'
 
 # cross_validation
 
