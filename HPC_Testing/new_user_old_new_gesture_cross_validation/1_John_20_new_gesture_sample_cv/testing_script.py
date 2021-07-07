@@ -23,7 +23,7 @@ from data_utils.data_config import *
 # load existing model ## Simple model without minimax
 model = tf.keras.models.load_model(
     '../../../model/5-Alex_Leo_simple_model_without_minimax_2021-07-02_13-21-13.126725.h5')
-load_data_dir = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_gesture_sample_transfer_learning_test'
+load_data_dir = '../../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John/John_20_new_gesture_sample_transfer_learning_test'
 
 # cross_validation
 

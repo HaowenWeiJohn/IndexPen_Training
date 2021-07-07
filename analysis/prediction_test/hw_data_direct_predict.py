@@ -22,7 +22,7 @@ from data_utils.data_config import *
 
 # load existing model ## Simple model without minimax
 
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_gesture_sample_clutter_removal_(0.8)_(0.6)_transfer_learning_test'
+load_data_dir = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John/John_20_new_gesture_sample_clutter_removal_(0.8)_(0.6)_transfer_learning_test'
 # load_data_dir = '../../data/IndexPenData/IndexPenData2021/C-G_test'
 
 with open(load_data_dir, 'rb') as f:
