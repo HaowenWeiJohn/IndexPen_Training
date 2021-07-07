@@ -23,9 +23,9 @@ load_data_dir = '../../data/IndexPenData/IndexPenData2020/2020_31classes_corrupt
 with open(load_data_dir, 'rb') as f:
     X_mmw_rD, X_mmw_rA, Y, encoder = pickle.load(f)
 
-X_mmw_rD = X_mmw_rD[np.r_[6100:18600]]
-X_mmw_rA = X_mmw_rA[np.r_[6100:18600]]
-Y = Y[np.r_[6100:18600]]
+X_mmw_rD = X_mmw_rD[np.r_[0:6100, 6100:12800]]
+X_mmw_rA = X_mmw_rA[np.r_[0:6100, 6100:12800]]
+Y = Y[np.r_[0:6100, 6100:12800]]
 
 print(np.min(X_mmw_rD))
 print(np.max(X_mmw_rD))
