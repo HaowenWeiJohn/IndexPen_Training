@@ -22,7 +22,7 @@ from data_utils.data_config import *
 
 # load existing model ## Simple model without minimax
 
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_old_gesture_sample_clutter_removal_(0.8)_(0.6)_transfer_learning_test'
+load_data_dir = '../../data/IndexPenData/IndexPenStudyData/NewUser20Samples/John_20_new_gesture_sample_clutter_removal_(0.8)_(0.6)_transfer_learning_test'
 # load_data_dir = '../../data/IndexPenData/IndexPenData2021/C-G_test'
 
 with open(load_data_dir, 'rb') as f:
@@ -54,6 +54,6 @@ Y_test_class = np.argmax(Y, axis=1)
 
 _, cm = plot_confusion_matrix(y_true=Y_test_class, y_pred=Y_pred_class, classes=indexpen_classes,
                               normalize=False)
-plt.savefig('confusion_matrix_2.png')
+plt.savefig('confusion_matrix_3.png')
 test_acc = accuracy_score(Y_test_class, Y_pred_class)
 print("best_accuracy_score:", test_acc)
