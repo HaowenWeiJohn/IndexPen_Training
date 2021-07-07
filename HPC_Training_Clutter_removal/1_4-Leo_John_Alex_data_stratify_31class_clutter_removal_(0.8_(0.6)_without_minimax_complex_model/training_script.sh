@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="1_3-Leo_John_Alex_data_stratify_31class_clutter_removal_(0.8_(0.6)_without_minimax_simple_model"
+#SBATCH --job-name="1_4-Leo_John_Alex_data_stratify_31class_clutter_removal_(0.8_(0.6)_without_minimax_complex_model"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
