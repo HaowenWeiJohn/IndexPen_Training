@@ -56,7 +56,7 @@ mc = ModelCheckpoint(
 
 training_start_time = time.time()
 
-history = model.fit([X_mmw_rD_train[0:5000], X_mmw_rA_train[0:5000]], Y_train[5000],
+history = model.fit([X_mmw_rD_train[0:5000], X_mmw_rA_train[0:5000]], Y_train[0:5000],
                     validation_data=([X_mmw_rD_test, X_mmw_rA_test], Y_test),
                     epochs=20000,
                     batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
