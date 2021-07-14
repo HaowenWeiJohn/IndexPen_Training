@@ -25,7 +25,7 @@ from data_utils.ploting import *
 random_state = 3
 
 
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/User_Study_1/test_data'
+load_data_dir = '../../data/IndexPenData/IndexPenStudyData/User_Study_1/test_data_cr'
 
 # load all data and Y
 with open(load_data_dir, 'rb') as f:
