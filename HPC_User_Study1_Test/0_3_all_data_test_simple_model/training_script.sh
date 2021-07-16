@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="0_3_all_data_test_simple_model_zero_thresholding"
+#SBATCH --job-name="0_3_all_data_test_simple_model"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
