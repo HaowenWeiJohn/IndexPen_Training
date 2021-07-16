@@ -18,7 +18,7 @@ sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPe
 from data_utils.make_model import *
 from data_utils.ploting import plot_confusion_matrix
 
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/User_Study_1/test_data_cr_all'
+load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/test_data_cr'
 # load all data and Y
 subject_name = 'Sub2_zs'
 
