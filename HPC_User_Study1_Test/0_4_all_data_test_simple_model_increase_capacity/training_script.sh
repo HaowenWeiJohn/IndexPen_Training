@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="0_0_all_data_test_simple_model_increase_capacity"
+#SBATCH --job-name="0_4_all_data_test_simple_model_increase_capacity"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
