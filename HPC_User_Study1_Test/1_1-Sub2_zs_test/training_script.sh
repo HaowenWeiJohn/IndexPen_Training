@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="13-2020_all_data_clutter_removal_0.8_0.6_ratio_test_without_minimax_simple_model_unit_sample_minimax"
+#SBATCH --job-name="1_1-Sub2_zs_test"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
