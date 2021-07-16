@@ -5,8 +5,8 @@
 #SBATCH --error=%x_%j.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --mem=50G
-#SBATCH --cpus-per-task=2
+#SBATCH --mem=60G
+#SBATCH --cpus-per-task=4
 #SBATCH --gres=gpu:1
 #SBATCH --partition=long
 #SBATCH --time=60:00:00
