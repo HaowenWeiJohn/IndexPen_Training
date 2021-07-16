@@ -12,9 +12,10 @@ import time
 
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
+
+
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
-
-
+from data_utils.data_config import *
 from data_utils.make_model import *
 from data_utils.ploting import plot_confusion_matrix
 
@@ -126,7 +127,7 @@ best_model = tf.keras.models.load_model(best_model_path)
 Y_pred1 = best_model.predict([X_mmw_rD_test, X_mmw_rA_test])
 Y_pred = np.argmax(Y_pred1, axis=1)
 Y_test = np.argmax(Y_test, axis=1)
-cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=encoder.categories_[0])
+cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=indexpen_classes)
 plt.savefig('confusion_matrix.png')
 test_acc = accuracy_score(Y_test, Y_pred)
 print("best_accuracy_score:", test_acc)
