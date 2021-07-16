@@ -11,7 +11,6 @@ from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
 import time
 
 import sys
-
 # insert at 1, 0 is the script path (or '' in REPL)
 
 
@@ -48,14 +47,14 @@ Y = []
 # load data
 subject_names = ['Sub1_hw', 'Sub2_zs', 'Sub3_ag', 'Sub4_xz']
 for subject_name in subject_names:
-    if len(X_mmw_rD) == 0:
-        X_mmw_rD = subjects_data_dict[subject_name][0]
-        X_mmw_rA = subjects_data_dict[subject_name][1]
-        Y = subjects_label_dict[subject_name]
-    else:
-        X_mmw_rD = np.concatenate([X_mmw_rD, subjects_data_dict[subject_name][0]])
-        X_mmw_rA = np.concatenate([X_mmw_rA, subjects_data_dict[subject_name][1]])
-        Y = np.concatenate([Y, subjects_label_dict[subject_name]])
+        if len(X_mmw_rD) == 0:
+            X_mmw_rD = subjects_data_dict[subject_name][0]
+            X_mmw_rA = subjects_data_dict[subject_name][1]
+            Y = subjects_label_dict[subject_name]
+        else:
+            X_mmw_rD = np.concatenate([X_mmw_rD, subjects_data_dict[subject_name][0]])
+            X_mmw_rA = np.concatenate([X_mmw_rA, subjects_data_dict[subject_name][1]])
+            Y = np.concatenate([Y, subjects_label_dict[subject_name]])
 
 # print(np.min(X_mmw_rD))
 # print(np.max(X_mmw_rD))
@@ -76,16 +75,17 @@ for subject_name in subject_names:
 # X_mmw_rD = (X_mmw_rD - rD_min) / (rD_max - rD_min)
 # X_mmw_rA = (X_mmw_rA - rA_min) / (rA_max - rA_min)
 
-X_mmw_rD[X_mmw_rD < 0] = 0
-X_mmw_rA[X_mmw_rA < 0] = 0
+
 
 X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
 
+
 X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, test_size=0.20, random_state=3,
                                                                   shuffle=True)
 
-model = make_simple_model_reg(class_num=31, learning_rate=1e-3, decay=5e-6)
+
+model = make_simple_model_capacity_increase(class_num=31,  learning_rate=1e-3, decay=2e-6, rd_kernel_size=(2, 3), ra_kernel_size=(3, 4))
 
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
 csv_logger = CSVLogger("model_history_log.csv", append=True)
@@ -132,3 +132,4 @@ cm = plot_confusion_matrix(y_true=Y_test, y_pred=Y_pred, classes=indexpen_classe
 plt.savefig('confusion_matrix.png')
 test_acc = accuracy_score(Y_test, Y_pred)
 print("best_accuracy_score:", test_acc)
+
