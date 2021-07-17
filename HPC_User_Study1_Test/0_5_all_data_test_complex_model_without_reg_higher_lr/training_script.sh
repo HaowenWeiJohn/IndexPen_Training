@@ -1,15 +1,15 @@
 #!/bin/bash
-#SBATCH --job-name="(0.5,0.5)_cr"
+#SBATCH --job-name="0_5_all_data_test_complex_model_without_reg_higher_lr"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --mem=50G
+#SBATCH --mem=60G
 #SBATCH --cpus-per-task=4
 #SBATCH --gres=gpu:1
 #SBATCH --partition=long
-#SBATCH --time=165:00:00
+#SBATCH --time=150:00:00
 
 
 module purge

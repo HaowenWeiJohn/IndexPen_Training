@@ -25,7 +25,7 @@ from data_utils.ploting import *
 random_state = 3
 
 
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/User_Study_1/test_data_cr'
+load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/test_data_cr_all'
 
 # load all data and Y
 with open(load_data_dir, 'rb') as f:
@@ -83,7 +83,7 @@ for loo_subject_name in subjects_data_dict:
                 X_mmw_rD_model = subjects_data_dict[subject_name][0]
                 X_mmw_rA_model = subjects_data_dict[subject_name][1]
                 Y_model = subjects_label_dict[subject_name]
-            else:
+            elif subject_name!='Sub5_someone':
                 X_mmw_rD_model = np.concatenate([X_mmw_rD_model, subjects_data_dict[subject_name][0]])
                 X_mmw_rA_model = np.concatenate([X_mmw_rA_model, subjects_data_dict[subject_name][1]])
                 Y_model = np.concatenate([Y_model, subjects_label_dict[subject_name]])
@@ -104,7 +104,7 @@ for loo_subject_name in subjects_data_dict:
     model = make_simple_model(class_num=31, learning_rate=1e-3, decay=2e-6)
 
     # train the model with leave one out
-    es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+    es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=30)
     # ------------------------
     model_log_csv_path = os.path.join(train_info_dir, 'model_history_log.csv')
     csv_logger = CSVLogger(model_log_csv_path, append=True)
@@ -148,7 +148,7 @@ for loo_subject_name in subjects_data_dict:
     Y_model_pred = np.argmax(Y_model_pred1, axis=1)
     Y_model_test = np.argmax(Y_model_test, axis=1)
     model_cm = plot_confusion_matrix(y_true=Y_model_test, y_pred=Y_model_pred, classes=indexpen_classes)
-    plt.savefig('confusion_matrix.png')
+    plt.savefig(os.path.join(train_info_dir,'confusion_matrix.png'))
     transfer_test_acc = accuracy_score(Y_model_test, Y_model_pred)
     print("best_accuracy_score:", transfer_test_acc)
 
