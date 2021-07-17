@@ -129,10 +129,16 @@ def make_simple_model_reg(class_num=31, learning_rate=1e-3, decay=1e-6, rd_kerne
     merged_out = LSTM(32,
                       kernel_initializer='random_uniform',
                       return_sequences=False,
+                      kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                      recurrent_regularizer=tf.keras.regularizers.l2(l=1e-6),
+                      activity_regularizer=tf.keras.regularizers.l2(l=1e-6)
                       )(merged)
     merged_out = Dropout(rate=0.2)(merged_out)
     merged_out = Dense(256,
-                       activation='relu'
+                       activation='relu',
+                       kernel_regularizer=tf.keras.regularizers.l2(l=1e-5),
+                       recurrent_regularizer=tf.keras.regularizers.l2(l=1e-6),
+                       activity_regularizer=tf.keras.regularizers.l2(l=1e-6)
                        )(merged_out)
     merged_out = Dropout(rate=0.2)(merged_out)
     merged_out = Dense(class_num, activation='softmax', kernel_initializer='random_uniform')(merged_out)
