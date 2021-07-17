@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="0_2_all_data_test_complex_model_high_lr"
+#SBATCH --job-name="0_2_all_data_test_complex_model_high_lr_confirm"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
