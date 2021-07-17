@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="0_5_all_data_test_complex_model_without_reg_higher_lr"
+#SBATCH --job-name="0_5_all_data_test_complex_model_without_reg_higher_lr_increase_kernal_size"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
