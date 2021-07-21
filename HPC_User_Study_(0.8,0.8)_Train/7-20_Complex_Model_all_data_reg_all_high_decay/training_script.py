@@ -90,7 +90,7 @@ model = make_complex_model(class_num=31, learning_rate=1e-3, decay=5e-6,
                            ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
                            )
 
-es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=250)
+es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=200)
 csv_logger = CSVLogger("model_history_log.csv", append=True)
 mc = ModelCheckpoint(
     # filepath='AutoSave/' + str(datetime.datetime.now()).replace(':', '-').replace(' ',
