@@ -209,6 +209,7 @@ def make_simple_model_capacity_increase(class_num=31, learning_rate=5e-4, decay=
 def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample,
                        rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                        ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
+                       cv_reg=1e-6,
                        channel_mode='channels_last'):
     # creates the Time Distributed CNN for range Doppler heatmap ##########################
     mmw_rdpl_input = (int(points_per_sample),) + rd_shape + (1,) if channel_mode == 'channels_last' else (
@@ -218,18 +219,18 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
     mmw_rdpl_TDCNN.add(
         TimeDistributed(
             Conv2D(filters=8, kernel_size=rd_kernel_size1, data_format=channel_mode,
-                   kernel_regularizer=tf.keras.regularizers.l2(l=1e-6),
-                   bias_regularizer=tf.keras.regularizers.l2(l=1e-6),
-                   activity_regularizer=tf.keras.regularizers.l2(l=1e-6),
+                   kernel_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+                   bias_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+                   activity_regularizer=tf.keras.regularizers.l2(l=cv_reg),
                    kernel_initializer='random_uniform'),
             input_shape=mmw_rdpl_input))  # use batch input size to avoid memory error
     mmw_rdpl_TDCNN.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
     mmw_rdpl_TDCNN.add(TimeDistributed(BatchNormalization()))
     mmw_rdpl_TDCNN.add(TimeDistributed(
         Conv2D(filters=16, kernel_size=rd_kernel_size2,
-               kernel_regularizer=tf.keras.regularizers.l2(l=1e-6),
-               bias_regularizer=tf.keras.regularizers.l2(l=1e-6),
-               activity_regularizer=tf.keras.regularizers.l2(l=1e-6)
+               kernel_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+               bias_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+               activity_regularizer=tf.keras.regularizers.l2(l=cv_reg)
                )))
     mmw_rdpl_TDCNN.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
     mmw_rdpl_TDCNN.add(TimeDistributed(BatchNormalization()))
@@ -251,18 +252,18 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
     mmw_razi_TDCNN.add(
         TimeDistributed(
             Conv2D(filters=8, kernel_size=ra_kernel_size1, data_format=channel_mode,
-                   kernel_regularizer=tf.keras.regularizers.l2(l=1e-6),
-                   bias_regularizer=tf.keras.regularizers.l2(l=1e-6),
-                   activity_regularizer=tf.keras.regularizers.l2(l=1e-6),
+                   kernel_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+                   bias_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+                   activity_regularizer=tf.keras.regularizers.l2(l=cv_reg),
                    kernel_initializer='random_uniform'),
             input_shape=mmw_razi_input))  # use batch input size to avoid memory error
     mmw_razi_TDCNN.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
     mmw_razi_TDCNN.add(TimeDistributed(BatchNormalization()))
     mmw_razi_TDCNN.add(TimeDistributed(
         Conv2D(filters=16, kernel_size=ra_kernel_size2,
-               kernel_regularizer=tf.keras.regularizers.l2(l=1e-6),
-               bias_regularizer=tf.keras.regularizers.l2(l=1e-6),
-               activity_regularizer=tf.keras.regularizers.l2(l=1e-6)
+               kernel_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+               bias_regularizer=tf.keras.regularizers.l2(l=cv_reg),
+               activity_regularizer=tf.keras.regularizers.l2(l=cv_reg)
                )))
     mmw_razi_TDCNN.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
     mmw_razi_TDCNN.add(TimeDistributed(BatchNormalization()))
