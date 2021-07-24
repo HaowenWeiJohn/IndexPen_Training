@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="4_7-20_Complex_Model_all_data_reg_all_large_kernal_size_high_decay_high_cv_reg"
+#SBATCH --job-name="4-1_7-20_Complex_Model_all_data_reg_all_large_kernal_size_high_decay_high_cv_reg"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
