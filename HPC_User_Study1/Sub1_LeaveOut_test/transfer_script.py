@@ -138,6 +138,27 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
 
             print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
+            # save model data
+            plt.plot(history.history['accuracy'])
+            plt.plot(history.history['val_accuracy'])
+            plt.title('transfer model accuracy')
+            plt.ylabel('accuracy')
+            plt.xlabel('epoch')
+            plt.legend(['train', 'test'], loc='upper left')
+            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + " " + str(split_round) + " " + str(feed_in_ratio) + 'model_accuracy.png'))
+            plt.close()
+            #
+            # summarize history for loss
+            plt.plot(history.history['loss'])
+            plt.plot(history.history['val_loss'])
+            plt.title('transfer model loss')
+            plt.ylabel('loss')
+            plt.xlabel('epoch')
+            plt.legend(['train', 'test'], loc='upper left')
+            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + " " + str(split_round) + " " + str(feed_in_ratio) + 'model_loss.png'))
+            plt.close()
+
+
             best_transfer_model = tf.keras.models.load_model(best_transfer_model_path)
             Y_transfer_pred1 = best_transfer_model.predict([X_mmw_rD_transfer_test, X_mmw_rA_transfer_test])
             Y_transfer_pred_class = np.argmax(Y_transfer_pred1, axis=1)
