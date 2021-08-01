@@ -101,7 +101,7 @@ model = make_complex_model(class_num=31, learning_rate=1e-3, decay=8e-6,
                            )
 
 # train the model with leave one out
-es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=200)
+es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
 # ------------------------
 model_log_csv_path = os.path.join(train_info_dir, 'model_history_log.csv')
 csv_logger = CSVLogger(model_log_csv_path, append=True)
@@ -117,8 +117,8 @@ training_start_time = time.time()
 # train  the model
 history = model.fit([X_mmw_rD_model_train, X_mmw_rA_model_train], Y_model_train,
                     validation_data=([X_mmw_rD_model_test, X_mmw_rA_model_test], Y_model_test),
-                    epochs=1,
-                    batch_size=128, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+                    epochs=300,
+                    batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
 print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 

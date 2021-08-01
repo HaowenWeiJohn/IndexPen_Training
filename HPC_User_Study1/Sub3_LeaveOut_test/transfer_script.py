@@ -89,7 +89,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
                                                  learning_rate=1e-4,
-                                                 decay=5e-6,
+                                                 decay=2e-6,
                                                  only_last_layer_trainable=True)
             # feed in sample ratio equal to train size
             if feed_in_ratio != 1.0:
@@ -113,7 +113,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
                 X_mmw_rA_transfer_feed_in = X_mmw_rA_transfer_train
                 Y_transfer_feed_in = Y_transfer_train
 
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=30)
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20)
             # transfer model csv log path
             transfer_model_csv_log_path = os.path.join(transfer_info_dir, str(split_round) + '_' + str(
                 feed_in_ratio) + "_model_history_log.csv")
@@ -131,8 +131,8 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             history = transfer_model.fit([X_mmw_rD_transfer_feed_in, X_mmw_rA_transfer_feed_in], Y_transfer_feed_in,
                                          validation_data=(
                                          [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
-                                         epochs=1,
-                                         batch_size=round(len(X_mmw_rD_transfer_feed_in) / 12),
+                                         epochs=200,
+                                         batch_size=round(len(X_mmw_rD_transfer_feed_in) / 32),
                                          callbacks=[es, mc, csv_logger],
                                          verbose=1, shuffle=True)
 
