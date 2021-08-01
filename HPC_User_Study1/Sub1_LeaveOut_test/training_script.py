@@ -26,8 +26,6 @@ random_state = 3
 loo_subject_name = 'Sub1_hw'
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/7-20_all_study_data_cr_(0.8,0.8)'
 
-
-
 # load all data and Y
 with open(load_data_dir, 'rb') as f:
     subjects_data_dict, subjects_label_dict, encoder = pickle.load(f)
@@ -47,20 +45,16 @@ sub3: { rd:
                     }
 '''
 
-
 save_dir = 'auto_save'
 if os.path.isdir(save_dir):
     # del dir
     shutil.rmtree(save_dir)
 
-
 os.mkdir(save_dir)
-
 
 train_info_dir = os.path.join(save_dir, 'train_info')
 
 os.mkdir(train_info_dir)
-
 
 # extract
 X_mmw_rD_model = []
@@ -71,7 +65,6 @@ X_mmw_rA_loo = []
 
 Y_model = []
 Y_loo = []
-
 
 for subject_name in subjects_data_dict:
     if subject_name == loo_subject_name:
@@ -91,7 +84,6 @@ for subject_name in subjects_data_dict:
 del subjects_data_dict
 del subjects_label_dict
 
-
 X_mmw_rD_model_train, X_mmw_rD_model_test, Y_model_train, Y_model_test = train_test_split(
     X_mmw_rD_model, Y_model, stratify=Y_model, test_size=0.20,
     random_state=random_state,
@@ -102,13 +94,11 @@ X_mmw_rA_model_train, X_mmw_rA_model_test, Y_model_train, Y_model_test = train_t
     random_state=random_state,
     shuffle=True)
 
-
 model = make_complex_model(class_num=31, learning_rate=1e-3, decay=8e-6,
                            rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                            ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
                            cv_reg=1e-5,
                            )
-
 
 # train the model with leave one out
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=200)
@@ -122,9 +112,7 @@ mc = ModelCheckpoint(
     filepath=best_model_path,
     monitor='val_accuracy', mode='max', verbose=1, save_best_only=True)
 
-
 training_start_time = time.time()
-
 
 # train  the model
 history = model.fit([X_mmw_rD_model_train, X_mmw_rA_model_train], Y_model_train,
@@ -132,10 +120,7 @@ history = model.fit([X_mmw_rD_model_train, X_mmw_rA_model_train], Y_model_train,
                     epochs=1,
                     batch_size=128, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
-
 print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
-
-
 
 # save model data
 plt.plot(history.history['accuracy'])
@@ -162,7 +147,7 @@ Y_model_pred1 = best_model.predict([X_mmw_rD_model_test, X_mmw_rA_model_test])
 Y_model_pred = np.argmax(Y_model_pred1, axis=1)
 Y_model_test = np.argmax(Y_model_test, axis=1)
 model_cm = plot_confusion_matrix(y_true=Y_model_test, y_pred=Y_model_pred, classes=indexpen_classes)
-plt.savefig(os.path.join(train_info_dir,'confusion_matrix.png'))
+plt.savefig(os.path.join(train_info_dir, 'confusion_matrix.png'))
 transfer_test_acc = accuracy_score(Y_model_test, Y_model_pred)
 print("best_accuracy_score:", transfer_test_acc)
 
