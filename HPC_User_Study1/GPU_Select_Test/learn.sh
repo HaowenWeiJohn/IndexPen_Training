@@ -7,7 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=60G
 #SBATCH --cpus-per-task=4
-#SBATCH --gres=gpu:K80m:1
+#SBATCH --gres=gpu:Tesla p100:1
 #SBATCH --partition=long
 #SBATCH --time=150:00:00
 
