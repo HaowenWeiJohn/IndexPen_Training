@@ -23,8 +23,8 @@ from data_utils.make_model import *
 from data_utils.ploting import *
 
 random_state = 3
-loo_subject_name = 'Sub3_ag'
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/8-1_all_study_data_test_cr_(0.8,0.8)'
+loo_subject_name = 'Sub4_xz'
+load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/8-2_4User_cr_(0.8,0.8)'
 
 # load all data and Y
 with open(load_data_dir, 'rb') as f:
@@ -48,7 +48,7 @@ sub3: { rd:
 save_dir = 'auto_save'
 
 train_info_dir = os.path.join(save_dir, 'train_info')
-transfer_info_dir = os.path.join(save_dir, 'transfer_info')
+transfer_info_dir = os.path.join(save_dir, 'transfer_unfreezeall_info')
 
 if os.path.isdir(transfer_info_dir):
     # del dir
@@ -68,7 +68,7 @@ best_model = tf.keras.models.load_model(best_model_path)
 best_transfer_cm_hist_dict = {}
 best_transfer_acc_hist_dict = {}
 
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=5, random_state=3)
+rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=2, random_state=3)
 
 feed_in_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
@@ -88,9 +88,9 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             # create transfer model
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
-                                                 learning_rate=1e-4,
-                                                 decay=2e-6,
-                                                 only_last_layer_trainable=True)
+                                                 learning_rate=5e-4,
+                                                 decay=1e-6,
+                                                 only_last_layer_trainable=False)
             # feed in sample ratio equal to train size
             if feed_in_ratio != 1.0:
                 X_mmw_rD_transfer_feed_in, X_mmw_rD_transfer_leave_out, Y_transfer_feed_in, Y_transfer_leave_out = train_test_split(
@@ -113,7 +113,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
                 X_mmw_rA_transfer_feed_in = X_mmw_rA_transfer_train
                 Y_transfer_feed_in = Y_transfer_train
 
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20)
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
             # transfer model csv log path
             transfer_model_csv_log_path = os.path.join(transfer_info_dir, str(split_round) + '_' + str(
                 feed_in_ratio) + "_model_history_log.csv")
@@ -131,7 +131,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             history = transfer_model.fit([X_mmw_rD_transfer_feed_in, X_mmw_rA_transfer_feed_in], Y_transfer_feed_in,
                                          validation_data=(
                                          [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
-                                         epochs=200,
+                                         epochs=1000,
                                          batch_size=round(len(X_mmw_rD_transfer_feed_in) / 32),
                                          callbacks=[es, mc, csv_logger],
                                          verbose=1, shuffle=True)
@@ -145,7 +145,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             plt.ylabel('accuracy')
             plt.xlabel('epoch')
             plt.legend(['train', 'test'], loc='upper left')
-            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + " " + str(split_round) + " " + str(feed_in_ratio) + 'model_accuracy.png'))
+            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + "_" + str(split_round) + "_" + str(feed_in_ratio) + 'model_accuracy.png'))
             plt.close()
             #
             # summarize history for loss
@@ -155,7 +155,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             plt.ylabel('loss')
             plt.xlabel('epoch')
             plt.legend(['train', 'test'], loc='upper left')
-            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + " " + str(split_round) + " " + str(feed_in_ratio) + 'model_loss.png'))
+            plt.savefig(os.path.join(transfer_info_dir,  str(loo_subject_name) + "_" + str(split_round) + "_" + str(feed_in_ratio) +'model_loss.png'))
             plt.close()
 
 
@@ -170,7 +170,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
 
             plt.savefig(os.path.join
                         (transfer_info_dir,
-                         str(split_round) + '_' + str(feed_in_ratio) + '_confusion_matrix.png')
+                         str(loo_subject_name) + "_" + str(split_round) + "_" + str(feed_in_ratio) + '_confusion_matrix.png')
                         )
             plt.close()
 
