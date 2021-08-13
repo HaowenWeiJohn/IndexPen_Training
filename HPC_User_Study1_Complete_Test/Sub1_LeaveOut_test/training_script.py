@@ -119,7 +119,7 @@ model = make_complex_model(class_num=31, learning_rate=1e-3, decay=1e-5,
                            )
 
 # train the model with leave one out
-es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=200)
+es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=150)
 # ------------------------
 model_log_csv_path = os.path.join(train_info_dir, 'model_history_log.csv')
 csv_logger = CSVLogger(model_log_csv_path, append=True)
