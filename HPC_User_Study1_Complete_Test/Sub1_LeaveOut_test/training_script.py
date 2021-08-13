@@ -90,8 +90,8 @@ for subject_name in subjects_data_dict:
 del subjects_data_dict
 del subjects_label_dict
 
-train_indexes, test_indexes = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=3). \
-    split(X=X_mmw_rD_model, y=np.argmax(Y_model, axis=1), groups=group_model)
+train_indexes, test_indexes = next(StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=3). \
+    split(X=X_mmw_rD_model, y=np.argmax(Y_model, axis=1), groups=group_model))
 
 X_mmw_rD_model_train = X_mmw_rD_model[train_indexes]
 X_mmw_rD_model_test = X_mmw_rD_model[test_indexes]
@@ -136,7 +136,7 @@ training_start_time = time.time()
 history = model.fit([X_mmw_rD_model_train, X_mmw_rA_model_train], Y_model_train,
                     validation_data=([X_mmw_rD_model_test, X_mmw_rA_model_test], Y_model_test),
                     epochs=2000,
-                    batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+                    batch_size=96, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
 print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 

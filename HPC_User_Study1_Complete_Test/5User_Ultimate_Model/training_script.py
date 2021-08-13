@@ -90,8 +90,8 @@ for subject_name in subjects_data_dict:
 del subjects_data_dict
 del subjects_label_dict
 
-train_indexes, test_indexes = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=3). \
-    split(X=X_mmw_rD_model, y=np.argmax(Y_model, axis=1), groups=group_model)
+train_indexes, test_indexes = next(StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=3). \
+    split(X=X_mmw_rD_model, y=np.argmax(Y_model, axis=1), groups=group_model))
 
 X_mmw_rD_model_train = X_mmw_rD_model[train_indexes]
 X_mmw_rD_model_test = X_mmw_rD_model[test_indexes]
@@ -102,7 +102,9 @@ X_mmw_rA_model_test = X_mmw_rA_model[test_indexes]
 Y_model_train = Y_model[train_indexes]
 Y_model_test = Y_model[test_indexes]
 
-
+del X_mmw_rD_model
+del X_mmw_rA_model
+del Y_model
 # for subject_name in subjects_data_dict:
 #     # if subject_name == loo_subject_name:
 #     #     X_mmw_rD_loo = subjects_data_dict[subject_name][0]
