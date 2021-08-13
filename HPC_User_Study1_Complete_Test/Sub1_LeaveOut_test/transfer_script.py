@@ -115,13 +115,15 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
 
             es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
             # transfer model csv log path
-            transfer_model_csv_log_path = os.path.join(transfer_info_dir, str(split_round) + '_' + str(
-                feed_in_ratio) + "_model_history_log.csv")
+            transfer_model_csv_log_path = os.path.join(transfer_info_dir,
+                                                       str(loo_subject_name) + '_' + str(split_round) + '_' + str(
+                                                           feed_in_ratio) + "_model_history_log.csv")
             csv_logger = CSVLogger(filename=transfer_model_csv_log_path,
                                    append=True)
 
-            best_transfer_model_path = os.path.join(transfer_info_dir, str(split_round) + '_' + str(
-                feed_in_ratio) + '_best_transfer_model.h5')
+            best_transfer_model_path = os.path.join(transfer_info_dir,
+                                                    str(loo_subject_name) + '_' + str(split_round) + '_' + str(
+                                                        feed_in_ratio) + '_best_transfer_model.h5')
             mc = ModelCheckpoint(
                 filepath=best_transfer_model_path,
                 monitor='val_accuracy', mode='max', verbose=1, save_best_only=True)
@@ -130,7 +132,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
 
             history = transfer_model.fit([X_mmw_rD_transfer_feed_in, X_mmw_rA_transfer_feed_in], Y_transfer_feed_in,
                                          validation_data=(
-                                         [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
+                                             [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
                                          epochs=1000,
                                          batch_size=round(len(X_mmw_rD_transfer_feed_in) / 32),
                                          callbacks=[es, mc, csv_logger],
@@ -145,7 +147,8 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             plt.ylabel('accuracy')
             plt.xlabel('epoch')
             plt.legend(['train', 'test'], loc='upper left')
-            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + "_" + str(split_round) + "_" + str(feed_in_ratio) + 'model_accuracy.png'))
+            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + "_" + str(split_round) + "_" + str(
+                feed_in_ratio) + 'model_accuracy.png'))
             plt.close()
             #
             # summarize history for loss
@@ -155,9 +158,9 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
             plt.ylabel('loss')
             plt.xlabel('epoch')
             plt.legend(['train', 'test'], loc='upper left')
-            plt.savefig(os.path.join(transfer_info_dir,  str(loo_subject_name) + "_" + str(split_round) + "_" + str(feed_in_ratio) +'model_loss.png'))
+            plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + "_" + str(split_round) + "_" + str(
+                feed_in_ratio) + 'model_loss.png'))
             plt.close()
-
 
             best_transfer_model = tf.keras.models.load_model(best_transfer_model_path)
             Y_transfer_pred1 = best_transfer_model.predict([X_mmw_rD_transfer_test, X_mmw_rA_transfer_test])
@@ -170,7 +173,8 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
 
             plt.savefig(os.path.join
                         (transfer_info_dir,
-                         str(loo_subject_name) + "_" + str(split_round) + "_" + str(feed_in_ratio) + '_confusion_matrix.png')
+                         str(loo_subject_name) + "_" + str(split_round) + "_" + str(
+                             feed_in_ratio) + '_confusion_matrix.png')
                         )
             plt.close()
 
@@ -199,7 +203,8 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
 
             plt.savefig(os.path.join
                         (transfer_info_dir,
-                         str(split_round) + '_' + str(feed_in_ratio) + '_confusion_matrix.png')
+                         str(loo_subject_name) + "_" + str(split_round) + "_" + str(
+                             feed_in_ratio) + '_confusion_matrix.png')
                         )
             plt.close()
 

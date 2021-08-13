@@ -23,7 +23,7 @@ from data_utils.make_model import *
 from data_utils.ploting import *
 
 random_state = 3
-loo_subject_name = 'Sub1_hw'
+# loo_subject_name = 'Sub1_hw'
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/8-13_5User_cr_(0.8,0.8)'
 
 # load all data and Y
@@ -70,27 +70,27 @@ group_model = []
 group_loo = []
 
 for subject_name in subjects_data_dict:
-    if subject_name == loo_subject_name:
-        X_mmw_rD_loo = subjects_data_dict[subject_name][0]
-        X_mmw_rA_loo = subjects_data_dict[subject_name][1]
-        Y_loo = subjects_label_dict[subject_name]
-        group_loo = subjects_group_dict[subject_name]
-    else:
-        if len(X_mmw_rA_model) == 0:
-            X_mmw_rD_model = subjects_data_dict[subject_name][0]
-            X_mmw_rA_model = subjects_data_dict[subject_name][1]
-            Y_model = subjects_label_dict[subject_name]
-            group_model = subjects_group_dict[subject_name]
-        elif subject_name != 'Sub5_someone':
-            X_mmw_rD_model = np.concatenate([X_mmw_rD_model, subjects_data_dict[subject_name][0]])
-            X_mmw_rA_model = np.concatenate([X_mmw_rA_model, subjects_data_dict[subject_name][1]])
-            Y_model = np.concatenate([Y_model, subjects_label_dict[subject_name]])
-            group_model = np.concatenate([group_model, subjects_group_dict[subject_name]])
+    # if subject_name == loo_subject_name:
+    #     X_mmw_rD_loo = subjects_data_dict[subject_name][0]
+    #     X_mmw_rA_loo = subjects_data_dict[subject_name][1]
+    #     Y_loo = subjects_label_dict[subject_name]
+    #     group_loo = subjects_group_dict[subject_name]
+    # else:
+    if len(X_mmw_rA_model) == 0:
+        X_mmw_rD_model = subjects_data_dict[subject_name][0]
+        X_mmw_rA_model = subjects_data_dict[subject_name][1]
+        Y_model = subjects_label_dict[subject_name]
+        group_model = subjects_group_dict[subject_name]
+    elif subject_name != 'Sub5_someone':
+        X_mmw_rD_model = np.concatenate([X_mmw_rD_model, subjects_data_dict[subject_name][0]])
+        X_mmw_rA_model = np.concatenate([X_mmw_rA_model, subjects_data_dict[subject_name][1]])
+        Y_model = np.concatenate([Y_model, subjects_label_dict[subject_name]])
+        group_model = np.concatenate([group_model, subjects_group_dict[subject_name]])
 
 del subjects_data_dict
 del subjects_label_dict
 
-train_indexes, test_indexes = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=3). \
+train_indexes, test_indexes = StratifiedShuffleSplit(n_splits=1, test_size=0.1, random_state=3). \
     split(X=X_mmw_rD_model, y=np.argmax(Y_model, axis=1), groups=group_model)
 
 X_mmw_rD_model_train = X_mmw_rD_model[train_indexes]
@@ -102,6 +102,25 @@ X_mmw_rA_model_test = X_mmw_rA_model[test_indexes]
 Y_model_train = Y_model[train_indexes]
 Y_model_test = Y_model[test_indexes]
 
+
+# for subject_name in subjects_data_dict:
+#     # if subject_name == loo_subject_name:
+#     #     X_mmw_rD_loo = subjects_data_dict[subject_name][0]
+#     #     X_mmw_rA_loo = subjects_data_dict[subject_name][1]
+#     #     Y_loo = subjects_label_dict[subject_name]
+#     # else:
+#     if len(X_mmw_rA_model) == 0:
+#         X_mmw_rD_model = subjects_data_dict[subject_name][0]
+#         X_mmw_rA_model = subjects_data_dict[subject_name][1]
+#         Y_model = subjects_label_dict[subject_name]
+#     else:
+#         X_mmw_rD_model = np.concatenate([X_mmw_rD_model, subjects_data_dict[subject_name][0]])
+#         X_mmw_rA_model = np.concatenate([X_mmw_rA_model, subjects_data_dict[subject_name][1]])
+#         Y_model = np.concatenate([Y_model, subjects_label_dict[subject_name]])
+#
+# del subjects_data_dict
+# del subjects_label_dict
+#
 # X_mmw_rD_model_train, X_mmw_rD_model_test, Y_model_train, Y_model_test = train_test_split(
 #     X_mmw_rD_model, Y_model, stratify=Y_model, test_size=0.20,
 #     random_state=random_state,
