@@ -155,7 +155,7 @@ training_start_time = time.time()
 history = model.fit([X_mmw_rD_model_train, X_mmw_rA_model_train], Y_model_train,
                     validation_data=([X_mmw_rD_model_test, X_mmw_rA_model_test], Y_model_test),
                     epochs=2000,
-                    batch_size=64, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+                    batch_size=96, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
 print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
