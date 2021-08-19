@@ -10,7 +10,7 @@
 #SBATCH --gres=gpu:1
 
 #SBATCH --partition=long
-#SBATCH --time=150:00:00
+#SBATCH --time=70:00:00
 
 
 module purge
