@@ -157,7 +157,7 @@ training_start_time = time.time()
 history = model.fit([X_mmw_rD_model_train, X_mmw_rA_model_train], Y_model_train,
                     validation_data=([X_mmw_rD_model_test, X_mmw_rA_model_test], Y_model_test),
                     epochs=2000,
-                    batch_size=128, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+                    batch_size=96, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
 print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
@@ -185,14 +185,14 @@ best_model = tf.keras.models.load_model(best_model_path)
 Y_model_pred1 = best_model.predict([X_mmw_rD_model_test, X_mmw_rA_model_test])
 Y_model_pred = np.argmax(Y_model_pred1, axis=1)
 Y_model_test = np.argmax(Y_model_test, axis=1)
-_, model_cm = plot_confusion_matrix(y_true=Y_model_test, y_pred=Y_model_pred, classes=indexpen_classes)
+model_cm = plot_confusion_matrix(y_true=Y_model_test, y_pred=Y_model_pred, classes=indexpen_classes)
 plt.savefig(os.path.join(train_info_dir, 'confusion_matrix.png'))
 transfer_test_acc = accuracy_score(Y_model_test, Y_model_pred)
 print("best_accuracy_score:", transfer_test_acc)
 
 # save history, cm also in a pickle file.
 with open(os.path.join(train_info_dir, 'train_hist_cm.pickle'), 'wb') as f:
-    pickle.dump([history.history, model_cm, Y_model_test, Y_model_pred], f)
+    pickle.dump([history.history, model_cm], f)
 
 # reset plt config
 plt.rcdefaults()
