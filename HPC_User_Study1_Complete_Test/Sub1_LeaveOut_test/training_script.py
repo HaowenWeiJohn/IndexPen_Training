@@ -102,6 +102,9 @@ X_mmw_rA_model_test = X_mmw_rA_model[test_indexes]
 Y_model_train = Y_model[train_indexes]
 Y_model_test = Y_model[test_indexes]
 
+del X_mmw_rD_model
+del X_mmw_rA_model
+del Y_model
 # X_mmw_rD_model_train, X_mmw_rD_model_test, Y_model_train, Y_model_test = train_test_split(
 #     X_mmw_rD_model, Y_model, stratify=Y_model, test_size=0.20,
 #     random_state=random_state,
