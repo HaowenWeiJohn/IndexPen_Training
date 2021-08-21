@@ -1,0 +1,147 @@
+2021-08-21 10:43:58.667436: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-21 10:46:00.442997: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-08-21 10:46:00.450337: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-08-21 10:46:00.477111: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:25:00.0 name: Tesla T4 computeCapability: 7.5
+coreClock: 1.59GHz coreCount: 40 deviceMemorySize: 14.75GiB deviceMemoryBandwidth: 298.08GiB/s
+2021-08-21 10:46:00.477144: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-21 10:46:00.552041: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-08-21 10:46:00.552101: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-08-21 10:46:00.587629: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-08-21 10:46:00.607383: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-08-21 10:46:00.682445: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-08-21 10:46:00.705081: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-08-21 10:46:00.710275: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-08-21 10:46:00.715211: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-08-21 10:46:00.715561: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-08-21 10:46:00.715730: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-08-21 10:46:00.717247: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:25:00.0 name: Tesla T4 computeCapability: 7.5
+coreClock: 1.59GHz coreCount: 40 deviceMemorySize: 14.75GiB deviceMemoryBandwidth: 298.08GiB/s
+2021-08-21 10:46:00.717265: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-21 10:46:00.717279: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-08-21 10:46:00.717287: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-08-21 10:46:00.717295: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-08-21 10:46:00.717303: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-08-21 10:46:00.717311: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-08-21 10:46:00.717320: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-08-21 10:46:00.717328: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-08-21 10:46:00.720006: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-08-21 10:46:00.722386: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-21 10:46:02.755510: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1261] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-08-21 10:46:02.755546: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1267]      0 
+2021-08-21 10:46:02.755551: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1280] 0:   N 
+2021-08-21 10:46:02.766352: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1406] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 13735 MB memory) -> physical GPU (device: 0, name: Tesla T4, pci bus id: 0000:25:00.0, compute capability: 7.5)
+2021-08-21 10:46:02.799037: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 13.41G (14403224064 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.799838: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 12.07G (12962900992 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.800491: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 10.87G (11666610176 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.801134: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 9.78G (10499948544 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.801782: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 8.80G (9449953280 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.802449: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 7.92G (8504957952 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.803143: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 7.13G (7654461952 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.803813: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 6.42G (6889015808 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.804462: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 5.77G (6200114176 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.805115: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 5.20G (5580102656 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.805810: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 4.68G (5022092288 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.806468: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 4.21G (4519882752 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.807127: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 3.79G (4067894272 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.807771: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 3.41G (3661104640 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.808439: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 3.07G (3294994176 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.809120: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 2.76G (2965494784 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.809799: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 2.49G (2668945152 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.810448: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 2.24G (2402050560 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.811124: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 2.01G (2161845504 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.811775: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 1.81G (1945660928 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.812424: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 1.63G (1751094784 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.813061: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 1.47G (1575985408 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.813710: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 1.32G (1418386944 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.814366: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 1.19G (1276548352 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.815029: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 1.07G (1148893440 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.815670: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 986.10M (1034004224 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:02.816300: I tensorflow/stream_executor/cuda/cuda_driver.cc:789] failed to allocate 887.49M (930603776 bytes) from device: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+2021-08-21 10:46:08.171990: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-08-21 10:46:08.177319: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 2500000000 Hz
+2021-08-21 10:46:13.450186: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-08-21 10:46:14.048404: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.051722: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.053288: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.054825: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.056392: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.057770: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.059095: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.060409: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.061722: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.072399: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.090740: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.093096: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.094357: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.095605: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.096880: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.098717: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.107078: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.108417: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.132478: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.133794: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.135063: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.136901: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.138660: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.139963: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.141222: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.142469: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.144354: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.146047: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.147301: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.148542: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.150855: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.152105: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.153358: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.155177: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.156881: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.158135: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.159389: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.161213: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.162909: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.164151: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.165398: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.167745: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.169404: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.170693: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.172576: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.174360: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.175657: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.176933: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.178763: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.180459: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.192097: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.194466: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.195728: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.196975: E tensorflow/stream_executor/cuda/cuda_blas.cc:226] failed to create cublas handle: CUBLAS_STATUS_NOT_INITIALIZED
+2021-08-21 10:46:14.227177: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-08-21 10:46:14.304536: E tensorflow/stream_executor/cuda/cuda_dnn.cc:336] Could not create cudnn handle: CUDNN_STATUS_INTERNAL_ERROR
+2021-08-21 10:46:14.306226: E tensorflow/stream_executor/cuda/cuda_dnn.cc:336] Could not create cudnn handle: CUDNN_STATUS_INTERNAL_ERROR
+2021-08-21 10:46:14.308950: E tensorflow/stream_executor/cuda/cuda_dnn.cc:336] Could not create cudnn handle: CUDNN_STATUS_INTERNAL_ERROR
+2021-08-21 10:46:14.310636: E tensorflow/stream_executor/cuda/cuda_dnn.cc:336] Could not create cudnn handle: CUDNN_STATUS_INTERNAL_ERROR
+Traceback (most recent call last):
+  File "training_script.py", line 139, in <module>
+    batch_size=128, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/training.py", line 1100, in fit
+    tmp_logs = self.train_function(iterator)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/def_function.py", line 888, in _call
+    return self._stateless_fn(*args, **kwds)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/function.py", line 2943, in __call__
+    filtered_flat_args, captured_inputs=graph_function.captured_inputs)  # pylint: disable=protected-access
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/function.py", line 1919, in _call_flat
+    ctx, args, cancellation_manager=cancellation_manager))
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/function.py", line 560, in call
+    ctx=ctx)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/execute.py", line 60, in quick_execute
+    inputs, attrs, num_outputs)
+tensorflow.python.framework.errors_impl.UnknownError:  Failed to get convolution algorithm. This is probably because cuDNN failed to initialize, so try looking to see if a warning log message was printed above.
+	 [[node model/time_distributed_8/conv2d_2/Conv2D (defined at training_script.py:139) ]] [Op:__inference_train_function_9447]
+
+Function call stack:
+train_function
+
