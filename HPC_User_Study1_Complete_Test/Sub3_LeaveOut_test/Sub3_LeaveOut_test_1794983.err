@@ -1,2 +1,0 @@
-2021-08-21 13:55:37.949865: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
-/cm/local/apps/slurm/var/spool/job1794983/slurm_script: line 20: 97624 Bus error               python training_script.py
