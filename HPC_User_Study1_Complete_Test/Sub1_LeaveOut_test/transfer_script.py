@@ -150,7 +150,7 @@ for train_ix, test_ix in train_test_split_indexes:
             history = transfer_model.fit([X_mmw_rD_transfer_feed_in, X_mmw_rA_transfer_feed_in], Y_transfer_feed_in,
                                          validation_data=(
                                              [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
-                                         epochs=1,
+                                         epochs=1000,
                                          batch_size=batch_size,
                                          callbacks=[es, mc, csv_logger],
                                          verbose=0, shuffle=True)
