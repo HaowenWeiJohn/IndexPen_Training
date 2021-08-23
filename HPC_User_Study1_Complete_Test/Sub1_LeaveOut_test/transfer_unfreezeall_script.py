@@ -95,7 +95,7 @@ for train_ix, test_ix in train_test_split_indexes:
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
                                                  learning_rate=5e-4,
-                                                 decay=2e-5,
+                                                 decay=5e-5,
                                                  only_last_layer_trainable=False)
             # feed in sample ratio equal to train size
             if feed_in_ratio != 1.0:
