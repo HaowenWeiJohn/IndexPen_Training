@@ -152,7 +152,7 @@ for train_ix, test_ix in train_test_split_indexes:
                                          epochs=1000,
                                          batch_size=batch_size,
                                          callbacks=[es, mc, csv_logger],
-                                         verbose=0, shuffle=True)
+                                         verbose=1, shuffle=True)
 
             print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
