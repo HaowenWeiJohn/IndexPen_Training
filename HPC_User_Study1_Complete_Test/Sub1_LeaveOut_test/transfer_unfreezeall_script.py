@@ -79,7 +79,6 @@ split_round = 0
 
 for train_ix, test_ix in train_test_split_indexes:
     split_round += 1
-    print("Split Round: ", split_round)
 
     X_mmw_rD_transfer_train, X_mmw_rD_transfer_test = X_mmw_rD_loo[train_ix], X_mmw_rD_loo[test_ix]
     X_mmw_rA_transfer_train, X_mmw_rA_transfer_test = X_mmw_rA_loo[train_ix], X_mmw_rA_loo[test_ix]
