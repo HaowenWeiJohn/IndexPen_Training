@@ -124,7 +124,7 @@ for train_ix, test_ix in train_test_split_indexes:
             print('Train Sample Num: ', len(X_mmw_rD_transfer_train))
             print('Feed in Sample Num: ', len(X_mmw_rD_transfer_feed_in))
             print('Test Sample Num: ', len(X_mmw_rD_transfer_test))
-            print('Batch Size: ', batch_size)
+            print('Batch Size: ', round(len(X_mmw_rD_transfer_feed_in)/32))
 
 
             es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20)
@@ -148,7 +148,8 @@ for train_ix, test_ix in train_test_split_indexes:
                                          validation_data=(
                                              [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
                                          epochs=1000,
-                                         batch_size=batch_size,
+                                         batch_size=round(len(X_mmw_rD_transfer_feed_in)/32),
+                                         validation_batch_size=256,
                                          callbacks=[es, mc, csv_logger],
                                          verbose=1, shuffle=True)
 
