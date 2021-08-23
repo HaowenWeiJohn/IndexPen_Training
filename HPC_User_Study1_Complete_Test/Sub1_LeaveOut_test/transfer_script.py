@@ -70,7 +70,7 @@ best_model = tf.keras.models.load_model(best_model_path)
 best_transfer_cm_hist_dict = {}
 best_transfer_acc_hist_dict = {}
 
-train_test_split_indexes = StratifiedShuffleSplit(n_splits=5, test_size=0.9, random_state=3). \
+train_test_split_indexes = StratifiedShuffleSplit(n_splits=10, test_size=0.9, random_state=3). \
     split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1))
 
 feed_in_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
