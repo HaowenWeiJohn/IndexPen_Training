@@ -136,7 +136,7 @@ del Y_model
 model = make_complex_model(class_num=31, learning_rate=1e-3, decay=1e-5,
                            rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                            ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
-                           cv_reg=1e-5,
+                           cv_reg=2e-5,
                            )
 
 # train the model with leave one out
