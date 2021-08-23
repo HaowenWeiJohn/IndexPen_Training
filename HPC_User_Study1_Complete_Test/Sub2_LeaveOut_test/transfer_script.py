@@ -23,7 +23,7 @@ from data_utils.make_model import *
 from data_utils.ploting import *
 
 random_state = 3
-loo_subject_name = 'Sub1_hw'
+loo_subject_name = 'Sub2_zs'
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/8-13_5User_cr_(0.8,0.8)'
 
 # load all data and Y
