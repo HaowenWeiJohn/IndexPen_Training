@@ -7,7 +7,7 @@ import shutil
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold
+from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold, StratifiedShuffleSplit
 from tensorflow.keras.callbacks import CSVLogger
 from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
 import time
@@ -23,12 +23,12 @@ from data_utils.make_model import *
 from data_utils.ploting import *
 
 random_state = 3
-loo_subject_name = 'Sub1_hw'
-load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/8-2_4User_cr_(0.8,0.8)'
+loo_subject_name = 'Sub5_dt'
+load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy1Data/8-13_5User_cr_(0.8,0.8)'
 
 # load all data and Y
 with open(load_data_dir, 'rb') as f:
-    subjects_data_dict, subjects_label_dict, encoder = pickle.load(f)
+    subjects_data_dict, subjects_label_dict, subjects_group_dict, encoder = pickle.load(f)
 
 '''
 subjects_data_dict: {
@@ -59,6 +59,8 @@ X_mmw_rD_loo = subjects_data_dict[loo_subject_name][0]
 X_mmw_rA_loo = subjects_data_dict[loo_subject_name][1]
 Y_loo = subjects_label_dict[loo_subject_name]
 
+del subjects_data_dict
+
 # load leave one out model
 best_model_path = os.path.join(train_info_dir, 'best_model.h5')
 best_model = tf.keras.models.load_model(best_model_path)
@@ -68,28 +70,32 @@ best_model = tf.keras.models.load_model(best_model_path)
 best_transfer_cm_hist_dict = {}
 best_transfer_acc_hist_dict = {}
 
-rskf = RepeatedStratifiedKFold(n_splits=2, n_repeats=2, random_state=3)
+train_test_split_indexes = StratifiedShuffleSplit(n_splits=10, test_size=0.9, random_state=3). \
+    split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1))
 
 feed_in_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
 split_round = 0
 
-for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
+for train_ix, test_ix in train_test_split_indexes:
     split_round += 1
-    print("Split Round: ", split_round)
 
     X_mmw_rD_transfer_train, X_mmw_rD_transfer_test = X_mmw_rD_loo[train_ix], X_mmw_rD_loo[test_ix]
     X_mmw_rA_transfer_train, X_mmw_rA_transfer_test = X_mmw_rA_loo[train_ix], X_mmw_rA_loo[test_ix]
     Y_transfer_train, Y_transfer_test = Y_loo[train_ix], Y_loo[test_ix]
 
     for feed_in_ratio in feed_in_ratios:
+        if feed_in_ratio <= 0.5:
+            batch_size = 8
+        else:
+            batch_size = 16
+
         if feed_in_ratio != 0.0:
-            print("Split Round: ", split_round, "Feed in Ratio", feed_in_ratio)
             # create transfer model
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
                                                  learning_rate=5e-4,
-                                                 decay=1e-6,
+                                                 decay=5e-5,
                                                  only_last_layer_trainable=True)
             # feed in sample ratio equal to train size
             if feed_in_ratio != 1.0:
@@ -113,7 +119,15 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
                 X_mmw_rA_transfer_feed_in = X_mmw_rA_transfer_train
                 Y_transfer_feed_in = Y_transfer_train
 
-            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
+            print('  ')
+            print("Split Round: ", split_round, "Feed in Ratio", feed_in_ratio)
+            print('Train Sample Num: ', len(X_mmw_rD_transfer_train))
+            print('Feed in Sample Num: ', len(X_mmw_rD_transfer_feed_in))
+            print('Test Sample Num: ', len(X_mmw_rD_transfer_test))
+            print('Batch Size: ', round(len(X_mmw_rD_transfer_feed_in) / 32))
+
+
+            es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20)
             # transfer model csv log path
             transfer_model_csv_log_path = os.path.join(transfer_info_dir,
                                                        str(loo_subject_name) + '_' + str(split_round) + '_' + str(
@@ -134,7 +148,7 @@ for train_ix, test_ix in rskf.split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1)):
                                          validation_data=(
                                              [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
                                          epochs=1000,
-                                         batch_size=round(len(X_mmw_rD_transfer_feed_in) / 32),
+                                         batch_size=round(len(X_mmw_rD_transfer_feed_in)/32),
                                          callbacks=[es, mc, csv_logger],
                                          verbose=1, shuffle=True)
 
