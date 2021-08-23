@@ -85,9 +85,7 @@ for train_ix, test_ix in train_test_split_indexes:
     Y_transfer_train, Y_transfer_test = Y_loo[train_ix], Y_loo[test_ix]
 
     for feed_in_ratio in feed_in_ratios:
-        if feed_in_ratio <= 0.3:
-            batch_size = 4
-        elif feed_in_ratio <= 0.7:
+        if feed_in_ratio <= 0.5:
             batch_size = 8
         else:
             batch_size = 16
@@ -152,7 +150,7 @@ for train_ix, test_ix in train_test_split_indexes:
                                          epochs=1000,
                                          batch_size=batch_size,
                                          callbacks=[es, mc, csv_logger],
-                                         verbose=0, shuffle=True)
+                                         verbose=1, shuffle=True)
 
             print("Training Duration: --- %s seconds ---" % (time.time() - training_start_time))
 
