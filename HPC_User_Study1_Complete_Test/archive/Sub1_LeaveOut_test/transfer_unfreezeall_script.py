@@ -70,7 +70,7 @@ best_model = tf.keras.models.load_model(best_model_path)
 best_transfer_cm_hist_dict = {}
 best_transfer_acc_hist_dict = {}
 
-train_test_split_indexes = StratifiedShuffleSplit(n_splits=5, test_size=0.1, random_state=3). \
+train_test_split_indexes = StratifiedShuffleSplit(n_splits=5, test_size=0.8, random_state=3). \
     split(X=X_mmw_rD_loo, y=np.argmax(Y_loo, axis=1))
 
 feed_in_ratios = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
@@ -87,7 +87,6 @@ for train_ix, test_ix in train_test_split_indexes:
 
     for feed_in_ratio in feed_in_ratios:
         if feed_in_ratio != 0.0:
-            print("Split Round: ", split_round, "Feed in Ratio", feed_in_ratio)
             # create transfer model
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
@@ -116,6 +115,13 @@ for train_ix, test_ix in train_test_split_indexes:
                 X_mmw_rA_transfer_feed_in = X_mmw_rA_transfer_train
                 Y_transfer_feed_in = Y_transfer_train
 
+            print('  ')
+            print("Split Round: ", split_round, "Feed in Ratio", feed_in_ratio)
+            print('Train Sample Num: ', len(X_mmw_rD_transfer_train))
+            print('Feed in Sample Num: ', len(X_mmw_rD_transfer_feed_in))
+            print('Test Sample Num: ', len(X_mmw_rD_transfer_test))
+
+
             es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20)
             # transfer model csv log path
             transfer_model_csv_log_path = os.path.join(transfer_info_dir,
@@ -137,7 +143,7 @@ for train_ix, test_ix in train_test_split_indexes:
                                          validation_data=(
                                              [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
                                          epochs=1,
-                                         batch_size=round(len(X_mmw_rD_transfer_feed_in) / 16),
+                                         batch_size=8,
                                          callbacks=[es, mc, csv_logger],
                                          verbose=1, shuffle=True)
 

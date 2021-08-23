@@ -87,8 +87,6 @@ for train_ix, test_ix in train_test_split_indexes:
 
     for feed_in_ratio in feed_in_ratios:
         if feed_in_ratio != 0.0:
-            print('  ')
-            print("Split Round: ", split_round, "Feed in Ratio", feed_in_ratio)
             # create transfer model
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
@@ -117,6 +115,8 @@ for train_ix, test_ix in train_test_split_indexes:
                 X_mmw_rA_transfer_feed_in = X_mmw_rA_transfer_train
                 Y_transfer_feed_in = Y_transfer_train
 
+            print('  ')
+            print("Split Round: ", split_round, "Feed in Ratio", feed_in_ratio)
             print('Train Sample Num: ', len(X_mmw_rD_transfer_train))
             print('Feed in Sample Num: ', len(X_mmw_rD_transfer_feed_in))
             print('Test Sample Num: ', len(X_mmw_rD_transfer_test))
