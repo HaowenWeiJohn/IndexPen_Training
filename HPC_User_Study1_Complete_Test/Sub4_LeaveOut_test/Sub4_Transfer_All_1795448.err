@@ -1,0 +1,130 @@
+2021-08-24 00:28:23.611518: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-24 00:28:40.114281: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-08-24 00:28:40.115801: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-08-24 00:28:40.138116: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:af:00.0 name: A100-PCIE-40GB computeCapability: 8.0
+coreClock: 1.41GHz coreCount: 98 deviceMemorySize: 39.59GiB deviceMemoryBandwidth: 1.41TiB/s
+2021-08-24 00:28:40.138151: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-24 00:28:40.141211: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-08-24 00:28:40.141284: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-08-24 00:28:40.142761: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-08-24 00:28:40.143510: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-08-24 00:28:40.146906: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-08-24 00:28:40.147944: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-08-24 00:28:40.148572: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-08-24 00:28:40.151570: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-08-24 00:28:40.151905: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-08-24 00:28:40.152067: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-08-24 00:28:40.153803: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:af:00.0 name: A100-PCIE-40GB computeCapability: 8.0
+coreClock: 1.41GHz coreCount: 98 deviceMemorySize: 39.59GiB deviceMemoryBandwidth: 1.41TiB/s
+2021-08-24 00:28:40.153823: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-24 00:28:40.153838: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-08-24 00:28:40.153846: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-08-24 00:28:40.153854: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-08-24 00:28:40.153862: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-08-24 00:28:40.153869: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-08-24 00:28:40.153876: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-08-24 00:28:40.153884: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-08-24 00:28:40.156546: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-08-24 00:28:40.156567: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+Traceback (most recent call last):
+  File "transfer_unfreezeall_script.py", line 66, in <module>
+    best_model = tf.keras.models.load_model(best_model_path)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/saving/save.py", line 207, in load_model
+    compile)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/saving/hdf5_format.py", line 184, in load_model_from_hdf5
+    custom_objects=custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/saving/model_config.py", line 64, in model_from_config
+    return deserialize(config, custom_objects=custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/serialization.py", line 177, in deserialize
+    printable_module_name='layer')
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/utils/generic_utils.py", line 358, in deserialize_keras_object
+    list(custom_objects.items())))
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 669, in from_config
+    config, custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 1275, in reconstruct_from_config
+    process_layer(layer_data)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 1257, in process_layer
+    layer = deserialize_layer(layer_data, custom_objects=custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/serialization.py", line 177, in deserialize
+    printable_module_name='layer')
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/utils/generic_utils.py", line 360, in deserialize_keras_object
+    return cls.from_config(cls_config)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/recurrent.py", line 2901, in from_config
+    return cls(**config)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/recurrent_v2.py", line 1138, in __init__
+    if config.list_logical_devices('GPU'):
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/framework/config.py", line 439, in list_logical_devices
+    return context.context().list_logical_devices(device_type=device_type)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/context.py", line 1368, in list_logical_devices
+    self.ensure_initialized()
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/context.py", line 526, in ensure_initialized
+    context_handle = pywrap_tfe.TFE_NewContext(opts)
+tensorflow.python.framework.errors_impl.InternalError: CUDA runtime implicit initialization on GPU:0 failed. Status: all CUDA-capable devices are busy or unavailable
+2021-08-24 00:28:40.983882: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-24 00:28:55.386903: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-08-24 00:28:55.388477: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-08-24 00:28:55.408505: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:af:00.0 name: A100-PCIE-40GB computeCapability: 8.0
+coreClock: 1.41GHz coreCount: 98 deviceMemorySize: 39.59GiB deviceMemoryBandwidth: 1.41TiB/s
+2021-08-24 00:28:55.408539: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-24 00:28:55.411190: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-08-24 00:28:55.411258: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-08-24 00:28:55.412509: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-08-24 00:28:55.413016: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-08-24 00:28:55.415845: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-08-24 00:28:55.416691: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-08-24 00:28:55.417057: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-08-24 00:28:55.420214: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-08-24 00:28:55.420543: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-08-24 00:28:55.420700: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-08-24 00:28:55.422452: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:af:00.0 name: A100-PCIE-40GB computeCapability: 8.0
+coreClock: 1.41GHz coreCount: 98 deviceMemorySize: 39.59GiB deviceMemoryBandwidth: 1.41TiB/s
+2021-08-24 00:28:55.422474: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-08-24 00:28:55.422490: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-08-24 00:28:55.422498: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-08-24 00:28:55.422507: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-08-24 00:28:55.422514: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-08-24 00:28:55.422522: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.10
+2021-08-24 00:28:55.422530: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-08-24 00:28:55.422538: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-08-24 00:28:55.425556: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-08-24 00:28:55.425578: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+Traceback (most recent call last):
+  File "transfer_script.py", line 66, in <module>
+    best_model = tf.keras.models.load_model(best_model_path)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/saving/save.py", line 207, in load_model
+    compile)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/saving/hdf5_format.py", line 184, in load_model_from_hdf5
+    custom_objects=custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/saving/model_config.py", line 64, in model_from_config
+    return deserialize(config, custom_objects=custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/serialization.py", line 177, in deserialize
+    printable_module_name='layer')
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/utils/generic_utils.py", line 358, in deserialize_keras_object
+    list(custom_objects.items())))
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 669, in from_config
+    config, custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 1275, in reconstruct_from_config
+    process_layer(layer_data)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/engine/functional.py", line 1257, in process_layer
+    layer = deserialize_layer(layer_data, custom_objects=custom_objects)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/serialization.py", line 177, in deserialize
+    printable_module_name='layer')
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/utils/generic_utils.py", line 360, in deserialize_keras_object
+    return cls.from_config(cls_config)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/recurrent.py", line 2901, in from_config
+    return cls(**config)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/keras/layers/recurrent_v2.py", line 1138, in __init__
+    if config.list_logical_devices('GPU'):
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/framework/config.py", line 439, in list_logical_devices
+    return context.context().list_logical_devices(device_type=device_type)
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/context.py", line 1368, in list_logical_devices
+    self.ensure_initialized()
+  File "/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/IndexPen_Training_venv/lib/python3.7/site-packages/tensorflow/python/eager/context.py", line 526, in ensure_initialized
+    context_handle = pywrap_tfe.TFE_NewContext(opts)
+tensorflow.python.framework.errors_impl.InternalError: CUDA runtime implicit initialization on GPU:0 failed. Status: all CUDA-capable devices are busy or unavailable
