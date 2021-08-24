@@ -149,6 +149,7 @@ for train_ix, test_ix in train_test_split_indexes:
                                              [X_mmw_rD_transfer_test, X_mmw_rA_transfer_test], Y_transfer_test),
                                          epochs=1000,
                                          batch_size=round(len(X_mmw_rD_transfer_feed_in)/32),
+                                         validation_batch_size=256,
                                          callbacks=[es, mc, csv_logger],
                                          verbose=1, shuffle=True)
 
