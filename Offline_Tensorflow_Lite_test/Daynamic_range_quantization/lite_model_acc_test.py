@@ -79,7 +79,7 @@ converter = tf.lite.TFLiteConverter.from_keras_model(original_model)  # path to 
 # converter.post_training_quantize=True
 tflite_model = converter.convert()
 
-tflite_models_dir = pathlib.Path("indexpen_tflite_models_5User_Ultimate_Model/")
+tflite_models_dir = pathlib.Path("indexpen_tflite_models_5User_Ultimate_Model_higher_decay/")
 tflite_models_dir.mkdir(exist_ok=True, parents=True)
 
 tflite_model_file = tflite_models_dir / "indexpen_model.tflite"
