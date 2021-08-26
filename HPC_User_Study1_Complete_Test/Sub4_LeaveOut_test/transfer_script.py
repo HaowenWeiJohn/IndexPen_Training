@@ -48,7 +48,7 @@ sub3: { rd:
 save_dir = 'auto_save'
 
 train_info_dir = os.path.join(save_dir, 'train_info')
-transfer_info_dir = os.path.join(save_dir, 'transfer_info_error_confirm')
+transfer_info_dir = os.path.join(save_dir, 'transfer_info')
 
 if os.path.isdir(transfer_info_dir):
     # del dir
@@ -63,7 +63,7 @@ del subjects_data_dict
 
 # load leave one out model
 best_model_path = os.path.join(train_info_dir, 'best_model.h5')
-
+best_model = tf.keras.models.load_model(best_model_path)
 
 # 200 samples for each class
 # create cm dataframe
@@ -92,7 +92,6 @@ for train_ix, test_ix in train_test_split_indexes:
 
         if feed_in_ratio != 0.0:
             # create transfer model
-            best_model = tf.keras.models.load_model(best_model_path)
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
                                                  learning_rate=5e-4,
