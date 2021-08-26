@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="Sub4_Transfer_All"
+#SBATCH --job-name="Trouble_Shoot"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
