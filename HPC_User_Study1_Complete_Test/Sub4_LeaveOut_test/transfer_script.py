@@ -163,7 +163,7 @@ for train_ix, test_ix in train_test_split_indexes:
             plt.xlabel('epoch')
             plt.legend(['train', 'test'], loc='upper left')
             plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + "_" + str(split_round) + "_" + str(
-                feed_in_ratio) + 'model_accuracy.png'))
+                feed_in_ratio) + '_model_accuracy.png'))
             plt.close()
             #
             # summarize history for loss
@@ -174,7 +174,7 @@ for train_ix, test_ix in train_test_split_indexes:
             plt.xlabel('epoch')
             plt.legend(['train', 'test'], loc='upper left')
             plt.savefig(os.path.join(transfer_info_dir, str(loo_subject_name) + "_" + str(split_round) + "_" + str(
-                feed_in_ratio) + 'model_loss.png'))
+                feed_in_ratio) + '_model_loss.png'))
             plt.close()
 
             best_transfer_model = tf.keras.models.load_model(best_transfer_model_path)
