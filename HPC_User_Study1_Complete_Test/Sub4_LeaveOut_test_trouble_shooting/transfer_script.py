@@ -63,7 +63,6 @@ del subjects_data_dict
 
 # load leave one out model
 best_model_path = os.path.join(train_info_dir, 'best_model.h5')
-best_model = tf.keras.models.load_model(best_model_path)
 
 # 200 samples for each class
 # create cm dataframe
@@ -92,12 +91,12 @@ for train_ix, test_ix in train_test_split_indexes:
 
         if feed_in_ratio != 0.0:
             # create transfer model
-            best_model = tf.keras.models.clone_model(best_model)
+            best_model = tf.keras.models.load_model(best_model_path)
             transfer_model = make_transfer_model(pretrained_model=best_model,
                                                  class_num=31,
                                                  learning_rate=5e-4,
                                                  decay=2e-5,
-                                                 only_last_layer_trainable=True)
+                                                 only_last_layer_trainable=False)
             # feed in sample ratio equal to train size
             if feed_in_ratio != 1.0:
                 X_mmw_rD_transfer_feed_in, X_mmw_rD_transfer_leave_out, Y_transfer_feed_in, Y_transfer_leave_out = train_test_split(
@@ -208,7 +207,7 @@ for train_ix, test_ix in train_test_split_indexes:
                 best_transfer_acc_hist_dict[str(feed_in_ratio)].append(transfer_test_acc)
 
         else:
-            best_transfer_model = tf.keras.models.clone_model(best_model)
+            best_transfer_model = tf.keras.models.load_model(best_model_path)
             Y_transfer_pred1 = best_transfer_model.predict([X_mmw_rD_transfer_test, X_mmw_rA_transfer_test])
             Y_transfer_pred_class = np.argmax(Y_transfer_pred1, axis=1)
             Y_transfer_test_class = np.argmax(Y_transfer_test, axis=1)
