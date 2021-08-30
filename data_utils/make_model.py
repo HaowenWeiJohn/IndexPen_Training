@@ -377,12 +377,12 @@ def make_complex_model_without_RA(class_num, learning_rate=1e-4, decay=1e-7, poi
     # # mmw_razi_TDCNN.add(TimeDistributed(MaxPooling2D(pool_size=2)))
     # mmw_razi_TDCNN.add(TimeDistributed(Flatten()))  # this should be where layers meets
 
-    merged = concatenate([mmw_rdpl_TDCNN.output])  # concatenate two feature extractors
+    # merged = concatenate([mmw_rdpl_TDCNN.output])  # concatenate two feature extractors
     regressive_tensor = LSTM(units=32, return_sequences=True, kernel_initializer='random_uniform',
                              kernel_regularizer=tf.keras.regularizers.l2(l=1e-4),
                              recurrent_regularizer=tf.keras.regularizers.l2(l=1e-5),
                              activity_regularizer=tf.keras.regularizers.l2(l=1e-5)
-                             )(merged)
+                             )(mmw_rdpl_TDCNN.output)
     regressive_tensor = Dropout(rate=0.5)(regressive_tensor)
     regressive_tensor = LSTM(units=32, return_sequences=False, kernel_initializer='random_uniform',
                              kernel_regularizer=tf.keras.regularizers.l2(l=1e-4),
@@ -400,7 +400,7 @@ def make_complex_model_without_RA(class_num, learning_rate=1e-4, decay=1e-7, poi
     regressive_tensor = Dense(class_num, activation='softmax', kernel_initializer='random_uniform')(
         regressive_tensor)
 
-    model = Model(inputs=[mmw_rdpl_TDCNN.input], outputs=regressive_tensor)
+    model = Model(inputs=mmw_rdpl_TDCNN.input, outputs=regressive_tensor)
     adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)
     model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
