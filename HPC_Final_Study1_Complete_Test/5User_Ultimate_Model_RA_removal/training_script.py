@@ -133,9 +133,9 @@ del Y_model
 #     random_state=random_state,
 #     shuffle=True)
 
-model = make_complex_model_without_RA(class_num=31, learning_rate=1e-3, decay=1e-5,
+model = make_complex_model(class_num=31, learning_rate=1e-3, decay=1e-5,
                            rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
-                           # ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
+                           ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
                            cv_reg=2e-5,
                            )
 
@@ -154,8 +154,8 @@ mc = ModelCheckpoint(
 training_start_time = time.time()
 
 # train  the model
-history = model.fit([X_mmw_rD_model_train], Y_model_train,
-                    validation_data=([X_mmw_rD_model_test], Y_model_test),
+history = model.fit([X_mmw_rD_model_train, X_mmw_rA_model_train], Y_model_train,
+                    validation_data=([X_mmw_rD_model_test, X_mmw_rA_model_test], Y_model_test),
                     epochs=2000,
                     batch_size=128, callbacks=[es, mc, csv_logger], verbose=1, shuffle=True)
 
@@ -182,7 +182,7 @@ plt.savefig(os.path.join(train_info_dir, 'model_loss.png'))
 plt.clf()
 
 best_model = tf.keras.models.load_model(best_model_path)
-Y_model_pred1 = best_model.predict([X_mmw_rD_model_test])
+Y_model_pred1 = best_model.predict([X_mmw_rD_model_test, X_mmw_rA_model_test])
 Y_model_pred = np.argmax(Y_model_pred1, axis=1)
 Y_model_test = np.argmax(Y_model_test, axis=1)
 _, model_cm = plot_confusion_matrix(y_true=Y_model_test, y_pred=Y_model_pred, classes=indexpen_classes)
