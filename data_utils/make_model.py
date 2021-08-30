@@ -303,6 +303,7 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
     model = Model(inputs=[mmw_rdpl_TDCNN.input, mmw_razi_TDCNN.input], outputs=regressive_tensor)
     adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)
     model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
+    model.summary()
     return model
 
 
@@ -403,6 +404,7 @@ def make_complex_model_without_RA(class_num, learning_rate=1e-4, decay=1e-7, poi
     model = Model(inputs=[mmw_rdpl_TDCNN.input], outputs=regressive_tensor)
     adam = tf.keras.optimizers.Adam(learning_rate=learning_rate, decay=decay)
     model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
+    model.summary()
     return model
 
 
