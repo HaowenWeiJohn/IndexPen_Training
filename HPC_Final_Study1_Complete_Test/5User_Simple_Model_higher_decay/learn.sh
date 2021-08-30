@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="5User_Simple_Model_Without_RA"
+#SBATCH --job-name="5User_Simple_Model_Higher_Decay"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
