@@ -6,11 +6,11 @@ import pandas as pd
 result_dir = '../../HPC_User_Study1_Complete_Test'
 
 fig = plt.figure(figsize=(10, 7))
-ax = fig.add_axes()
+# ax = fig.add_axes()
 
 for dir in os.listdir(result_dir):
     # C:\Users\Haowe\PycharmProjects\IndexPen_Training\HPC_User_Study1_4User_Complete_Test\Sub3_LeaveOut_test\auto_save\transfer_unfreezeall_info\transfer_learning_best_cm_hist_dict
-    if dir.startswith('Sub4_LeaveOut_test_trouble_shooting'):
+    if dir.startswith('Sub2_LeaveOut_test_trouble_shooting'):
         transfer_learning_best_cm_hist_dict_path = os.path.join(result_dir, dir, 'auto_save',
                                                                 'transfer_info',
                                                                 'transfer_learning_best_cm_hist_dict')
