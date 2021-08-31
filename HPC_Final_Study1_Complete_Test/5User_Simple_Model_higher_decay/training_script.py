@@ -133,8 +133,8 @@ del Y_model
 #     random_state=random_state,
 #     shuffle=True)
 
-model = make_simple_model_reg(class_num=31, learning_rate=1e-3, decay=4e-5, rd_kernel_size=(3, 3), ra_kernel_size=(3, 3),
-                              cv_reg=2e-5)
+model = make_simple_model_reg_archive(class_num=31, learning_rate=1e-3, decay=4e-5, rd_kernel_size=(3, 3), ra_kernel_size=(3, 3),
+                                      cv_reg=2e-5)
 
 # train the model with leave one out
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50)
