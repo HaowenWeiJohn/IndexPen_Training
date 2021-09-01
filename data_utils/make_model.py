@@ -561,7 +561,7 @@ def make_complex_model_upgrade(class_num, learning_rate=1e-4, decay=1e-7, points
     # mmw_rdpl_TDCNN.add(TimeDistributed(BatchNormalization()))
     # mmw_rdpl_TDCNN.add(TimeDistributed(MaxPooling2D(pool_size=2)))
     mmw_rdpl_TDCNN.add(TimeDistributed(Flatten()))  # this should be where layers meets
-    mmw_rdpl_TDCNN.add(TimeDistributed(Dense(64,
+    mmw_rdpl_TDCNN.add(TimeDistributed(Dense(128,
                                              kernel_regularizer=tf.keras.regularizers.l2(l=1e-4),
                                              bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                              activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
@@ -599,7 +599,7 @@ def make_complex_model_upgrade(class_num, learning_rate=1e-4, decay=1e-7, points
     # mmw_razi_TDCNN.add(TimeDistributed(BatchNormalization()))
     # mmw_razi_TDCNN.add(TimeDistributed(MaxPooling2D(pool_size=2)))
     mmw_razi_TDCNN.add(TimeDistributed(Flatten()))  # this should be where layers meets
-    mmw_razi_TDCNN.add(TimeDistributed(Dense(128,
+    mmw_razi_TDCNN.add(TimeDistributed(Dense(256,
                                              kernel_regularizer=tf.keras.regularizers.l2(l=1e-4),
                                              bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
                                              activity_regularizer=tf.keras.regularizers.l2(l=1e-5),
