@@ -863,7 +863,7 @@ def make_transfer_model(pretrained_model, class_num=31, learning_rate=1e-4, deca
 
     return transfer_model
 
-def make_complex_model_batch_test(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample,
+def make_complex_model_batch_before_act(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample,
                        rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                        ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
                        cv_reg=1e-6,
