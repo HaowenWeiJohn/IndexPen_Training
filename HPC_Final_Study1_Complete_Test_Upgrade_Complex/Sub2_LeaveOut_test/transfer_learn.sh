@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="Sub2_C_Transfer_All"
+#SBATCH --job-name="Sub2_UC_Transfer_All"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err

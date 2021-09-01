@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="Sub3_C_LeaveOut_test"
+#SBATCH --job-name="Sub3_UC_LeaveOut_test"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
