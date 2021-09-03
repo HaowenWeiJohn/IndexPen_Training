@@ -22,8 +22,6 @@ from data_utils.data_config import *
 from data_utils.make_model import *
 from data_utils.ploting import *
 
-
-
 ######
 '''
 # user directory structure
@@ -38,8 +36,6 @@ from data_utils.ploting import *
             .............
             .............        
 '''
-
-
 
 ''' 
     Data format:
@@ -88,9 +84,8 @@ from data_utils.ploting import *
 
 '''
 
-
 # argument 1 user name
-# argument 2 current coming session
+# argument 2 the session want to evaluate
 # argument 3 force to run all the sessions
 
 random_state = 3
@@ -98,18 +93,73 @@ random_state = 3
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy2Data/'
 best_model_path = '......................'
 
-sys.argv.append('User0')
-sys.argv.append('1')
+sys.argv.append('participant_0')
+sys.argv.append('session_3')
 argv_len = sys.argv
 print('Number of arguments:', argv_len, 'arguments.')
 print('Argument List:', str(sys.argv))
 
-user_name = sys.argv[1]
+participant_name = sys.argv[1]
+session_name = sys.argv[2]
 
-user_data_dir = load_data_dir+user_name
+participant_data_dir = os.path.join(load_data_dir, participant_name)
 
-# with open(load_data_dir, 'rb') as f:
-#     subjects_data_dict, subjects_label_dict, subjects_group_dict, encoder = pickle.load(f)
+session_index = int(session_name.split("_")[-1])
+
+# load all data < session index for training
+# if session is 1, we feed in directly
+# accuracy for both trained and untrained for that session
+
+train_trails = {}
+trail_index = 0
+for this_session_index in range(1, session_index):
+    this_session_file_path = os.path.join(participant_data_dir, 'session_' + str(this_session_index))
+    with open(this_session_file_path, 'rb') as f:
+        this_session_data = pickle.load(f)
+    for this_trail_index in this_session_data:
+        train_trails[trail_index] = this_session_data[this_trail_index]
+        trail_index += 1
+
+################################################## training  ####################################
+X_mmw_rD = []
+X_mmw_rA = []
+Y = []
+
+for trail in train_trails:
+    if len(X_mmw_rD) == 0:
+        X_mmw_rD = train_trails[trail][0][0][0]
+        X_mmw_rA = train_trails[trail][0][0][1]
+        Y = train_trails[trail][0][1]
+    else:
+        X_mmw_rD = np.concatenate([X_mmw_rD, train_trails[trail][0][0][0]])
+        X_mmw_rA = np.concatenate([X_mmw_rA, train_trails[trail][0][0][1]])
+        Y = np.concatenate([Y, train_trails[trail][0][1]])
+
+X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, test_size=0.20,
+                                                                  random_state=random_state,
+                                                                  shuffle=True)
+
+X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, stratify=Y, test_size=0.20,
+                                                                  random_state=random_state,
+                                                                  shuffle=True)
+
+# TODO: check data augmentation
+data_augmen
+
+
+################################################## evaluation ######################################
+
+
+# for session_index in  range(1, session_index+1):
+
+
+# session_data = {}
+# for session_data
+#         with open(session_data_path, 'rb') as f:
+#                 session_data = pickle.load(f)
+
+
+# ../../data/IndexPenData/IndexPenStudyData/UserStudy2Data/participant_0/session_2'
 
 # load data for train and test
 
@@ -125,4 +175,3 @@ user_data_dir = load_data_dir+user_name
 # save lavinshtein distance for all 5 sentences
 # save the prediction result
 # save the ground truth
-
