@@ -108,11 +108,10 @@ random_state = 3
 best_model_path = '../../HPC_Final_Study1_Complete_Test/5User_Ultimate_Model/auto_save/train_info/best_model.h5'
 
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy2Data/'
-
-result_save_dir = '../participants_session_transfer_train'
-
 participant_data_dir = os.path.join(load_data_dir, participant_name)
 
+
+result_save_dir = '../participants_session_transfer_train'
 participant_save_dir = os.path.join(result_save_dir, participant_name)
 participant_session_transfer_train_dir = os.path.join(participant_save_dir, session_name)
 

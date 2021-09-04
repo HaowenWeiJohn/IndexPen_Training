@@ -82,12 +82,10 @@ from data_utils.ploting import *
                 2. raw
 '''
 
-
-
 # load current session data
 
 sys.argv.append('participant_0')
-sys.argv.append('session_2')
+sys.argv.append('session_1')
 # sys.argv.append('1')
 
 argv_len = sys.argv
@@ -104,24 +102,28 @@ random_state = 3
 best_model_path = '../../HPC_Final_Study1_Complete_Test/5User_Ultimate_Model/auto_save/train_info/best_model.h5'
 
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy2Data/'
-
-transfer_result_save_dir = '../participants_session_transfer_train'
-
-evaluation_result_save_dir = '../participant_session_transfer_evaluation'
-
 participant_data_dir = os.path.join(load_data_dir, participant_name)
 
-participant_session_transfer_train_dir = os.path.join(transfer_result_save_dir, participant_name)
+transfer_result_save_dir = '../participants_session_transfer_train'
+participant_session_transfer_train_dir = os.path.join(transfer_result_save_dir, participant_name, session_name)
 
+evaluation_result_save_dir = '../participant_session_evaluation'
+participant_evaluation_dir = os.path.join(evaluation_result_save_dir, participant_name)
+participant_session_evaluation_dir = os.path.join(participant_evaluation_dir, session_name)
 
 session_index = int(session_name.split("_")[-1])
 
-# if not os.path.isdir(participant_session_transfer_train_dir):
-#     print('Please run the transfer learning model first')
-#     sys.exit(0)
+if not os.path.isdir(participant_session_transfer_train_dir):
+    print('Please run the transfer learning model first')
+    sys.exit(0)
 
-# create participant file
+# create participant evaluation file
+if not os.path.isdir(participant_evaluation_dir):
+    os.mkdir(participant_evaluation_dir)
 
+if os.path.isdir(participant_session_evaluation_dir):
+    shutil.rmtree(participant_session_evaluation_dir)
+os.mkdir(participant_session_evaluation_dir)
 
 
 best_transfer_model_path = os.path.join(participant_session_transfer_train_dir, 'best_transfer_model.h5')
@@ -130,7 +132,6 @@ best_transfer_model = tf.keras.models.load_model(best_transfer_model_path)
 
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
     evaluate_session_data = pickle.load(f)
-
 
 X_mmw_rD_evaluate = []
 X_mmw_rA_evaluate = []
@@ -155,7 +156,7 @@ _, evaluate_model_cm = plot_confusion_matrix(y_true=Y_evaluate_test_class, y_pre
                                              classes=indexpen_classes,
                                              normalize=False)
 
-plt.savefig(os.path.join(participant_session_transfer_train_dir, 'evaluate_session_confusion_matrix.png'))
+plt.savefig(os.path.join(participant_session_evaluation_dir, 'session_evaluation_confusion_matrix.png'))
 plt.close()
 plt.rcdefaults()
 
@@ -163,7 +164,7 @@ evaluate_session_test_acc = accuracy_score(Y_evaluate_test_class, Y_evaluate_pre
 print("best_evaluate_session_accuracy_score:",
       evaluate_session_test_acc)
 
-with open(os.path.join(participant_session_transfer_train_dir, 'evaluate_session_best_cm_hist_dict'), 'wb') as f:
+with open(os.path.join(participant_session_evaluation_dir, 'transfer_learning_best_cm_hist_dict'), 'wb') as f:
     pickle.dump([evaluate_model_cm, evaluate_session_test_acc], f)
 
 # run sentences through realtime debouncer algorithm
