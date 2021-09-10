@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
 
-from data_utils.data_preprocessing import merge_two_dicts
+from data_utils.data_general_utils import merge_two_dicts
 
 result_dir = '../../HPC_Final_Study1_Complete_Test'
 
