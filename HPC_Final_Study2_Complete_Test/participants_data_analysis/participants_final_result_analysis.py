@@ -27,7 +27,7 @@ from data_utils.prediction_utils import *
 ######
 
 
-sys.argv.append('participant_1')
+sys.argv.append('participant_2')
 sys.argv.append('session_3')
 # sys.argv.append('1')
 
@@ -71,17 +71,55 @@ ax.plot(session_index, original_model_acc, linewidth=5, markersize=120, label='B
 ax.plot(session_index, transfer_model_acc, linewidth=5, markersize=120, label='Transfer Model')
 ax.grid()
 ax.legend(fontsize=30, loc='lower right')
+ax.set_ylim([0, 1])
 ax.set_xlabel('Session')
 ax.set_ylabel('Accuracy')
-ax.set_ylim([0, 1])
-
+ax.set_title(participant_name)
 # ax.grid()
 # plt.ylim(0, 1.1)
 plt.show()
 
 
 ####################################### lavenshtin distance between two sentences after removing Act, Enter, and Nois #################
-# dir: participants_session_raw_acc_evaluation
+# dir: participants_session_raw_prediction_evaluation
+raw_prediction_evaluation_dir = '../participants_session_raw_prediction_evaluation'
+participant_raw_prediction_evaluation_dir = os.path.join(raw_prediction_evaluation_dir, participant_name)
+
+original_levenshtein_distances = []
+transfer_levenshtein_distances = []
+for dirs in os.listdir(participant_raw_prediction_evaluation_dir):
+    raw_prediction_evaluation_info_path = os.path.join(participant_raw_prediction_evaluation_dir, dirs, 'raw_prediction_evaluation')
+    with open(raw_prediction_evaluation_info_path, 'rb') as f:
+        detection_results, original_transfer_lite_model_prediction_result = pickle.load(f)
+
+    session_original_lsd = []
+    session_transfer_lsd = []
+    for trail in detection_results:
+        trail_original_lsd = levenshtein_distance(detection_results[trail][1][0], detection_results[trail][0][0])
+        session_original_lsd.append(trail_original_lsd)
+        trail_transfer_lsd = levenshtein_distance(detection_results[trail][2][0], detection_results[trail][0][0])
+        session_transfer_lsd.append(trail_transfer_lsd)
+
+    original_levenshtein_distances.append(np.mean(session_original_lsd))
+    transfer_levenshtein_distances.append(np.mean(session_transfer_lsd))
+
+fig = plt.figure(figsize=(15,15))
+ax = fig.add_subplot(111)
+
+ax.plot(session_index, original_levenshtein_distances, linewidth=5, markersize=120, label='Base Model')
+ax.plot(session_index, transfer_levenshtein_distances, linewidth=5, markersize=120, label='Transfer Model')
+ax.grid()
+ax.legend(fontsize=30, loc='lower right')
+ax.set_ylim([0, 1])
+ax.set_xlabel('Session')
+ax.set_ylabel('String Similarity')
+ax.set_title(participant_name)
+# ax.grid()
+# plt.ylim(0, 1.1)
+plt.show()
+
+
+    # detection result : ground truth, original model, lite model\
 
 
 ## generate some plots?

@@ -229,21 +229,28 @@ def plot_realtime_simulation(pred_prob_hist_buffer, detect_chars_buffer, grdt_ch
     plt.show()
 
 
-def levenshtein_distance(detect_chars_buffer, grdt_chars):
-    remove_list = ['Act', 'Nois']
-    for index in range(0, detect_chars_buffer):
-        if detect_chars_buffer[index] in remove_list:
-            detect_chars_buffer.pop(index)
+def levenshtein_distance(detect_chars_buffer, grdt_chars, ratio_calc=True):
+    remove_list = ['Act', 'Nois', 'Ent']
+    detect_chars_buffer = list(detect_chars_buffer)
+    grdt_chars = list(grdt_chars)
 
-    for index in range(0, grdt_chars):
-        if grdt_chars[index] in remove_list:
-            grdt_chars.pop(index)
+    detect_chars_buffer =  [x for x in detect_chars_buffer if x not in remove_list]
+    grdt_chars = [x for x in grdt_chars if x not in remove_list]
+    # detect_chars_buffer[i] = list(filter(lambda a: a not in remove_list, detect_chars_buffer[i]))
+    # grdt_chars[1] = list(filter(lambda a: a not in 0, grdt_chars[i]))
+    # for index in range(0, len(detect_chars_buffer)):
+    #     if detect_chars_buffer[index] in remove_list:
+    #         detect_chars_buffer.pop(index)
+    #
+    # for index in range(0, len(grdt_chars)):
+    #     if grdt_chars[index] in remove_list:
+    #         grdt_chars.pop(index)
 
     special_replacement = {'Spc': '1', 'Bspc': '2'}
 
     pred_string = replace_special(''.join(detect_chars_buffer), special_replacement)
     grdt_string = replace_special(''.join(grdt_chars), special_replacement)
 
-    str_dist = levenshtein_ratio_and_distance(pred_string, grdt_string, ratio_calc=True)
+    str_dist = levenshtein_ratio_and_distance(pred_string, grdt_string, ratio_calc=ratio_calc)
 
     return str_dist
