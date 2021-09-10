@@ -86,7 +86,7 @@ from data_utils.prediction_utils import *
 
 # load current session data
 
-sys.argv.append('participant_1')
+sys.argv.append('participant_2')
 sys.argv.append('session_1')
 # sys.argv.append('1')
 
@@ -238,8 +238,6 @@ for evaluate_trail in evaluate_session_data:
 
 with open(os.path.join(participant_session_evaluation_dir, 'raw_prediction_evaluation'), 'wb') as f:
     pickle.dump([prediction_results, original_transfer_lite_model_prediction_result], f)
-
-
 
 #####################################
 
