@@ -21,7 +21,7 @@ sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPe
 from data_utils.data_config import *
 from data_utils.make_model import *
 from data_utils.ploting import *
-from data_utils.data_preprocessing import *
+from data_utils.data_general_utils import *
 
 random_state = 3
 # loo_subject_name = 'Sub1_hw'
