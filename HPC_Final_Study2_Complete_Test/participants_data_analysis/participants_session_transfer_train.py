@@ -3,7 +3,8 @@ import glob
 import os.path
 import pickle
 import shutil
-
+import pandas as pd
+import json
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -88,8 +89,8 @@ from data_utils.ploting import *
 # argument 3 force to run all the sessions
 
 
-sys.argv.append('participant_0')
-sys.argv.append('session_2')
+sys.argv.append('participant_1')
+sys.argv.append('session_3')
 # sys.argv.append('1')
 
 argv_len = sys.argv
@@ -105,7 +106,7 @@ session_name = sys.argv[2]
 random_state = 3
 # loo_subject_name = 'Sub1_hw'
 
-best_model_path = '../../HPC_Final_Study1_Complete_Test/5User_Ultimate_Model/auto_save/train_info/best_model.h5'
+original_model_path = indexpen_study2_original_model_path
 
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy2Data/'
 participant_data_dir = os.path.join(load_data_dir, participant_name)
@@ -116,6 +117,10 @@ participant_save_dir = os.path.join(result_save_dir, participant_name)
 participant_session_transfer_train_dir = os.path.join(participant_save_dir, session_name)
 
 session_index = int(session_name.split("_")[-1])
+
+######## participant error note file
+error_notes = pd.read_csv(indexpen_study2_error_notes, index_col=0)
+
 
 # create directory participant save dir do not exist
 if not os.path.isdir(participant_save_dir):
@@ -129,19 +134,41 @@ os.mkdir(participant_session_transfer_train_dir)
 # load all data < session index for training
 # if session is 1, we copy the best model as transfer model and end
 
-if session_index == 1:
-    original_model = tf.keras.models.load_model(best_model_path)
-    original_model.save(os.path.join(participant_session_transfer_train_dir, 'best_transfer_model.h5'))
-    sys.exit(0)
+# if session_index == 1:
+#     print('Session one do not need transfer learning, please analysis using best model.')
+#     # original_model = tf.keras.models.load_model(original_model_path)
+#     # original_model.save(os.path.join(participant_session_transfer_train_dir, 'transfer_model.h5'))
+#     sys.exit(0)
 
 train_trails = {}
 trail_index = 0
-for this_session_index in range(1, session_index):
+for this_session_index in range(1, session_index+1):
     this_session_file_path = os.path.join(participant_data_dir, 'session_' + str(this_session_index))
     with open(this_session_file_path, 'rb') as f:
         this_session_data = pickle.load(f)
+    # remove error frame using the csv file
+    error_samples = error_notes.loc[participant_name]['session_' + str(this_session_index)]
+    if pd.isnull(error_samples) is False:
+        error_dict = json.loads(error_samples)
+        for error_target_trail in error_dict:
+            for error_sample_index in error_dict[error_target_trail]:
+                # find the training sample index
+                this_session_data[int(error_target_trail)][0][0][0] = \
+                    np.delete(this_session_data[int(error_target_trail)][0][0][0], error_sample_index, axis=0)
+                this_session_data[int(error_target_trail)][0][0][1] = \
+                    np.delete(this_session_data[int(error_target_trail)][0][0][1], error_sample_index, axis=0)
+
+                this_session_data[int(error_target_trail)][0] = list(this_session_data[int(error_target_trail)][0])
+                this_session_data[int(error_target_trail)][0][1] = \
+                    np.delete(this_session_data[int(error_target_trail)][0][1], error_sample_index, axis=0)
+                this_session_data[int(error_target_trail)][0] = tuple(this_session_data[int(error_target_trail)][0])
+
+
+
+
+
     for this_trail_index in this_session_data:
-        train_trails[trail_index] = this_session_data[this_trail_index]
+        train_trails[this_trail_index] = this_session_data[this_trail_index]
         trail_index += 1
 
 ################################################## training  ####################################
@@ -159,6 +186,9 @@ for trail in train_trails:
         X_mmw_rA = np.concatenate([X_mmw_rA, train_trails[trail][0][0][1]])
         Y = np.concatenate([Y, train_trails[trail][0][1]])
 
+
+
+
 X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, test_size=0.20,
                                                                   random_state=random_state,
                                                                   shuffle=True)
@@ -170,8 +200,8 @@ X_mmw_rA_train, X_mmw_rA_test, Y_train, Y_test = train_test_split(X_mmw_rA, Y, s
 # TODO: check data augmentation**********
 
 
-best_model = tf.keras.models.load_model(best_model_path)
-transfer_model = make_transfer_model(pretrained_model=best_model,
+original_model = tf.keras.models.load_model(original_model_path)
+transfer_model = make_transfer_model(pretrained_model=original_model,
                                      class_num=31,
                                      learning_rate=5e-4,
                                      decay=2e-5,
@@ -184,10 +214,10 @@ transfer_model_csv_log_path = os.path.join(participant_session_transfer_train_di
 csv_logger = CSVLogger(filename=transfer_model_csv_log_path,
                        append=True)
 # save model path
-best_transfer_model_path = os.path.join(participant_session_transfer_train_dir,
-                                        'best_transfer_model.h5')
+transfer_model_path = os.path.join(participant_session_transfer_train_dir,
+                                        'transfer_model.h5')
 mc = ModelCheckpoint(
-    filepath=best_transfer_model_path,
+    filepath=transfer_model_path,
     monitor='val_accuracy', mode='max', verbose=1, save_best_only=True)
 #
 training_start_time = time.time()
@@ -195,9 +225,9 @@ training_start_time = time.time()
 history = transfer_model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                              validation_data=(
                                  [X_mmw_rD_test, X_mmw_rA_test], Y_test),
-                             epochs=2,
+                             epochs=1000,
                              batch_size=round(len(X_mmw_rD_train) / 32),
-                             # validation_batch_size=256,
+                             validation_batch_size=64,
                              callbacks=[es, mc, csv_logger],
                              verbose=1, shuffle=True)
 
@@ -224,8 +254,8 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.savefig(os.path.join(participant_session_transfer_train_dir, 'transfer_model_loss.png'))
 plt.close()
 
-best_transfer_model = tf.keras.models.load_model(best_transfer_model_path)
-Y_transfer_pred1 = best_transfer_model.predict([X_mmw_rD_test, X_mmw_rA_test])
+transfer_model = tf.keras.models.load_model(transfer_model_path)
+Y_transfer_pred1 = transfer_model.predict([X_mmw_rD_test, X_mmw_rA_test])
 Y_transfer_pred_class = np.argmax(Y_transfer_pred1, axis=1)
 Y_transfer_test_class = np.argmax(Y_test, axis=1)
 
@@ -242,5 +272,29 @@ print('best_accuracy_score: ', transfer_test_acc)
 
 with open(os.path.join(participant_session_transfer_train_dir, 'transfer_learning_best_cm_hist_dict'), 'wb') as f:
     pickle.dump([transfer_model_cm, transfer_test_acc], f)
+
+
+
+######################## light model converter #####################################
+original_model = tf.keras.models.load_model(transfer_model_path)
+
+converter = tf.lite.TFLiteConverter.from_keras_model(original_model)  # path to the SavedModel directory
+# converter.post_training_quantize=True
+tflite_model = converter.convert()
+
+lite_model_save_path = os.path.join(participant_session_transfer_train_dir, session_name+"_lite_models/")
+tflite_models_dir = pathlib.Path(lite_model_save_path)
+tflite_models_dir.mkdir(exist_ok=True, parents=True)
+
+tflite_model_file = tflite_models_dir / "indexpen_model.tflite"
+tflite_model_file.write_bytes(tflite_model)
+
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+#
+converter.target_spec.supported_types = [tf.float16]
+tflite_quant_model = converter.convert()
+tflite_model_quant_file = tflite_models_dir / "indexpen_model_quant.tflite"
+tflite_model_quant_file.write_bytes(tflite_quant_model)
+
 
 # #************************************ load current session data for evaluation: **********************************
