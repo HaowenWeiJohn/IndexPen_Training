@@ -1,6 +1,7 @@
 import datetime
 import glob
 import os.path
+import pathlib
 import pickle
 import shutil
 import pandas as pd
@@ -16,6 +17,7 @@ import time
 import sys
 
 # insert at 1, 0 is the script path (or '' in REPL)
+# Prepare the lite model for that session. If this is session 1, we ignore it and use the generated model
 
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
 
