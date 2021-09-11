@@ -27,7 +27,7 @@ from data_utils.prediction_utils import *
 ######
 
 
-sys.argv.append('participant_2')
+sys.argv.append('participant_1')
 sys.argv.append('session_3')
 # sys.argv.append('1')
 
