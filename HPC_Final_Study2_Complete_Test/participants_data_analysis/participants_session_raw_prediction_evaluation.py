@@ -86,9 +86,9 @@ from data_utils.prediction_utils import *
 
 # load current session data
 
-sys.argv.append('participant_2')
-sys.argv.append('session_1')
-# sys.argv.append('1')
+# sys.argv.append('participant_2')
+# sys.argv.append('session_1')
+
 
 argv_len = sys.argv
 print('Number of arguments:', argv_len, 'arguments.')
