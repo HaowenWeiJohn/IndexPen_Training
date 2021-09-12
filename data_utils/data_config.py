@@ -9,4 +9,6 @@ indexpen_classes = ['A', 'B', 'C', 'D', 'E',
 
 indexpen_study2_original_model_path = 'C:/Users/Haowe/PycharmProjects/IndexPen_Training/HPC_Final_Study2_Complete_Test/indexpen_best_model/best_model.h5'
 indexpen_study2_original_lite_model_path = 'C:/Users/Haowe/PycharmProjects/IndexPen_Training/HPC_Final_Study2_Complete_Test/indexpen_best_model/indexpen_tflite_models/indexpen_model.tflite'
+indexpen_study2_fresh_model_path = 'C:/Users/Haowe/PycharmProjects/IndexPen_Training/HPC_Final_Study2_Complete_Test/indexpen_fresh_model/fresh_model.h5'
+indexpen_study2_fresh_lite_model_path = 'C:/Users/Haowe/PycharmProjects/IndexPen_Training/HPC_Final_Study2_Complete_Test/indexpen_fresh_model/indexpen_tflite_models_fresh_model/indexpen_model.tflite'
 indexpen_study2_error_notes = 'participant_error_recording.csv'
