@@ -48,6 +48,7 @@ participant_raw_acc_evaluation_dir = os.path.join(raw_acc_evaluation_dir, partic
 
 original_model_acc = []
 transfer_model_acc = []
+transfer_fresh_model_acc = []
 session_index = []
 
 plt.rcParams['xtick.labelsize'] = 35
@@ -58,9 +59,13 @@ plt.rcParams['axes.titlesize'] = 40
 for dirs in os.listdir(participant_raw_acc_evaluation_dir):
     acc_info_path = os.path.join(participant_raw_acc_evaluation_dir, dirs, 'transfer_learning_best_cm_hist_dict')
     with open(acc_info_path, 'rb') as f:
-        original_model_cm, original_session_test_acc, transfer_model_cm, transfer_session_test_acc = pickle.load(f)
+        original_model_cm, original_session_test_acc, \
+        transfer_model_cm, transfer_session_test_acc, \
+        transfer_fresh_model_cm, transfer_fresh_session_test_acc \
+                    = pickle.load(f)
     original_model_acc.append(original_session_test_acc)
     transfer_model_acc.append(transfer_session_test_acc)
+    transfer_fresh_model_acc.append(transfer_fresh_session_test_acc)
     session_index.append('S'+dirs.split('_')[-1])
 
 
@@ -69,6 +74,7 @@ ax = fig.add_subplot(111)
 
 ax.plot(session_index, original_model_acc, linewidth=5, markersize=120, label='Base Model')
 ax.plot(session_index, transfer_model_acc, linewidth=5, markersize=120, label='Transfer Model')
+ax.plot(session_index, transfer_fresh_model_acc, linewidth=5, markersize=120, label='Transfer Fresh Model')
 ax.grid()
 ax.legend(fontsize=30, loc='lower right')
 ax.set_ylim([0, 1])
@@ -87,6 +93,7 @@ participant_raw_prediction_evaluation_dir = os.path.join(raw_prediction_evaluati
 
 original_levenshtein_distances = []
 transfer_levenshtein_distances = []
+transfer_fresh_levenshtein_distances = []
 for dirs in os.listdir(participant_raw_prediction_evaluation_dir):
     raw_prediction_evaluation_info_path = os.path.join(participant_raw_prediction_evaluation_dir, dirs, 'raw_prediction_evaluation')
     with open(raw_prediction_evaluation_info_path, 'rb') as f:
@@ -94,20 +101,25 @@ for dirs in os.listdir(participant_raw_prediction_evaluation_dir):
 
     session_original_lsd = []
     session_transfer_lsd = []
+    session_transfer_fresh_lsd = []
     for trail in detection_results:
         trail_original_lsd = levenshtein_distance(detection_results[trail][1][0], detection_results[trail][0][0])
         session_original_lsd.append(trail_original_lsd)
         trail_transfer_lsd = levenshtein_distance(detection_results[trail][2][0], detection_results[trail][0][0])
         session_transfer_lsd.append(trail_transfer_lsd)
+        trail_transfer_fresh_lsd = levenshtein_distance(detection_results[trail][3][0], detection_results[trail][0][0])
+        session_transfer_fresh_lsd.append(trail_transfer_fresh_lsd)
 
     original_levenshtein_distances.append(np.mean(session_original_lsd))
     transfer_levenshtein_distances.append(np.mean(session_transfer_lsd))
+    transfer_fresh_levenshtein_distances.append(np.mean(session_transfer_fresh_lsd))
 
 fig = plt.figure(figsize=(15,15))
 ax = fig.add_subplot(111)
 
 ax.plot(session_index, original_levenshtein_distances, linewidth=5, markersize=120, label='Base Model')
 ax.plot(session_index, transfer_levenshtein_distances, linewidth=5, markersize=120, label='Transfer Model')
+ax.plot(session_index, transfer_fresh_session_test_acc, linewidth=5, markersize=120, label='Transfer Fresh Model')
 ax.grid()
 ax.legend(fontsize=30, loc='lower right')
 ax.set_ylim([0, 1])

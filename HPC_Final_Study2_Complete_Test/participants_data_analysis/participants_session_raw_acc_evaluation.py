@@ -112,6 +112,11 @@ session_index = int(session_name.split("_")[-1])
 participant_session_transfer_train_dir = os.path.join(transfer_result_save_dir, participant_name,
                                                       'session_' + str(session_index - 1))
 
+transfer_fresh_model_result_save_dir = '../participants_session_transfer_train_fresh_model'
+session_index = int(session_name.split("_")[-1])
+participant_session_transfer_train_fresh_model_dir = os.path.join(transfer_fresh_model_result_save_dir, participant_name,
+                                                      'session_' + str(session_index - 1))
+
 # the evaluation dir with model should be the previous session
 evaluation_result_save_dir = '../participants_session_raw_acc_evaluation'
 participant_raw_acc_evaluation_dir = os.path.join(evaluation_result_save_dir, participant_name)
@@ -120,13 +125,21 @@ participant_session_raw_acc_evaluation_dir = os.path.join(participant_raw_acc_ev
 
 if session_index == 1:
     transfer_model_path = original_model_path
-    transfer_lite_model_path = indexpen_study2_original_lite_model_path
+    transfer_lite_model_path = original_lite_model_path
+    transfer_fresh_model_path = indexpen_study2_fresh_model_path
+    transfer_fresh_lite_model_path = indexpen_study2_fresh_lite_model_path
 else:
-    if not os.path.isdir(participant_session_transfer_train_dir):
+    if not os.path.isdir(participant_session_transfer_train_dir)\
+    or not os.path.isdir(participant_session_transfer_train_fresh_model_dir):
         print('Please run the transfer learning model first')
         sys.exit(0)
     transfer_model_path = os.path.join(participant_session_transfer_train_dir, 'transfer_model.h5')
     transfer_lite_model_path = os.path.join(participant_session_transfer_train_dir,
+                                            session_name+'_lite_models',
+                                            'indexpen_model.tflite')
+
+    transfer_fresh_model_path = os.path.join(participant_session_transfer_train_fresh_model_dir, 'transfer_model.h5')
+    transfer_fresh_lite_model_path = os.path.join(participant_session_transfer_train_fresh_model_dir,
                                             session_name+'_lite_models',
                                             'indexpen_model.tflite')
 
@@ -139,6 +152,7 @@ if os.path.isdir(participant_session_raw_acc_evaluation_dir):
 os.mkdir(participant_session_raw_acc_evaluation_dir)
 
 transfer_model = tf.keras.models.load_model(transfer_model_path)
+transfer_fresh_model = tf.keras.models.load_model(transfer_fresh_model_path)
 original_model = tf.keras.models.load_model(original_model_path)
 
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
@@ -196,6 +210,23 @@ print("best_evaluate_session_accuracy_score_with_transfer_model:",
 
 #######################
 
+Y_transfer_fresh_pred1 = transfer_fresh_model.predict([X_mmw_rD_evaluate, X_mmw_rA_evaluate])
+Y_transfer_fresh_pred_class = np.argmax(Y_transfer_fresh_pred1, axis=1)
+Y_transfer_fresh_test_class = np.argmax(Y_evaluate, axis=1)
+
+_, transfer_fresh_model_cm = plot_confusion_matrix(y_true=Y_transfer_fresh_test_class, y_pred=Y_transfer_fresh_pred_class,
+                                             classes=indexpen_classes,
+                                             normalize=False)
+
+plt.savefig(os.path.join(participant_session_raw_acc_evaluation_dir, 'session_evaluation_confusion_matrix_transfer_fresh_model.png'))
+plt.close()
+plt.rcdefaults()
+
+transfer_fresh_session_test_acc = accuracy_score(Y_transfer_fresh_test_class, Y_transfer_fresh_pred_class)
+print("best_evaluate_session_accuracy_score_with_transfer_fresh_model:",
+      transfer_fresh_session_test_acc)
+
+
 #####################################
 ### realtime evaluation run all the sentences through original model and transfered model
 ###############################
@@ -231,6 +262,8 @@ print("best_evaluate_session_accuracy_score_with_transfer_model:",
 
 
 with open(os.path.join(participant_session_raw_acc_evaluation_dir, 'transfer_learning_best_cm_hist_dict'), 'wb') as f:
-    pickle.dump([original_model_cm, original_session_test_acc, transfer_model_cm, transfer_session_test_acc], f)
+    pickle.dump([original_model_cm, original_session_test_acc,
+                 transfer_model_cm, transfer_session_test_acc,
+                 transfer_fresh_model_cm, transfer_fresh_session_test_acc], f)
 
 # run sentences through realtime debouncer algorithm

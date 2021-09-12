@@ -228,12 +228,17 @@ for evaluate_trail in evaluate_session_data:
         original_transfer_lite_model_prediction_result[evaluate_trail][1]
     )
 
+    transfer_fresh_lite_model_detection_info = realtime_simulation_debouncer(
+        original_transfer_lite_model_prediction_result[evaluate_trail][2]
+    )
+
     # prediction_results[evaluate_trail] = [original_lite_model_pred_prob_hist_buffer, transfer_lite_model_pred_prob_hist_buffer]
 
     # plot_realtime_simulation(pred_prob_hist_buffer, detect_chars_buffer, detect_chars_index_buffer)
     prediction_results[evaluate_trail] = [(grdt_chars, grdt_chars_index),
                                           original_lite_model_detection_info,
-                                          transfer_lite_model_detection_info
+                                          transfer_lite_model_detection_info,
+                                          transfer_fresh_lite_model_detection_info
                                           ]
 
 with open(os.path.join(participant_session_evaluation_dir, 'raw_prediction_evaluation'), 'wb') as f:

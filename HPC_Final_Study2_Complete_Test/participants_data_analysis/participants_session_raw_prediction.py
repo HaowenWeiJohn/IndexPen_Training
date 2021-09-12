@@ -86,7 +86,7 @@ from data_utils.prediction_utils import *
 
 # load current session data
 
-# sys.argv.append('participant_2')
+# sys.argv.append('participant_1')
 # sys.argv.append('session_3')
 # sys.argv.append('1')
 
@@ -112,6 +112,11 @@ session_index = int(session_name.split("_")[-1])
 participant_session_transfer_train_dir = os.path.join(transfer_result_save_dir, participant_name,
                                                       'session_' + str(session_index - 1))
 
+transfer_fresh_model_result_save_dir = '../participants_session_transfer_train_fresh_model'
+session_index = int(session_name.split("_")[-1])
+participant_session_transfer_train_fresh_model_dir = os.path.join(transfer_fresh_model_result_save_dir, participant_name,
+                                                      'session_' + str(session_index - 1))
+
 # the evaluation dir with model should be the previous session
 evaluation_result_save_dir = '../participants_session_raw_prediction'
 participant_evaluation_dir = os.path.join(evaluation_result_save_dir, participant_name)
@@ -120,14 +125,21 @@ participant_session_evaluation_dir = os.path.join(participant_evaluation_dir, se
 
 if session_index == 1:
     transfer_model_path = original_model_path
-    transfer_lite_model_path = indexpen_study2_original_lite_model_path
+    transfer_lite_model_path = original_lite_model_path
+    transfer_fresh_model_path = indexpen_study2_fresh_model_path
+    transfer_fresh_lite_model_path = indexpen_study2_fresh_lite_model_path
 else:
     if not os.path.isdir(participant_session_transfer_train_dir):
         print('Please run the transfer learning model first')
         sys.exit(0)
     transfer_model_path = os.path.join(participant_session_transfer_train_dir, 'transfer_model.h5')
     transfer_lite_model_path = os.path.join(participant_session_transfer_train_dir,
-                                            'session_' + str(session_index - 1)+'_lite_models',
+                                            session_name+'_lite_models',
+                                            'indexpen_model.tflite')
+
+    transfer_fresh_model_path = os.path.join(participant_session_transfer_train_fresh_model_dir, 'transfer_model.h5')
+    transfer_fresh_lite_model_path = os.path.join(participant_session_transfer_train_fresh_model_dir,
+                                            session_name+'_lite_models',
                                             'indexpen_model.tflite')
 
 # create participant evaluation file
@@ -139,6 +151,7 @@ if os.path.isdir(participant_session_evaluation_dir):
 os.mkdir(participant_session_evaluation_dir)
 
 transfer_model = tf.keras.models.load_model(transfer_model_path)
+transfer_fresh_model = tf.keras.models.load_model(transfer_fresh_model_path)
 original_model = tf.keras.models.load_model(original_model_path)
 
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
@@ -209,6 +222,9 @@ original_model_interpreter.allocate_tensors()
 transfer_model_interpreter = tf.lite.Interpreter(transfer_lite_model_path)
 transfer_model_interpreter.allocate_tensors()
 
+transfer_fresh_model_interpreter = tf.lite.Interpreter(transfer_fresh_lite_model_path)
+transfer_fresh_model_interpreter.allocate_tensors()
+
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 prediction_results = {}
@@ -232,7 +248,14 @@ for evaluate_trail in evaluate_session_data:
                         buffer_size=120,
                         interpreter=transfer_model_interpreter)
 
-    prediction_results[evaluate_trail] = [original_lite_model_pred_prob_hist_buffer, transfer_lite_model_pred_prob_hist_buffer]
+    transfer_fresh_lite_model_pred_prob_hist_buffer = realtime_simulation_raw_prediction(rd_map_series=rd_map_series,
+                        ra_map_series=ra_map_series,
+                        buffer_size=120,
+                        interpreter=transfer_fresh_model_interpreter)
+
+    prediction_results[evaluate_trail] = [original_lite_model_pred_prob_hist_buffer,
+                                          transfer_lite_model_pred_prob_hist_buffer,
+                                          transfer_fresh_lite_model_pred_prob_hist_buffer]
 
     # plot_realtime_simulation(pred_prob_hist_buffer, detect_chars_buffer, detect_chars_index_buffer)
 
