@@ -27,7 +27,7 @@ from data_utils.prediction_utils import *
 ######
 
 
-sys.argv.append('participant_1')
+sys.argv.append('participant_2')
 sys.argv.append('session_3')
 # sys.argv.append('1')
 
@@ -69,15 +69,21 @@ for dirs in os.listdir(participant_raw_acc_evaluation_dir):
     session_index.append('S'+dirs.split('_')[-1])
 
 
-fig = plt.figure(figsize=(15,15))
+fig = plt.figure(figsize=(20,15))
 ax = fig.add_subplot(111)
 
 ax.plot(session_index, original_model_acc, linewidth=5, markersize=120, label='Base Model')
 ax.plot(session_index, transfer_model_acc, linewidth=5, markersize=120, label='Transfer Model')
 ax.plot(session_index, transfer_fresh_model_acc, linewidth=5, markersize=120, label='Transfer Fresh Model')
 ax.grid()
-ax.legend(fontsize=30, loc='lower right')
-ax.set_ylim([0, 1])
+box = ax.get_position()
+ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                 box.width, box.height * 0.9])
+# Put a legend below current axis
+ax.legend(fontsize=25, loc='upper center', bbox_to_anchor=(0.5, -0.15),
+          fancybox=True, shadow=True, ncol=5)
+
+ax.set_ylim([-0.05, 1])
 ax.set_xlabel('Session')
 ax.set_ylabel('Accuracy')
 ax.set_title(participant_name)
@@ -114,15 +120,23 @@ for dirs in os.listdir(participant_raw_prediction_evaluation_dir):
     transfer_levenshtein_distances.append(np.mean(session_transfer_lsd))
     transfer_fresh_levenshtein_distances.append(np.mean(session_transfer_fresh_lsd))
 
-fig = plt.figure(figsize=(15,15))
+fig = plt.figure(figsize=(20,15))
 ax = fig.add_subplot(111)
 
 ax.plot(session_index, original_levenshtein_distances, linewidth=5, markersize=120, label='Base Model')
 ax.plot(session_index, transfer_levenshtein_distances, linewidth=5, markersize=120, label='Transfer Model')
-ax.plot(session_index, transfer_fresh_session_test_acc, linewidth=5, markersize=120, label='Transfer Fresh Model')
+ax.plot(session_index, transfer_fresh_levenshtein_distances, linewidth=5, markersize=120, label='Transfer Fresh Model')
 ax.grid()
-ax.legend(fontsize=30, loc='lower right')
-ax.set_ylim([0, 1])
+# ax.legend(fontsize=60, loc='center left', bbox_to_anchor=(1, 0.5))
+
+box = ax.get_position()
+ax.set_position([box.x0, box.y0 + box.height * 0.1,
+                 box.width, box.height * 0.9])
+# Put a legend below current axis
+ax.legend(fontsize=25, loc='upper center', bbox_to_anchor=(0.5, -0.15),
+          fancybox=True, shadow=True, ncol=5)
+
+ax.set_ylim([-0.05, 1])
 ax.set_xlabel('Session')
 ax.set_ylabel('String Similarity')
 ax.set_title(participant_name)

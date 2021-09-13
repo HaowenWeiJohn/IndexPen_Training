@@ -134,12 +134,12 @@ else:
         sys.exit(0)
     transfer_model_path = os.path.join(participant_session_transfer_train_dir, 'transfer_model.h5')
     transfer_lite_model_path = os.path.join(participant_session_transfer_train_dir,
-                                            session_name+'_lite_models',
+                                            'session_' + str(session_index - 1) + '_lite_models',
                                             'indexpen_model.tflite')
 
     transfer_fresh_model_path = os.path.join(participant_session_transfer_train_fresh_model_dir, 'transfer_model.h5')
     transfer_fresh_lite_model_path = os.path.join(participant_session_transfer_train_fresh_model_dir,
-                                            session_name+'_lite_models',
+                                            'session_' + str(session_index - 1) +'_lite_models',
                                             'indexpen_model.tflite')
 
 # create participant evaluation file

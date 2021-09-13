@@ -31,9 +31,10 @@ from tensorflow.keras.callbacks import CSVLogger
 
 
 def merge_two_dicts(x, y):
-    z = x.copy()   # start with keys and values of x
-    z.update(y)    # modifies z with keys and values of y
+    z = x.copy()  # start with keys and values of x
+    z.update(y)  # modifies z with keys and values of y
     return z
+
 
 def noise_augmentation(x, y, mean=0, std=10, augmentation_factor=10, min_threshold=None, max_threshold=None,
                        time_series=True):
@@ -68,10 +69,9 @@ def dtw_image_archive(target_ts_img, known_ts_img, duration=120):
     target_ts_img = target_ts_img.reshape((duration, -1))
     known_ts_img = known_ts_img.reshape((duration, -1))
 
-
     for channel in range(0, target_ts_img.shape[-1]):
         distance, paths = dtw.warping_paths(target_ts_img[:, channel], known_ts_img[:, channel])
-        total_distance +=distance
+        total_distance += distance
 
     return total_distance
 
@@ -87,24 +87,24 @@ def dtw_rd(target_ts_img, known_ts_img, duration=120, filename="warp.png"):
     target_ts_img[target_ts_img < 0] = 0
     known_ts_img[known_ts_img < 0] = 0
 
-    tar_neg_speed_avg = target_ts_img[:, :, 0:8].mean(axis=(1,2))
-    tar_pos_speed_avg = target_ts_img[:, :, 8:16].mean(axis=(1,2))
-    known_neg_speed_avg = known_ts_img[:, :, 0:8].mean(axis=(1,2))
-    known_pos_speed_avg = known_ts_img[:, :, 8:16].mean(axis=(1,2))
+    tar_neg_speed_avg = target_ts_img[:, :, 0:8].mean(axis=(1, 2))
+    tar_pos_speed_avg = target_ts_img[:, :, 8:16].mean(axis=(1, 2))
+    known_neg_speed_avg = known_ts_img[:, :, 0:8].mean(axis=(1, 2))
+    known_pos_speed_avg = known_ts_img[:, :, 8:16].mean(axis=(1, 2))
 
     distance_neg, paths_neg = dtw.warping_paths(s1=tar_neg_speed_avg, s2=known_neg_speed_avg)
     distance_pos, paths_pos = dtw.warping_paths(s1=tar_pos_speed_avg, s2=known_pos_speed_avg)
 
-    distance = distance_neg+distance_pos
+    distance = distance_neg + distance_pos
     # for channel in range(0, target_ts_img.shape[-1]):
     #     distance, paths = dtw.warping_paths(target_ts_img[:, channel], known_ts_img[:, channel])
     #     total_distance += distance
 
     path = dtw.warping_path(tar_neg_speed_avg, known_neg_speed_avg)
-    dtwvis.plot_warping(tar_neg_speed_avg.flatten(), known_neg_speed_avg.flatten(), path, filename=filename+'_neg')
+    dtwvis.plot_warping(tar_neg_speed_avg.flatten(), known_neg_speed_avg.flatten(), path, filename=filename + '_neg')
 
     path = dtw.warping_path(tar_pos_speed_avg, known_pos_speed_avg)
-    dtwvis.plot_warping(tar_pos_speed_avg.flatten(), known_pos_speed_avg.flatten(), path, filename=filename+'_pos')
+    dtwvis.plot_warping(tar_pos_speed_avg.flatten(), known_pos_speed_avg.flatten(), path, filename=filename + '_pos')
 
     return distance
 
@@ -118,6 +118,36 @@ def levenshtein_ratio_and_distance(s, t, ratio_calc=False):
         distance between the first i characters of s and the
         first j characters of t
     """
+    # if empty result
+
+    if len(s) == 0 or len(t) == 0:
+        if len(s) == 0 and len(t) == 0:
+            ratio = 1
+            distance = 0
+        else:
+            # longer = len(s) if len(s) > 0 else longer = len(t)
+            if len(s)!=0:
+                longer=len(s)
+            else:
+                longer=len(t)
+            ratio=0
+            distance=longer
+
+        if ratio_calc is True:
+            return ratio
+        else:
+            return "The strings are {} edits away".format(distance)
+        # if ratio_calc==True:
+        #     if len(s)==0 and len(t)==0:
+        #         return float(0)
+        #     else:
+        #         return len(s) if len(s)>len(t) else len(t)
+
+        # else:
+        #     distance=len(s)
+        #
+        #     return "The strings are {} edits away".format()
+
     # Initialize matrix of zeros
     rows = len(s) + 1
     cols = len(t) + 1
@@ -153,6 +183,7 @@ def levenshtein_ratio_and_distance(s, t, ratio_calc=False):
         # insertions and/or substitutions
         # This is the minimum number of edits needed to convert string a to string b
         return "The strings are {} edits away".format(distance[row][col])
+
 
 def replace_special(target_str: str, replacement_dict):
     for special, replacement in replacement_dict.items():
