@@ -1,7 +1,7 @@
 import os
 
 
-analysis_session = [(2,4)]
+analysis_session = [(3,1)]
 
 for session_info in analysis_session:
     participant_name = 'participant_' + str(session_info[0])
