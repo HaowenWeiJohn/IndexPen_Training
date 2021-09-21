@@ -86,8 +86,8 @@ from data_utils.prediction_utils import *
 
 # load current session data
 
-# sys.argv.append('participant_2')
-# sys.argv.append('session_1')
+sys.argv.append('participant_2')
+sys.argv.append('session_1')
 
 
 argv_len = sys.argv
@@ -142,7 +142,10 @@ os.mkdir(participant_session_evaluation_dir)
 # original_model = tf.keras.models.load_model(original_model_path)
 
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
-    evaluate_session_data = pickle.load(f)
+    participant_dir, session_dir, evaluate_session_data = pickle.load(f)
+if participant_dir != participant_name or session_dir != session_name:
+    print('Data Session Error!')
+    sys.exit(-1)
 
 with open(os.path.join(participant_session_raw_prediction_dir, 'original_transfer_lite_model_prediction_result'), 'rb') as f:
     original_transfer_lite_model_prediction_result = pickle.load(f)
