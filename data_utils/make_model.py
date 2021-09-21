@@ -612,7 +612,7 @@ def make_complex_model_upgrade(class_num, learning_rate=1e-4, decay=1e-7, points
     model.summary()
     return model
 
-def make_complex_model_without_RA(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample,
+def make_complex_model_exclude_ra_rd(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample,exclude='ra',
                                   rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                                   ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
                                   cv_reg=1e-6,
@@ -683,7 +683,8 @@ def make_complex_model_without_RA(class_num, learning_rate=1e-4, decay=1e-7, poi
     # mmw_razi_TDCNN.add(TimeDistributed(MaxPooling2D(pool_size=2)))
     mmw_razi_TDCNN.add(TimeDistributed(Flatten()))  # this should be where layers meets
 
-    merged = concatenate([mmw_rdpl_TDCNN.output, mmw_razi_TDCNN.output])  # concatenate two feature extractors
+    # merged = concatenate([mmw_rdpl_TDCNN.output, mmw_razi_TDCNN.output])  # concatenate two feature extractors
+
     regressive_tensor = LSTM(units=32, return_sequences=True, kernel_initializer='random_uniform',
                              kernel_regularizer=tf.keras.regularizers.l2(l=1e-4),
                              recurrent_regularizer=tf.keras.regularizers.l2(l=1e-5),

@@ -5,6 +5,7 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.callbacks import CSVLogger
 from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
