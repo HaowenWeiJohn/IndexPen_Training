@@ -151,7 +151,7 @@ for this_session_index in range(1, session_index+1):
     this_session_file_path = os.path.join(participant_data_dir, 'session_' + str(this_session_index))
     with open(this_session_file_path, 'rb') as f:
         user_study2_data_save_dir, participant_dir, this_session_data = pickle.load(f)
-    if user_study2_data_save_dir!=participant_name or participant_dir!=session_name:
+    if user_study2_data_save_dir!=participant_name or participant_dir!=this_session_index:
         print('Data Session Error!')
         sys.exit(-1)
     # remove error frame using the csv file
