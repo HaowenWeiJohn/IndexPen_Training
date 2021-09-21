@@ -97,7 +97,7 @@ print('Argument List:', str(sys.argv))
 participant_name = sys.argv[1]
 session_name = sys.argv[2]
 # offline_evaluation = sys.argv[3]
-
+print(participant_name, ' ', session_name, ' session_raw_prediction')
 
 random_state = 3
 
@@ -232,6 +232,7 @@ transfer_fresh_model_interpreter.allocate_tensors()
 # os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 prediction_results = {}
 for evaluate_trail in evaluate_session_data:
+    print(evaluate_trail)
     rd_map_series = evaluate_session_data[evaluate_trail][1][0][0]
     ra_map_series = evaluate_session_data[evaluate_trail][1][0][1]
 

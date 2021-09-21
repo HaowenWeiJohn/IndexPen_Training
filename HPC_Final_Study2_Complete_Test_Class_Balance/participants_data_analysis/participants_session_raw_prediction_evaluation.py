@@ -97,6 +97,7 @@ print('Argument List:', str(sys.argv))
 participant_name = sys.argv[1]
 session_name = sys.argv[2]
 # offline_evaluation = sys.argv[3]
+print(participant_name, ' ', session_name, ' session_raw_prediction_evaluation')
 
 
 random_state = 3
