@@ -7,6 +7,7 @@ sys.path.insert(1, '/home/hwei/work/HaowenWeiDeepLearning/IndexPenTrainingDir/In
 analysis_session = [(2,1), (2,2), (2,3), (2,4)]
 
 os_type = platform.system()
+print(os_type)
 if os_type=="Windows":
     offset = ''
 else:
