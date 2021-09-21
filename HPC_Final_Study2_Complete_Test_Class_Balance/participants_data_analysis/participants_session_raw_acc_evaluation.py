@@ -156,7 +156,10 @@ transfer_fresh_model = tf.keras.models.load_model(transfer_fresh_model_path)
 original_model = tf.keras.models.load_model(original_model_path)
 
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
-    evaluate_session_data = pickle.load(f)
+    user_study2_data_save_dir, participant_dir, evaluate_session_data = pickle.load(f)
+if user_study2_data_save_dir != participant_name or participant_dir != session_name:
+    print('Data Session Error!')
+    sys.exit(-1)
 
 X_mmw_rD_evaluate = []
 X_mmw_rA_evaluate = []
@@ -225,7 +228,6 @@ plt.rcdefaults()
 transfer_fresh_session_test_acc = accuracy_score(Y_transfer_fresh_test_class, Y_transfer_fresh_pred_class)
 print("best_evaluate_session_accuracy_score_with_transfer_fresh_model:",
       transfer_fresh_session_test_acc)
-
 
 #####################################
 ### realtime evaluation run all the sentences through original model and transfered model
