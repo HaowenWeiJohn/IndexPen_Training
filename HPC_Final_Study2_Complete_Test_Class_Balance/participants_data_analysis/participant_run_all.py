@@ -4,7 +4,7 @@ import platform
 sys.path.insert(1, '/home/hwei/work/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/HPC_Final_Study2_Complete_Test_Class_Balance/participants_data_analysis')
 
 
-analysis_session = [(2,1), (2,2), (2,3), (2,4)]
+analysis_session = [(1,1), (1,2), (1,3), (1,4), (1,5)]
 
 os_type = platform.system()
 print(os_type)
