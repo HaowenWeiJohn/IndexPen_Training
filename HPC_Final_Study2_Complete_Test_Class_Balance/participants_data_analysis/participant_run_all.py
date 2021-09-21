@@ -11,7 +11,7 @@ print(os_type)
 if os_type=="Windows":
     offset = ''
 else:
-    offset='Python3 '
+    offset='Python '
 
 for session_info in analysis_session:
     participant_name = 'participant_' + str(session_info[0])
