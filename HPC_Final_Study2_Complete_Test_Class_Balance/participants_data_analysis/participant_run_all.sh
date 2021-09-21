@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="5User_CBA_Ultimate_Model"
+#SBATCH --job-name="study2_run_all_test"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err

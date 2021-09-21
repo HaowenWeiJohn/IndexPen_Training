@@ -1,10 +1,10 @@
 import os
 import sys
 
-analysis_session = [(1,1), (1,2), (1,3), (1,4), (1,5), (3,1)]
-
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training/HPC_Final_Study2_Complete_Test_Class_Balance/participants_data_analysis')
 
+
+analysis_session = [(1,1), (1,2), (1,3), (1,4), (1,5), (3,1)]
 for session_info in analysis_session:
     participant_name = 'participant_' + str(session_info[0])
     session_name = 'session_'+ str(session_info[1])
