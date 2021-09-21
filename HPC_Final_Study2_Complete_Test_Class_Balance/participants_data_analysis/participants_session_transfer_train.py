@@ -9,9 +9,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold, StratifiedShuffleSplit
-from sklearn.utils import compute_class_weight, compute_sample_weight
 from tensorflow.keras.callbacks import CSVLogger
 from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
 import time
@@ -22,7 +20,7 @@ import sys
 # Prepare the lite model for that session. If this is session 1, we ignore it and use the generated model
 
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
-from data_utils.data_general_utils import *
+
 from data_utils.data_config import *
 from data_utils.make_model import *
 from data_utils.ploting import *
@@ -36,7 +34,7 @@ from data_utils.ploting import *
             loss png
             acc png
             history pickle
-            
+
         session2_result:
             .............
             .............        
@@ -61,7 +59,7 @@ from data_utils.ploting import *
                             sentence7.
                             sentence8.
                             sentence9.
-                            
+
                     raw:
                             sentence0. {raw time series +-4 sec before and after the  session}
                             sentence1.
@@ -76,8 +74,8 @@ from data_utils.ploting import *
                             sentence9.
                     }
                 Session2 pickle
-    
-    
+
+
     Coding task
         transfer_learning:
             train: first 5 sentences of that session and all the data before that session for the user
@@ -96,7 +94,6 @@ from data_utils.ploting import *
 sys.argv.append('participant_3')
 sys.argv.append('session_1')
 
-
 argv_len = sys.argv
 print('Number of arguments:', argv_len, 'arguments.')
 print('Argument List:', str(sys.argv))
@@ -114,7 +111,6 @@ original_model_path = indexpen_study2_original_model_path
 
 load_data_dir = '../../data/IndexPenData/IndexPenStudyData/UserStudy2Data/'
 participant_data_dir = os.path.join(load_data_dir, participant_name)
-
 
 result_save_dir = '../participants_session_transfer_train'
 participant_save_dir = os.path.join(result_save_dir, participant_name)
@@ -143,31 +139,28 @@ os.mkdir(participant_session_transfer_train_dir)
 #     # original_model.save(os.path.join(participant_session_transfer_train_dir, 'transfer_model.h5'))
 #     sys.exit(0)
 error_notes = pd.read_csv(os.path.join(indexpen_study2_error_recording_dir,
-                                       participant_name+
+                                       participant_name +
                                        '_error_recording_form.csv'), index_col=0)
 train_trails = {}
 trail_index = 0
-for this_session_index in range(1, session_index+1):
+for this_session_index in range(1, session_index + 1):
     this_session_file_path = os.path.join(participant_data_dir, 'session_' + str(this_session_index))
     with open(this_session_file_path, 'rb') as f:
-        participant_dir, session_dir, this_session_data = pickle.load(f)
-    if participant_dir!=participant_name or session_dir!='session_' + str(this_session_index):
-        print('Data Session Error!')
-        sys.exit(-1)
+        this_session_data = pickle.load(f)
     # remove error frame using the csv file
     for error_target_trail in this_session_data:
-        trail_error_list = error_notes.loc[str(error_target_trail)+'_error', :]
+        trail_error_list = error_notes.loc[str(error_target_trail) + '_error', :]
         for error_sample_index in range(0, len(trail_error_list)):
             if pd.isnull(trail_error_list[error_sample_index]) is False:
-                    this_session_data[int(error_target_trail)][0][0][0] = \
-                        np.delete(this_session_data[int(error_target_trail)][0][0][0], error_sample_index, axis=0)
-                    this_session_data[int(error_target_trail)][0][0][1] = \
-                        np.delete(this_session_data[int(error_target_trail)][0][0][1], error_sample_index, axis=0)
+                this_session_data[int(error_target_trail)][0][0][0] = \
+                    np.delete(this_session_data[int(error_target_trail)][0][0][0], error_sample_index, axis=0)
+                this_session_data[int(error_target_trail)][0][0][1] = \
+                    np.delete(this_session_data[int(error_target_trail)][0][0][1], error_sample_index, axis=0)
 
-                    this_session_data[int(error_target_trail)][0] = list(this_session_data[int(error_target_trail)][0])
-                    this_session_data[int(error_target_trail)][0][1] = \
-                        np.delete(this_session_data[int(error_target_trail)][0][1], error_sample_index, axis=0)
-                    this_session_data[int(error_target_trail)][0] = tuple(this_session_data[int(error_target_trail)][0])
+                this_session_data[int(error_target_trail)][0] = list(this_session_data[int(error_target_trail)][0])
+                this_session_data[int(error_target_trail)][0][1] = \
+                    np.delete(this_session_data[int(error_target_trail)][0][1], error_sample_index, axis=0)
+                this_session_data[int(error_target_trail)][0] = tuple(this_session_data[int(error_target_trail)][0])
 
     # error_samples = error_notes.loc[participant_name]['session_' + str(this_session_index)]
     # if pd.isnull(error_samples) is False:
@@ -184,10 +177,6 @@ for this_session_index in range(1, session_index+1):
     #             this_session_data[int(error_target_trail)][0][1] = \
     #                 np.delete(this_session_data[int(error_target_trail)][0][1], error_sample_index, axis=0)
     #             this_session_data[int(error_target_trail)][0] = tuple(this_session_data[int(error_target_trail)][0])
-
-
-
-
 
     for this_trail_index in this_session_data:
         train_trails[this_trail_index] = this_session_data[this_trail_index]
@@ -207,9 +196,6 @@ for trail in train_trails:
         X_mmw_rD = np.concatenate([X_mmw_rD, train_trails[trail][0][0][0]])
         X_mmw_rA = np.concatenate([X_mmw_rA, train_trails[trail][0][0][1]])
         Y = np.concatenate([Y, train_trails[trail][0][1]])
-
-
-
 
 X_mmw_rD_train, X_mmw_rD_test, Y_train, Y_test = train_test_split(X_mmw_rD, Y, stratify=Y, test_size=0.20,
                                                                   random_state=random_state,
@@ -237,23 +223,16 @@ csv_logger = CSVLogger(filename=transfer_model_csv_log_path,
                        append=True)
 # save model path
 transfer_model_path = os.path.join(participant_session_transfer_train_dir,
-                                        'transfer_model.h5')
+                                   'transfer_model.h5')
 mc = ModelCheckpoint(
     filepath=transfer_model_path,
     monitor='val_accuracy', mode='max', verbose=1, save_best_only=True)
 #
-
-y_integers = np.argmax(Y_train, axis=1)
-class_weights = compute_class_weight('balanced', np.unique(y_integers), y_integers)
-d_class_weights = dict(enumerate(class_weights))
-sample_weights = compute_sample_weight(class_weight='balanced', y=y_integers)
-
 training_start_time = time.time()
 #
 history = transfer_model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                              validation_data=(
                                  [X_mmw_rD_test, X_mmw_rA_test], Y_test),
-                             sample_weight=sample_weights,
                              epochs=1000,
                              batch_size=round(len(X_mmw_rD_train) / 32),
                              validation_batch_size=64,
@@ -300,9 +279,7 @@ transfer_test_acc = accuracy_score(Y_transfer_test_class, Y_transfer_pred_class)
 print('best_accuracy_score: ', transfer_test_acc)
 
 with open(os.path.join(participant_session_transfer_train_dir, 'transfer_learning_best_cm_hist_dict'), 'wb') as f:
-    pickle.dump([Y_transfer_test_class, Y_transfer_pred_class], f)
-
-
+    pickle.dump([transfer_model_cm, transfer_test_acc], f)
 
 ######################## light model converter #####################################
 original_model = tf.keras.models.load_model(transfer_model_path)
@@ -311,7 +288,7 @@ converter = tf.lite.TFLiteConverter.from_keras_model(original_model)  # path to 
 # converter.post_training_quantize=True
 tflite_model = converter.convert()
 
-lite_model_save_path = os.path.join(participant_session_transfer_train_dir, session_name+"_lite_models/")
+lite_model_save_path = os.path.join(participant_session_transfer_train_dir, session_name + "_lite_models/")
 tflite_models_dir = pathlib.Path(lite_model_save_path)
 tflite_models_dir.mkdir(exist_ok=True, parents=True)
 
@@ -324,6 +301,5 @@ converter.target_spec.supported_types = [tf.float16]
 tflite_quant_model = converter.convert()
 tflite_model_quant_file = tflite_models_dir / "indexpen_model_quant.tflite"
 tflite_model_quant_file.write_bytes(tflite_quant_model)
-
 
 # #************************************ load current session data for evaluation: **********************************
