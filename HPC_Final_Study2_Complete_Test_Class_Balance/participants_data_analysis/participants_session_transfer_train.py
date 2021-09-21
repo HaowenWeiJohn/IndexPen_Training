@@ -22,7 +22,7 @@ import sys
 # Prepare the lite model for that session. If this is session 1, we ignore it and use the generated model
 
 sys.path.insert(1, '/work/hwei/HaowenWeiDeepLearning/IndexPenTrainingDir/IndexPen_Training')
-
+from data_utils.data_general_utils import *
 from data_utils.data_config import *
 from data_utils.make_model import *
 from data_utils.ploting import *
