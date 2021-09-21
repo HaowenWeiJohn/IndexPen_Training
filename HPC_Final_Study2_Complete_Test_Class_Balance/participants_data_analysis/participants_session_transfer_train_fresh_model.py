@@ -160,6 +160,8 @@ for this_session_index in range(1, session_index+1):
         trail_error_list = error_notes.loc[str(error_target_trail)+'_error', :]
         for error_sample_index in range(0, len(trail_error_list)):
             if pd.isnull(trail_error_list[error_sample_index]) is False:
+                    print('find error sample :)')
+
                     this_session_data[int(error_target_trail)][0][0][0] = \
                         np.delete(this_session_data[int(error_target_trail)][0][0][0], error_sample_index, axis=0)
                     this_session_data[int(error_target_trail)][0][0][1] = \
