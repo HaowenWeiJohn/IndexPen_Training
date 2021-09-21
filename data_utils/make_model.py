@@ -1,31 +1,8 @@
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-
-import numpy as np
-
-import datetime
-
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
-import numpy as np
 import tensorflow as tf
 
-from tensorflow.keras import backend as K
-from tensorflow.python.keras.models import load_model
-from tensorflow.python.keras import Sequential, Model, Input
+from tensorflow.python.keras import Sequential, Model
 from tensorflow.python.keras.layers import TimeDistributed, Conv2D, BatchNormalization, MaxPooling2D, Flatten, \
     concatenate, LSTM, Dropout, Dense
-import os
-from tensorflow import keras
-
-from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
-
-import matplotlib.pyplot as plt
-from tensorflow.python.client import device_lib
-import os
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve, auc
-import pickle
-from tensorflow.keras.callbacks import CSVLogger
 
 points_per_sample = 120
 rd_shape = (8, 16)
