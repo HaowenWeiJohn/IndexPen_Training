@@ -11,6 +11,7 @@ import numpy as np
 import tensorflow as tf
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold, StratifiedShuffleSplit
+from sklearn.utils import compute_class_weight, compute_sample_weight
 from tensorflow.keras.callbacks import CSVLogger
 from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
 import time
@@ -233,11 +234,17 @@ mc = ModelCheckpoint(
     filepath=transfer_model_path,
     monitor='val_accuracy', mode='max', verbose=1, save_best_only=True)
 #
+y_integers = np.argmax(Y_train, axis=1)
+class_weights = compute_class_weight('balanced', np.unique(y_integers), y_integers)
+d_class_weights = dict(enumerate(class_weights))
+sample_weights = compute_sample_weight(class_weight='balanced', y=y_integers)
+
 training_start_time = time.time()
 #
 history = transfer_model.fit([X_mmw_rD_train, X_mmw_rA_train], Y_train,
                              validation_data=(
                                  [X_mmw_rD_test, X_mmw_rA_test], Y_test),
+                             sample_weight=sample_weights,
                              epochs=1000,
                              batch_size=round(len(X_mmw_rD_train) / 32),
                              validation_batch_size=64,
