@@ -41,7 +41,7 @@ def realtime_simulation_raw_prediction(ra_map_series, rd_map_series,
         # push in sample
         rd_hist_buffer.append(rd_map_series[index])
         ra_hist_buffer.append(ra_map_series[index])
-        print(index)
+        # print(index)
         if rd_hist_buffer.__len__() == rd_hist_buffer.maxlen:
 
             interpreter.set_tensor(input1_index,
@@ -101,9 +101,9 @@ def realtime_simulation_debouncer(pred_prob_hist_buffer,
             # zero out the debouncer that inactivated for debouncerProbThreshold frames
 
             if len(detects) > 0:
-                # print(detects)
+                print(detects)
                 detect_char = indexpen_classes[detects[0][0]]
-                # print(detect_char)
+                print(detect_char)
                 detect_chars_buffer.append(detect_char)
                 detect_chars_index_buffer.append(index)
                 debouncer = np.zeros(31)
@@ -144,7 +144,7 @@ def prediction_archive(ra_map_series, rd_map_series,
         # push in sample
         rd_hist_buffer.append(rd_map_series[index])
         ra_hist_buffer.append(ra_map_series[index])
-        print(index)
+        # print(index)
         if rd_hist_buffer.__len__() == rd_hist_buffer.maxlen:
             # start prediction
             if relaxCounter == relaxPeriod:
