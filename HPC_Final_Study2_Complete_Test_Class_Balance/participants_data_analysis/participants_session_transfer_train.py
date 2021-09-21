@@ -290,7 +290,7 @@ plt.rcdefaults()
 transfer_test_acc = accuracy_score(Y_transfer_test_class, Y_transfer_pred_class)
 print('best_accuracy_score: ', transfer_test_acc)
 
-with open(os.path.join(participant_session_transfer_train_dir, 'transfer_learning_best_cm_hist_dict'), 'wb') as f:
+with open(os.path.join(participant_session_transfer_train_dir, 'transfer_learning_best_y_true_y_pred'), 'wb') as f:
     pickle.dump([transfer_model_cm, transfer_test_acc], f)
 
 ######################## light model converter #####################################
