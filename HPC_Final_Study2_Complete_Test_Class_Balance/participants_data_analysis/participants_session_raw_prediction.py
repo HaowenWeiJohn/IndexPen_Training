@@ -155,8 +155,8 @@ transfer_fresh_model = tf.keras.models.load_model(transfer_fresh_model_path)
 original_model = tf.keras.models.load_model(original_model_path)
 
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
-    user_study2_data_save_dir, participant_dir, evaluate_session_data = pickle.load(f)
-if user_study2_data_save_dir != participant_name or participant_dir != session_name:
+    participant_dir, session_dir, evaluate_session_data = pickle.load(f)
+if participant_dir != participant_name or session_dir != session_name:
     print('Data Session Error!')
     sys.exit(-1)
 
