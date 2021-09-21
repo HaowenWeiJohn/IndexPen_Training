@@ -262,8 +262,10 @@ print("best_evaluate_session_accuracy_score_with_transfer_fresh_model:",
 
 
 with open(os.path.join(participant_session_raw_acc_evaluation_dir, 'transfer_learning_best_cm_hist_dict'), 'wb') as f:
-    pickle.dump([original_model_cm, original_session_test_acc,
-                 transfer_model_cm, transfer_session_test_acc,
-                 transfer_fresh_model_cm, transfer_fresh_session_test_acc], f)
+    pickle.dump([
+        [Y_original_test_class, Y_original_pred_class],
+        [Y_transfer_test_class, Y_transfer_pred_class],
+        [Y_transfer_fresh_test_class, Y_transfer_fresh_pred_class]
+    ], f)
 
 # run sentences through realtime debouncer algorithm

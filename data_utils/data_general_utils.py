@@ -190,3 +190,19 @@ def replace_special(target_str: str, replacement_dict):
         # print('replacing ' + special)
         target_str = target_str.replace(special, replacement)
     return target_str
+
+#
+# def train_test_eq_split(X, y, n_per_class, random_state=3):
+#     if random_state:
+#         np.random.seed(random_state)
+#     sampled = X.groupby(y, sort=False).apply(
+#         lambda frame: frame.sample(n_per_class))
+#     mask = sampled.index.get_level_values(1)
+#
+#     X_train = X.drop(mask)
+#     X_test = X.loc[mask]
+#     y_train = y.drop(mask)
+#     y_test = y.loc[mask]
+#
+#     return X_train, X_test, y_train, y_test
+
