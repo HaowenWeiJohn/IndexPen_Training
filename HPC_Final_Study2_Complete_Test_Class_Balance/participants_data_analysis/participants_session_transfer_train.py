@@ -103,6 +103,7 @@ print('Argument List:', str(sys.argv))
 participant_name = sys.argv[1]
 session_name = sys.argv[2]
 # offline_evaluation = sys.argv[3]
+print(participant_name, ' ', session_name, ' transfer')
 
 # make participant directory in participants_session_transfer_train
 
