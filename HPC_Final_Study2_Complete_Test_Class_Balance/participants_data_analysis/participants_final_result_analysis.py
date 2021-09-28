@@ -8,6 +8,7 @@ import warnings
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
+from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold, StratifiedShuffleSplit
 from tensorflow.keras.callbacks import CSVLogger
 from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
@@ -27,7 +28,7 @@ from data_utils.prediction_utils import *
 ######
 
 
-sys.argv.append('participant_1')
+sys.argv.append('participant_2')
 sys.argv.append('session_3')
 # sys.argv.append('1')
 
@@ -57,15 +58,23 @@ plt.rcParams['axes.labelsize'] = 40
 plt.rcParams['axes.titlesize'] = 40
 
 for dirs in os.listdir(participant_raw_acc_evaluation_dir):
-    acc_info_path = os.path.join(participant_raw_acc_evaluation_dir, dirs, 'transfer_learning_best_cm_hist_dict')
+    acc_info_path = os.path.join(participant_raw_acc_evaluation_dir, dirs, 'transfer_learning_best_y_true_y_pred')
     with open(acc_info_path, 'rb') as f:
-        original_model_cm, original_session_test_acc, \
-        transfer_model_cm, transfer_session_test_acc, \
-        transfer_fresh_model_cm, transfer_fresh_session_test_acc \
-                    = pickle.load(f)
-    original_model_acc.append(original_session_test_acc)
-    transfer_model_acc.append(transfer_session_test_acc)
-    transfer_fresh_model_acc.append(transfer_fresh_session_test_acc)
+        original_session_y_true_y_pred, \
+        transfer_session_y_true_y_pred, \
+        transfer_fresh_session_y_true_y_pred = \
+            pickle.load(f)
+    # cacluate f1 score
+    original_session_test_f1 = f1_score(y_true=original_session_y_true_y_pred[0],
+                                        y_pred=original_session_y_true_y_pred[1], average='macro')
+    transfer_session_test_f1 = f1_score(y_true=transfer_session_y_true_y_pred[0],
+                                        y_pred=transfer_session_y_true_y_pred[1], average='macro')
+    transfer_fresh_session_test_f1 = f1_score(y_true=transfer_fresh_session_y_true_y_pred[0],
+                                              y_pred=transfer_fresh_session_y_true_y_pred[1], average='macro')
+
+    original_model_acc.append(original_session_test_f1)
+    transfer_model_acc.append(transfer_session_test_f1)
+    transfer_fresh_model_acc.append(transfer_fresh_session_test_f1)
     session_index.append('S'+dirs.split('_')[-1])
 
 
