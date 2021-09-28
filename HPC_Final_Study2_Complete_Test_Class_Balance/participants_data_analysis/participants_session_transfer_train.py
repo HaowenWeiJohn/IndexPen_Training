@@ -156,6 +156,12 @@ for this_session_index in range(1, session_index + 1):
     # remove error frame using the csv file
     for error_target_trail in this_session_data:
         trail_error_list = error_notes.loc[str(error_target_trail) + '_error', :]
+        trail_error_list_gt = error_notes.loc[str(error_target_trail), :]
+        for index, char_index in enumerate(this_session_data[int(error_target_trail)][1][2]):
+            char = indexpen_classes[int(char_index-1)]
+            if char!=trail_error_list_gt[index]:
+                print('Mismatching error recording and ground truth!')
+
         for error_sample_index in range(0, len(trail_error_list)):
             if pd.isnull(trail_error_list[error_sample_index]) is False:
                 print('find error sample :)')
