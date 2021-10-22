@@ -28,8 +28,8 @@ from data_utils.prediction_utils import *
 ######
 
 
-sys.argv.append('participant_2')
-sys.argv.append('session_3')
+sys.argv.append('participant_17')
+sys.argv.append('session_1')
 # sys.argv.append('1')
 
 argv_len = sys.argv
@@ -42,7 +42,7 @@ session_name = sys.argv[2]
 
 random_state = 3
 
-raw_acc_evaluation_dir = '../participants_session_raw_acc_evaluation'
+raw_acc_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance/participants_session_raw_acc_evaluation'
 ####################################### raw accuracy for every session  #################
 # dir: participants_session_raw_acc_evaluation
 participant_raw_acc_evaluation_dir = os.path.join(raw_acc_evaluation_dir, participant_name)
@@ -103,7 +103,7 @@ plt.show()
 
 ####################################### lavenshtin distance between two sentences after removing Act, Enter, and Nois #################
 # dir: participants_session_raw_prediction_evaluation
-raw_prediction_evaluation_dir = '../participants_session_raw_prediction_evaluation'
+raw_prediction_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance/participants_session_raw_prediction_evaluation'
 participant_raw_prediction_evaluation_dir = os.path.join(raw_prediction_evaluation_dir, participant_name)
 
 original_levenshtein_distances = []
