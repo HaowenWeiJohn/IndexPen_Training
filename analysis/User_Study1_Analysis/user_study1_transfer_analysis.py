@@ -37,7 +37,7 @@ for dir in os.listdir(result_dir):
                 all_acc_dict[key] = np.concatenate((all_acc_dict[key], acc_dict[key]))
 
         acc_dataframe = pd.DataFrame.from_dict(acc_dict)
-        acc_dataframe.boxplot(sym='b.', color='C'+str(subject_index))
+        acc_dataframe.boxplot(sym='C'+str(subject_index), color='C'+str(subject_index))
 
         legend_patch.append(matplotlib.patches.Patch(color='C'+str(subject_index), label='User'+str(subject_index)))
 
@@ -51,7 +51,7 @@ for dir in os.listdir(result_dir):
 
     plt.xlabel('feed in sample ratio of 20 samples/class', fontsize=18)
     plt.ylabel('test accuracy for the leave out 180 samples/class', fontsize=18)
-    plt.title('Transfer Learning 20 Sample/Class Feed in 10 Fold', fontsize=20)
+    plt.title('Transfer Learning 20 Sample/Class 10 Fold', fontsize=20)
 
 
 plt.show()
