@@ -88,8 +88,8 @@ from data_utils.prediction_utils import *
 
 # load current session data
 
-sys.argv.append('participant_1')
-sys.argv.append('session_5')
+sys.argv.append('participant_8')
+sys.argv.append('session_3')
 # sys.argv.append('1')
 
 argv_len = sys.argv
