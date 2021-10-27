@@ -162,7 +162,7 @@ original_model = tf.keras.models.load_model(original_model_path)
 error_notes = pd.read_csv(os.path.join(indexpen_study2_error_recording_dir,
                                        participant_name+
                                        '_error_recording_form.csv'), index_col=0)
-evaluate_trails = {}
+this_session_data = {}
 trail_index = 0
 
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
@@ -217,15 +217,15 @@ Y_evaluate = []
 #         Y = np.concatenate([Y, train_trails[trail][0][1]])
 
 
-for evaluate_trail in evaluate_trails:
+for evaluate_trail in this_session_data:
     if len(X_mmw_rD_evaluate) == 0:
-        X_mmw_rD_evaluate = evaluate_trails[evaluate_trail][0][0][0]
-        X_mmw_rA_evaluate = evaluate_trails[evaluate_trail][0][0][1]
-        Y_evaluate = evaluate_trails[evaluate_trail][0][1]
+        X_mmw_rD_evaluate = this_session_data[evaluate_trail][0][0][0]
+        X_mmw_rA_evaluate = this_session_data[evaluate_trail][0][0][1]
+        Y_evaluate = this_session_data[evaluate_trail][0][1]
     else:
-        X_mmw_rD_evaluate = np.concatenate([X_mmw_rD_evaluate, evaluate_trails[evaluate_trail][0][0][0]])
-        X_mmw_rA_evaluate = np.concatenate([X_mmw_rA_evaluate, evaluate_trails[evaluate_trail][0][0][1]])
-        Y_evaluate = np.concatenate([Y_evaluate, evaluate_trails[evaluate_trail][0][1]])
+        X_mmw_rD_evaluate = np.concatenate([X_mmw_rD_evaluate, this_session_data[evaluate_trail][0][0][0]])
+        X_mmw_rA_evaluate = np.concatenate([X_mmw_rA_evaluate, this_session_data[evaluate_trail][0][0][1]])
+        Y_evaluate = np.concatenate([Y_evaluate, this_session_data[evaluate_trail][0][1]])
 
 ################################
 
