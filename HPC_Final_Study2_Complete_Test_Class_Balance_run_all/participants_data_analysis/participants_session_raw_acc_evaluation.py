@@ -13,6 +13,7 @@ from sklearn.model_selection import train_test_split, RepeatedStratifiedKFold, S
 from tensorflow.keras.callbacks import CSVLogger
 from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
 import time
+import pandas as pd
 from collections import deque
 import sys
 
@@ -157,25 +158,74 @@ transfer_model = tf.keras.models.load_model(transfer_model_path)
 transfer_fresh_model = tf.keras.models.load_model(transfer_fresh_model_path)
 original_model = tf.keras.models.load_model(original_model_path)
 
+
+error_notes = pd.read_csv(os.path.join(indexpen_study2_error_recording_dir,
+                                       participant_name+
+                                       '_error_recording_form.csv'), index_col=0)
+train_trails = {}
+trail_index = 0
+
 with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
-    participant_dir, session_dir, evaluate_session_data = pickle.load(f)
-if participant_dir != participant_name or session_dir != session_name:
+    participant_dir, session_dir, this_session_data = pickle.load(f)
+if participant_dir != participant_name or session_dir != 'session_' + str(session_index):
     print('Data Session Error!')
     sys.exit(-1)
+# remove error frame using the csv file
+for error_target_trail in this_session_data:
+    trail_error_list = error_notes.loc[str(error_target_trail) + '_error', :]
+    trail_error_list_gt = error_notes.loc[str(error_target_trail), :]
+    for index, char_index in enumerate(this_session_data[int(error_target_trail)][1][2]):
+        char = indexpen_classes[int(char_index - 1)]
+        if char != trail_error_list_gt[index]:
+            print('Mismatching error recording and ground truth!')
+
+    for error_sample_index in range(0, len(trail_error_list)):
+        if pd.isnull(trail_error_list[error_sample_index]) is False:
+            print('find error sample: trail ', str(error_target_trail), ' sample ',
+                  str(trail_error_list_gt[error_sample_index]))
+
+    error_index_list = np.where(np.array(trail_error_list) == 'X')[0]
+    print(error_index_list)
+    this_session_data[int(error_target_trail)][0][0][0] = \
+        np.delete(this_session_data[int(error_target_trail)][0][0][0], error_index_list, axis=0)
+    this_session_data[int(error_target_trail)][0][0][1] = \
+        np.delete(this_session_data[int(error_target_trail)][0][0][1], error_index_list, axis=0)
+
+    this_session_data[int(error_target_trail)][0] = list(this_session_data[int(error_target_trail)][0])
+    this_session_data[int(error_target_trail)][0][1] = \
+        np.delete(this_session_data[int(error_target_trail)][0][1], error_index_list, axis=0)
+    this_session_data[int(error_target_trail)][0] = tuple(this_session_data[int(error_target_trail)][0])
+
+# with open(os.path.join(participant_data_dir, session_name), 'rb') as f:
+#     participant_dir, session_dir, evaluate_session_data = pickle.load(f)
+# if participant_dir != participant_name or session_dir != session_name:
+#     print('Data Session Error!')
+#     sys.exit(-1)
 
 X_mmw_rD_evaluate = []
 X_mmw_rA_evaluate = []
 Y_evaluate = []
 
-for evaluate_trail in evaluate_session_data:
+# for trail in train_trails:
+#     if len(X_mmw_rD) == 0:
+#         X_mmw_rD = train_trails[trail][0][0][0]
+#         X_mmw_rA = train_trails[trail][0][0][1]
+#         Y = train_trails[trail][0][1]
+#     else:
+#         X_mmw_rD = np.concatenate([X_mmw_rD, train_trails[trail][0][0][0]])
+#         X_mmw_rA = np.concatenate([X_mmw_rA, train_trails[trail][0][0][1]])
+#         Y = np.concatenate([Y, train_trails[trail][0][1]])
+
+
+for evaluate_trail in train_trails:
     if len(X_mmw_rD_evaluate) == 0:
-        X_mmw_rD_evaluate = evaluate_session_data[evaluate_trail][0][0][0]
-        X_mmw_rA_evaluate = evaluate_session_data[evaluate_trail][0][0][1]
-        Y_evaluate = evaluate_session_data[evaluate_trail][0][1]
+        X_mmw_rD_evaluate = train_trails[evaluate_trail][0][0][0]
+        X_mmw_rA_evaluate = train_trails[evaluate_trail][0][0][1]
+        Y_evaluate = train_trails[evaluate_trail][0][1]
     else:
-        X_mmw_rD_evaluate = np.concatenate([X_mmw_rD_evaluate, evaluate_session_data[evaluate_trail][0][0][0]])
-        X_mmw_rA_evaluate = np.concatenate([X_mmw_rA_evaluate, evaluate_session_data[evaluate_trail][0][0][1]])
-        Y_evaluate = np.concatenate([Y_evaluate, evaluate_session_data[evaluate_trail][0][1]])
+        X_mmw_rD_evaluate = np.concatenate([X_mmw_rD_evaluate, train_trails[evaluate_trail][0][0][0]])
+        X_mmw_rA_evaluate = np.concatenate([X_mmw_rA_evaluate, train_trails[evaluate_trail][0][0][1]])
+        Y_evaluate = np.concatenate([Y_evaluate, train_trails[evaluate_trail][0][1]])
 
 ################################
 
