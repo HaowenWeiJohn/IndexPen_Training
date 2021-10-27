@@ -37,23 +37,30 @@ for dir in os.listdir(result_dir):
                 all_acc_dict[key] = np.concatenate((all_acc_dict[key], acc_dict[key]))
 
         acc_dataframe = pd.DataFrame.from_dict(acc_dict)
-        acc_dataframe.boxplot(sym='C'+str(subject_index), color='C'+str(subject_index))
+        acc_dataframe.boxplot(column=list(acc_dataframe.columns), sym='C'+str(subject_index), color='C'+str(subject_index))
 
-        legend_patch.append(matplotlib.patches.Patch(color='C'+str(subject_index), label='User'+str(subject_index)))
+        mean = acc_dataframe.mean(axis=0)
+        plt.plot(np.linspace(1.0, 11, 11), mean, color='C'+str(subject_index), marker="*", markersize=10)
+        # plt.plot(acc_dataframe.mean(axis=0), )
 
-    plt.legend(handles=legend_patch, loc='lower right', fontsize=16)
-    plt.xticks(fontsize=16)
-    plt.yticks(fontsize=16)
-    plt.ylim((0, 1))
+        # boxplot_axis = np.linspace(1, len(acc_dataframe)+2, len(acc_dataframe)+1)
+        # plt.plot(boxplot_axis, mean, color='C'+str(subject_index))
+
+        legend_patch.append(matplotlib.patches.Patch(color='C'+str(subject_index), label='Participant 1-'+str(subject_index)))
+
+plt.legend(handles=legend_patch, loc='lower right', fontsize=16)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.ylim((0, 1))
 
 
-    plt.yticks(np.arange(0, 1.1, 0.1))
+plt.yticks(np.arange(0, 1.1, 0.1))
 
-    plt.xlabel('feed in sample ratio of 20 samples/class', fontsize=18)
-    plt.ylabel('test accuracy for the leave out 180 samples/class', fontsize=18)
-    plt.title('Transfer Learning 20 Sample/Class 10 Fold', fontsize=20)
+plt.xlabel('feed in sample ratio of 20 samples/class', fontsize=18)
+plt.ylabel('test accuracy for the leave out 180 samples/class', fontsize=18)
+plt.title('Transfer Learning 20 Sample/Class 10 Fold', fontsize=20)
 
-
+plt.savefig("user_study1_transfer_finalize_mean_line",dpi=300)
 plt.show()
 
 
@@ -73,8 +80,10 @@ plt.ylim((0, 1))
 plt.yticks(np.arange(0, 1.1, 0.1))
 plt.grid()
 plt.xlabel('feed in sample ratio of 20 samples/class', fontsize=15)
-plt.ylabel('test accuracy for the leave out 180 samples/class', fontsize=15)
+plt.ylabel('average test accuracy for the leave out 180 samples/class', fontsize=15)
 plt.title('5 User Transfer Learning 20 Sample/Class 10 Fold Average', fontsize=17)
 
+plt.savefig("user_study1_transfer_finalize_average",dpi=300)
 
 plt.show()
+
