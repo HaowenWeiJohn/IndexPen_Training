@@ -61,3 +61,35 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
     return ax, cm
+
+
+
+def plot_dataframe_group_line(data_frame, plot_group=range(0,4),
+                          xlabel='Session', ylabel='f1 score'):
+
+    plt.rcParams['xtick.labelsize'] = 35
+    plt.rcParams['ytick.labelsize'] = 35
+    plt.rcParams['axes.labelsize'] = 45
+    plt.rcParams['axes.titlesize'] = 45
+
+
+    fig = plt.figure(figsize=(20, 15))
+    ax = fig.add_subplot(111)
+    for row in plot_group:
+        ax.plot(data_frame.iloc[row],
+                linewidth=8,
+                markersize=35,
+                label=data_frame.index.values[row],
+                marker='^')
+        ax.grid()
+        ax.legend(fontsize=35, loc='lower right')
+
+    ax.set_ylim([0, 1.05])
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    plt.grid(linestyle='-', linewidth=2.5)
+    # # ax.set_title('None')
+    # #     # ax.grid()
+    # # plt.ylim(0, 1.1)
+    plt.show()
+    return ax, fig
