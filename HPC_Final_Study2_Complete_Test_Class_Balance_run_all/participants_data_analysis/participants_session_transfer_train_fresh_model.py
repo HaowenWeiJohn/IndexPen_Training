@@ -149,7 +149,7 @@ error_notes = pd.read_csv(os.path.join(indexpen_study2_error_recording_dir,
                                        '_error_recording_form.csv'), index_col=0)
 train_trails = {}
 trail_index = 0
-for this_session_index in range(1, session_index+1):
+for this_session_index in range(1, session_index + 1):
     this_session_file_path = os.path.join(participant_data_dir, 'session_' + str(this_session_index))
     with open(this_session_file_path, 'rb') as f:
         participant_dir, session_dir, this_session_data = pickle.load(f)
@@ -158,26 +158,29 @@ for this_session_index in range(1, session_index+1):
         sys.exit(-1)
     # remove error frame using the csv file
     for error_target_trail in this_session_data:
-        trail_error_list = error_notes.loc[str(error_target_trail)+'_error', :]
+        trail_error_list = error_notes.loc[str(error_target_trail) + '_error', :]
         trail_error_list_gt = error_notes.loc[str(error_target_trail), :]
         for index, char_index in enumerate(this_session_data[int(error_target_trail)][1][2]):
             char = indexpen_classes[int(char_index-1)]
             if char!=trail_error_list_gt[index]:
-                print('Mismatching error recording and ground truth')
+                print('Mismatching error recording and ground truth!')
 
         for error_sample_index in range(0, len(trail_error_list)):
             if pd.isnull(trail_error_list[error_sample_index]) is False:
-                    print('find error sample :)')
+                print('find error sample: trail ', str(error_target_trail), ' sample ', str(trail_error_list_gt[error_sample_index]))
 
-                    this_session_data[int(error_target_trail)][0][0][0] = \
-                        np.delete(this_session_data[int(error_target_trail)][0][0][0], error_sample_index, axis=0)
-                    this_session_data[int(error_target_trail)][0][0][1] = \
-                        np.delete(this_session_data[int(error_target_trail)][0][0][1], error_sample_index, axis=0)
 
-                    this_session_data[int(error_target_trail)][0] = list(this_session_data[int(error_target_trail)][0])
-                    this_session_data[int(error_target_trail)][0][1] = \
-                        np.delete(this_session_data[int(error_target_trail)][0][1], error_sample_index, axis=0)
-                    this_session_data[int(error_target_trail)][0] = tuple(this_session_data[int(error_target_trail)][0])
+        error_index_list = np.where(np.array(trail_error_list) == 'X')[0]
+        print(error_index_list)
+        this_session_data[int(error_target_trail)][0][0][0] = \
+            np.delete(this_session_data[int(error_target_trail)][0][0][0], error_index_list, axis=0)
+        this_session_data[int(error_target_trail)][0][0][1] = \
+            np.delete(this_session_data[int(error_target_trail)][0][0][1], error_index_list, axis=0)
+
+        this_session_data[int(error_target_trail)][0] = list(this_session_data[int(error_target_trail)][0])
+        this_session_data[int(error_target_trail)][0][1] = \
+            np.delete(this_session_data[int(error_target_trail)][0][1], error_index_list, axis=0)
+        this_session_data[int(error_target_trail)][0] = tuple(this_session_data[int(error_target_trail)][0])
 
     # error_samples = error_notes.loc[participant_name]['session_' + str(this_session_index)]
     # if pd.isnull(error_samples) is False:
