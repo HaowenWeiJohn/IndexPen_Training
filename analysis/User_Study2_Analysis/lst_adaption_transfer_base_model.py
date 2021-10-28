@@ -4,7 +4,9 @@ import os.path
 import pickle
 import shutil
 import warnings
+from copy import copy
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -57,21 +59,55 @@ transfer_model_lsd_df = pd.DataFrame(columns=session_name)
 transfer_fresh_model_lsd_df = pd.DataFrame(columns=session_name)
 
 # plot participant x
-participant_id = 2
 
-for session in range(1,6):
-    original_model_lsd_df['S'+str(session)] = participant_complete_result[participant_id][1][session]['original']
-    transfer_model_lsd_df['S'+str(session)] = participant_complete_result[participant_id][1][session]['transfer']
-    transfer_fresh_model_lsd_df['S'+str(session)] = participant_complete_result[participant_id][1][session]['fresh']
+participants_lsd_dfs = {}
+for participant_id in range(1, len(participant_ids)+1):
+    for session in range(1,6):
+        original_model_lsd_df['S'+str(session)] = participant_complete_result[participant_id][1][session]['original']
+        transfer_model_lsd_df['S'+str(session)] = participant_complete_result[participant_id][1][session]['transfer']
+        transfer_fresh_model_lsd_df['S'+str(session)] = participant_complete_result[participant_id][1][session]['fresh']
 
-transfer_model_lsd_df.boxplot(column=list(original_model_lsd_df.columns), sym='C' + str(participant_id), color='C' + str(participant_id))
+    participants_lsd_dfs[participant_id] = copy(transfer_model_lsd_df)
+
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111)
+
+plot_lsd_select = [1,8,9]
+legend_patch = []
+
+for subject_index in plot_lsd_select:
+    lsd_df = participants_lsd_dfs[subject_index]
+    lsd_df.boxplot(column=list(lsd_df.columns), sym='C' + str(subject_index),
+                          color='C' + str(subject_index))
+    mean = lsd_df.median(axis=0)
+
+    plt.plot(np.linspace(1.0, 5, 5), mean, alpha=.5, color='C'+str(subject_index), marker="^", markersize=20)
+
+    legend_patch.append(matplotlib.patches.Patch(color='C' + str(subject_index), label='P 2-' + str(subject_index)))
 
 
 
-# mean = acc_dataframe.mean(axis=0)
-# plt.plot(np.linspace(1.0, 11, 11), mean, color='C' + str(subject_index), marker="*", markersize=10)
 
+plt.legend(handles=legend_patch, loc='lower right', fontsize=16)
+
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.ylim((0, 1))
+
+
+plt.yticks(np.arange(0, 1.1, 0.1))
+
+plt.xlabel('String Similarity', fontsize=18)
+plt.ylabel('Session', fontsize=18)
+# plt.title('Transfer Learning 20 Sample/Class 10 Fold', fontsize=20)
+
+plt.savefig("test",dpi=300)
 plt.show()
+
+
+
+
+
 
 
 
