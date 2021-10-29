@@ -65,7 +65,8 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 
 
 def plot_dataframe_group_line(data_frame, plot_group=range(0,4),
-                          xlabel='Session', ylabel='f1 score'):
+                          xlabel='Session', ylabel='f1 score',
+                              ncol=2,handleheight=2, labelspacing=0.1):
 
     plt.rcParams['xtick.labelsize'] = 35
     plt.rcParams['ytick.labelsize'] = 35
@@ -80,9 +81,9 @@ def plot_dataframe_group_line(data_frame, plot_group=range(0,4),
                 linewidth=8,
                 markersize=35,
                 label=data_frame.index.values[row],
-                marker='^')
+                marker='^', alpha=.5, color='C'+ str(row+1))
         ax.grid()
-        ax.legend(fontsize=35, loc='lower right')
+        ax.legend(fontsize=35, loc='lower right', ncol=ncol,handleheight=handleheight, labelspacing=labelspacing)
 
     ax.set_ylim([0, 1.05])
     ax.set_xlabel(xlabel)

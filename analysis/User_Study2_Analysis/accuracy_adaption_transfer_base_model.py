@@ -78,9 +78,9 @@ for index in range(1, len(participant_ids)):
         # element wise f1
 
 
-    original_model_f1_df.loc['Participant 2-' + str(index)] = original_model_f1
-    transfer_model_f1_df.loc['Participant 2-' + str(index)] = transfer_model_f1
-    transfer_fresh_model_f1_df.loc['Participant 2-' + str(index)] = transfer_fresh_model_f1
+    original_model_f1_df.loc['P 2-' + str(index)] = original_model_f1
+    transfer_model_f1_df.loc['P 2-' + str(index)] = transfer_model_f1
+    transfer_fresh_model_f1_df.loc['P 2-' + str(index)] = transfer_fresh_model_f1
 
 
 ################################################################
@@ -181,20 +181,20 @@ for char_group in char_split_group:
     ax, fig = plot_dataframe_group_line(average_char_f1_df, plot_group=char_group, ylabel='cross user average f1 score')
     file_name = 'average_char_f1_'+\
                 char_column_name[char_group[0]]+'_'+\
-                char_column_name[char_group[1]]
+                char_column_name[char_group[-1]]
     fig.savefig(os.path.join('char_f1', file_name)
                 , dpi=300)
 
-char_split_group = [range(0,5), range(5,11)]
+char_split_group = [range(0,11)]
 
 for char_group in char_split_group:
-    ax, fig = plot_dataframe_group_line(transfer_model_f1_df, plot_group=char_group, ylabel='user session average f1 score')
-    file_name = 'transfer_model_f1_'+str(char_group[0])+'_'+str(char_group[1])
+    ax, fig = plot_dataframe_group_line(transfer_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=3)
+    file_name = 'transfer_model_f1_'+str(char_group[1]+1)+'_'+str(char_group[-1]+1)
     fig.savefig(os.path.join('user_f1/transfer_model', file_name)
                 , dpi=300)
 for char_group in char_split_group:
-    ax, fig = plot_dataframe_group_line(original_model_f1_df, plot_group=char_group, ylabel='user session average f1 score')
-    file_name = 'original_model_f1_'+str(char_group[0])+'_'+str(char_group[1])
+    ax, fig = plot_dataframe_group_line(original_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=3)
+    file_name = 'original_model_f1_'+str(char_group[1]+1)+'_'+str(char_group[-1]+1)
     fig.savefig(os.path.join('user_f1/original_model', file_name)
                 , dpi=300)
 
