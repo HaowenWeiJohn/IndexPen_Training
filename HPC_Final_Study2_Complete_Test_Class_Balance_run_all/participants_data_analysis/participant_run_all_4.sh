@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="study2_run_all_2_test"
+#SBATCH --job-name="study2_run_all_4_test"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
@@ -17,4 +17,4 @@ module purge
 module load gcc/6.3.0 slurm/17.02.11 cudnn/8.1.1.33-11.2/3k5bbs63 cuda/11.2.2/x7rjvfkn
 
 
-python participant_run_all_2.py
+python participant_run_all_4.py
