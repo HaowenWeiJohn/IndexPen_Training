@@ -7,15 +7,15 @@ sys.path.insert(1,
 
 
 analysis_session = [
-    # (1 , 1),( 1, 2),( 1, 3),( 1, 4),( 1, 5),
-    # (2, 1), (2, 2), (2, 3), (2, 4), (2, 5),
-    # (3, 1), (3, 2), (3, 3), (3, 4),
-    # (4, 1), (4, 2), (4, 3), (4, 4), (4,5),
-    # (5,1), (5,2), (5,3), (5,4), (5, 5)
+    (1 , 1),( 1, 2),( 1, 3),( 1, 4),( 1, 5),
+    (2, 1), (2, 2), (2, 3), (2, 4), (2, 5),
+    (3, 1), (3, 2), (3, 3), (3, 4),
+    (4, 1), (4, 2), (4, 3), (4, 4), (4,5),
+    (5,1), (5,2), (5,3), (5,4), (5, 5)
 
 
     # (8, 5),
-    (9,1), (9,2), (9,3), (9,4), (9, 5)
+    # (9,1), (9,2), (9,3), (9,4), (9, 5)
 
     # # (18,3),
     # (12, 4),
@@ -48,14 +48,14 @@ for session_info in analysis_session:
     #
     # transfer train
 
-    os.system(offset + " ".join((participants_session_transfer_train, participant_name, session_name)))
-    os.system(offset + " ".join((participants_session_transfer_train_fresh_model, participant_name, session_name)))
+    # os.system(offset + " ".join((participants_session_transfer_train, participant_name, session_name)))
+    # os.system(offset + " ".join((participants_session_transfer_train_fresh_model, participant_name, session_name)))
     #
     # analysis transfer train best model and fresh model
     os.system(offset + " ".join((participants_session_raw_acc_evaluation, participant_name, session_name)))
 
-    os.system(offset + " ".join((participants_session_raw_prediction, participant_name, session_name)))
-
-    os.system(offset + " ".join((participants_session_raw_prediction_evaluation, participant_name, session_name)))
+    # os.system(offset + " ".join((participants_session_raw_prediction, participant_name, session_name)))
+    #
+    # os.system(offset + " ".join((participants_session_raw_prediction_evaluation, participant_name, session_name)))
 
 # plot current final result. Current raw accuracy and current evaluation
