@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="study2_run_all_test"
+#SBATCH --job-name="study2_run_all_2_test"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
