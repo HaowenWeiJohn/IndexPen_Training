@@ -17,4 +17,4 @@ module purge
 module load gcc/6.3.0 slurm/17.02.11 cudnn/8.1.1.33-11.2/3k5bbs63 cuda/11.2.2/x7rjvfkn
 
 
-python participant_run_all.py
+python participant_run_all_2.py
