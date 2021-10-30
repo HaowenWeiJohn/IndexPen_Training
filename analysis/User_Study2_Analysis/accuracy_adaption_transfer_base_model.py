@@ -32,11 +32,11 @@ from data_utils.prediction_utils import *
 
 
 participant_ids = [
-    1, 2, 4, 5, 7, 8, 9, 11, 13, 16, 18, 19
+    1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 13, 16, 18, 19, 20, 21
 ]
 
-raw_acc_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance/participants_session_raw_acc_evaluation'
-raw_prediction_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance/participants_session_raw_prediction_evaluation'
+raw_acc_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance_run_all/participants_session_raw_acc_evaluation'
+raw_prediction_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance_run_all/participants_session_raw_prediction_evaluation'
 
 participant_complete_result = {}
 
@@ -56,7 +56,7 @@ original_model_f1_df = pd.DataFrame(columns=session_name)
 transfer_model_f1_df = pd.DataFrame(columns=session_name)
 transfer_fresh_model_f1_df = pd.DataFrame(columns=session_name)
 
-for index in range(1, len(participant_ids)):
+for index in range(1, len(participant_ids)+1):
     participant_result = participant_complete_result[index]
 
     original_model_f1 = []
@@ -104,7 +104,7 @@ char_column_name = ['A', 'B', 'C', 'D', 'E',
 
 char_f1 = None
 
-for index in range(1, len(participant_ids)):
+for index in range(1, len(participant_ids)+1):
 
     participant_original_model_char_f1_df = pd.DataFrame(columns=char_column_name)
     participant_transfer_model_char_f1_df = pd.DataFrame(columns=char_column_name)
@@ -185,15 +185,15 @@ for char_group in char_split_group:
     fig.savefig(os.path.join('char_f1', file_name)
                 , dpi=300)
 
-char_split_group = [range(0,11)]
+char_split_group = [range(0,8), range(8,16)]
 
 for char_group in char_split_group:
-    ax, fig = plot_dataframe_group_line(transfer_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=3)
+    ax, fig = plot_dataframe_group_line(transfer_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=4)
     file_name = 'transfer_model_f1_'+str(char_group[1]+1)+'_'+str(char_group[-1]+1)
     fig.savefig(os.path.join('user_f1/transfer_model', file_name)
                 , dpi=300)
 for char_group in char_split_group:
-    ax, fig = plot_dataframe_group_line(original_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=3)
+    ax, fig = plot_dataframe_group_line(original_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=4)
     file_name = 'original_model_f1_'+str(char_group[1]+1)+'_'+str(char_group[-1]+1)
     fig.savefig(os.path.join('user_f1/original_model', file_name)
                 , dpi=300)
