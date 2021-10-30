@@ -178,7 +178,7 @@ plt.rcParams['axes.titlesize'] = 40
 char_split_group = [range(0,5), range(5,10), range(10,15), range(15,20), range(20,25), range(25,31)]
 
 for char_group in char_split_group:
-    ax, fig = plot_dataframe_group_line(average_char_f1_df, plot_group=char_group, ylabel='cross user average f1 score')
+    ax, fig = plot_dataframe_group_line(average_char_f1_df, plot_group=char_group, ylabel='Average F-1 Score')
     file_name = 'average_char_f1_'+\
                 char_column_name[char_group[0]]+'_'+\
                 char_column_name[char_group[-1]]
