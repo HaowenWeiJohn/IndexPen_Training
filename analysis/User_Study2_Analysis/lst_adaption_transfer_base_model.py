@@ -34,11 +34,11 @@ from data_utils.prediction_utils import *
 
 
 participant_ids = [
-    1, 2, 4, 5, 7, 8, 9, 11, 13, 16, 18, 19
+    1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 13, 16, 18, 19, 20, 21
 ]
 
-raw_acc_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance/participants_session_raw_acc_evaluation'
-raw_prediction_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance/participants_session_raw_prediction_evaluation'
+raw_acc_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance_run_all/participants_session_raw_acc_evaluation'
+raw_prediction_evaluation_dir = '../../HPC_Final_Study2_Complete_Test_Class_Balance_run_all/participants_session_raw_prediction_evaluation'
 
 participant_complete_result = {}
 
@@ -105,9 +105,10 @@ plt.savefig("test",dpi=300)
 plt.show()
 
 
+participants_last_session_lsd_avg = []
+for participant in participants_lsd_dfs:
+    last_session_average = np.mean(participants_lsd_dfs[participant]['S5'])
+    participants_last_session_lsd_avg.append(last_session_average)
 
-
-
-
-
+print(np.mean(participants_last_session_lsd_avg))
 

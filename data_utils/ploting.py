@@ -82,8 +82,14 @@ def plot_dataframe_group_line(data_frame, plot_group=range(0,4),
                 markersize=35,
                 label=data_frame.index.values[row],
                 marker='^', alpha=.5, color='C'+ str(row+1))
-        ax.grid()
-        ax.legend(fontsize=35, loc='lower right', ncol=ncol,handleheight=handleheight, labelspacing=labelspacing)
+    ax.grid()
+
+    box = ax.get_position()
+    ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
+    # Put a legend to the right of the current axis
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), handleheight=1.2, labelspacing=1, prop={'size': 40})
+
+    # ax.legend(fontsize=35, loc='lower right', ncol=ncol,handleheight=handleheight, labelspacing=labelspacing)
 
     ax.set_ylim([0, 1.05])
     ax.set_xlabel(xlabel)

@@ -56,7 +56,7 @@ original_model_f1_df = pd.DataFrame(columns=session_name)
 transfer_model_f1_df = pd.DataFrame(columns=session_name)
 transfer_fresh_model_f1_df = pd.DataFrame(columns=session_name)
 
-for index in range(1, len(participant_ids)+1):
+for index in range(1, len(participant_ids) + 1):
     participant_result = participant_complete_result[index]
 
     original_model_f1 = []
@@ -77,11 +77,9 @@ for index in range(1, len(participant_ids)+1):
 
         # element wise f1
 
-
     original_model_f1_df.loc['P 2-' + str(index)] = original_model_f1
     transfer_model_f1_df.loc['P 2-' + str(index)] = transfer_model_f1
     transfer_fresh_model_f1_df.loc['P 2-' + str(index)] = transfer_fresh_model_f1
-
 
 ################################################################
 ################################################################
@@ -104,7 +102,7 @@ char_column_name = ['A', 'B', 'C', 'D', 'E',
 
 char_f1 = None
 
-for index in range(1, len(participant_ids)+1):
+for index in range(1, len(participant_ids) + 1):
 
     participant_original_model_char_f1_df = pd.DataFrame(columns=char_column_name)
     participant_transfer_model_char_f1_df = pd.DataFrame(columns=char_column_name)
@@ -127,12 +125,11 @@ for index in range(1, len(participant_ids)+1):
     if char_f1 is None:
         char_f1 = np.expand_dims(np.array(participant_transfer_model_char_f1_df), axis=0)
     else:
-        char_f1 = np.append(char_f1,np.expand_dims(np.array(participant_transfer_model_char_f1_df), axis=0), axis=0)
+        char_f1 = np.append(char_f1, np.expand_dims(np.array(participant_transfer_model_char_f1_df), axis=0), axis=0)
 
 average_char_f1 = np.average(char_f1, axis=0)
 average_char_f1 = np.transpose(average_char_f1)
 average_char_f1_df = pd.DataFrame(data=average_char_f1, index=indexpen_classes, columns=session_name)
-
 
 # element wise f1
 
@@ -141,8 +138,6 @@ plt.rcParams['xtick.labelsize'] = 35
 plt.rcParams['ytick.labelsize'] = 35
 plt.rcParams['axes.labelsize'] = 40
 plt.rcParams['axes.titlesize'] = 40
-
-
 
 # def plot_dataframe_group_box(data_frame, plot_group=range(0,4),
 #                           xlabel='Session', ylabel='f1 score'):
@@ -175,31 +170,28 @@ plt.rcParams['axes.titlesize'] = 40
 #     return ax, fig
 
 
-char_split_group = [range(0,5), range(5,10), range(10,15), range(15,20), range(20,25), range(25,31)]
+char_split_group = [range(0, 5), range(5, 10), range(10, 15), range(15, 20), range(20, 25), range(25, 31)]
 
 for char_group in char_split_group:
     ax, fig = plot_dataframe_group_line(average_char_f1_df, plot_group=char_group, ylabel='Average F-1 Score')
-    file_name = 'average_char_f1_'+\
-                char_column_name[char_group[0]]+'_'+\
+    file_name = 'average_char_f1_' + \
+                char_column_name[char_group[0]] + '_' + \
                 char_column_name[char_group[-1]]
     fig.savefig(os.path.join('char_f1', file_name)
                 , dpi=300)
 
-char_split_group = [range(0,8), range(8,16)]
+char_split_group = [range(0, 8), range(8, 16)]
 
 for char_group in char_split_group:
     ax, fig = plot_dataframe_group_line(transfer_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=4)
-    file_name = 'transfer_model_f1_'+str(char_group[1]+1)+'_'+str(char_group[-1]+1)
+    file_name = 'transfer_model_f1_' + str(char_group[1] + 1) + '_' + str(char_group[-1] + 1)
     fig.savefig(os.path.join('user_f1/transfer_model', file_name)
                 , dpi=300)
 for char_group in char_split_group:
     ax, fig = plot_dataframe_group_line(original_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=4)
-    file_name = 'original_model_f1_'+str(char_group[1]+1)+'_'+str(char_group[-1]+1)
+    file_name = 'original_model_f1_' + str(char_group[1] + 1) + '_' + str(char_group[-1] + 1)
     fig.savefig(os.path.join('user_f1/original_model', file_name)
                 , dpi=300)
-
-
-
 
 # plot_group = range(0, 4)
 #
@@ -226,15 +218,9 @@ for char_group in char_split_group:
 # plt.show()
 
 
-
-
-
-
-
-
 # table view for session 5
 
-session_5_char_f1 = char_f1[:,-1,:]
+session_5_char_f1 = char_f1[:, -1, :]
 
 session_5_char_f1 = np.transpose(session_5_char_f1)
 
@@ -244,5 +230,5 @@ session_5_f1 = np.append(session_5_char_f1, participant_char_average, axis=0)
 
 session_5_f1 = np.append(session_5_f1, np.expand_dims(np.average(session_5_f1, axis=-1), axis=-1), axis=-1)
 
-
-
+session_5_f1_df = pd.DataFrame(session_5_f1, columns=np.append(transfer_model_f1_df.index, 'Participant F-1 Score'),
+                               index=np.append(indexpen_classes, 'Chars F-1 Average'))
