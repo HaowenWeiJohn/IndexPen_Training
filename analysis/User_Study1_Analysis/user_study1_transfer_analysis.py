@@ -22,7 +22,7 @@ for dir in os.listdir(result_dir):
     if dir.startswith('Sub'):
         subject_index = int(dir[3])
         transfer_learning_best_cm_hist_dict_path = os.path.join(result_dir, dir, 'auto_save',
-                                                                'transfer_unfreezeall_info',
+                                                                'transfer_info',
                                                                 'transfer_learning_best_cm_hist_dict')
         print(transfer_learning_best_cm_hist_dict_path)
 
@@ -60,9 +60,9 @@ plt.yticks(np.arange(0, 1.1, 0.1))
 
 plt.xlabel('Feed in Sample Number / Class', fontsize=18)
 plt.ylabel('Leave-Out Samples Validation Accuracy', fontsize=18)
-plt.title('Transfer Learning 20 Sample/Class 10 Fold', fontsize=20)
+plt.title('Last Layers Trainable 20 Sample/Class 10 Fold', fontsize=20)
 
-plt.savefig("user_study1_transfer_finalize",dpi=300)
+plt.savefig("user_study1_all_trainable_finalize",dpi=300)
 plt.show()
 
 
@@ -85,7 +85,7 @@ plt.xlabel('feed in sample ratio of 20 samples/class', fontsize=15)
 plt.ylabel('average test accuracy for the leave out 180 samples/class', fontsize=15)
 plt.title('5 User Transfer Learning 20 Sample/Class 10 Fold Average', fontsize=17)
 
-plt.savefig("user_study1_transfer_finalize_average",dpi=300)
+plt.savefig("user_study1_all_trainable_finalize_average",dpi=300)
 
 plt.show()
 
