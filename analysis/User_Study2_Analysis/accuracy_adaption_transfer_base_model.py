@@ -172,13 +172,13 @@ plt.rcParams['axes.titlesize'] = 40
 
 char_split_group = [range(0, 5), range(5, 10), range(10, 15), range(15, 20), range(20, 25), range(25, 31)]
 
-for char_group in char_split_group:
-    ax, fig = plot_dataframe_group_line(average_char_f1_df, plot_group=char_group, ylabel='Average F-1 Score')
-    file_name = 'average_char_f1_' + \
-                char_column_name[char_group[0]] + '_' + \
-                char_column_name[char_group[-1]]
-    fig.savefig(os.path.join('char_f1', file_name)
-                , dpi=300)
+# for char_group in char_split_group:
+#     ax, fig = plot_dataframe_group_line(average_char_f1_df, plot_group=char_group, ylabel='Average F-1 Score')
+#     file_name = 'average_char_f1_' + \
+#                 char_column_name[char_group[0]] + '_' + \
+#                 char_column_name[char_group[-1]]
+#     fig.savefig(os.path.join('char_f1', file_name)
+#                 , dpi=300)
 
 char_split_group = [range(0, 8), range(8, 16)]
 
@@ -186,12 +186,12 @@ for char_group in char_split_group:
     ax, fig = plot_dataframe_group_line(transfer_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=4)
     file_name = 'transfer_model_f1_' + str(char_group[1] + 1) + '_' + str(char_group[-1] + 1)
     fig.savefig(os.path.join('user_f1/transfer_model', file_name)
-                , dpi=300)
+                , dpi=200)
 for char_group in char_split_group:
     ax, fig = plot_dataframe_group_line(original_model_f1_df, plot_group=char_group, ylabel='Average F-1 Score', ncol=4)
     file_name = 'original_model_f1_' + str(char_group[1] + 1) + '_' + str(char_group[-1] + 1)
     fig.savefig(os.path.join('user_f1/original_model', file_name)
-                , dpi=300)
+                , dpi=200)
 
 # plot_group = range(0, 4)
 #
