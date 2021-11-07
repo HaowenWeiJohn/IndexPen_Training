@@ -27,7 +27,7 @@ from data_utils.make_model import *
 from data_utils.ploting import *
 from data_utils.data_config import *
 from data_utils.prediction_utils import *
-
+import seaborn as sns
 ######
 
 
@@ -230,5 +230,5 @@ session_5_f1 = np.append(session_5_char_f1, participant_char_average, axis=0)
 
 session_5_f1 = np.append(session_5_f1, np.expand_dims(np.average(session_5_f1, axis=-1), axis=-1), axis=-1)
 
-session_5_f1_df = pd.DataFrame(session_5_f1, columns=np.append(transfer_model_f1_df.index, 'Participant F-1 Score'),
-                               index=np.append(indexpen_classes, 'Chars F-1 Average'))
+session_5_f1_df = pd.DataFrame(session_5_f1, columns=np.append(transfer_model_f1_df.index, 'P ave'),
+                               index=np.append(indexpen_classes, 'Chars ave'))
