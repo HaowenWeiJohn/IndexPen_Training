@@ -69,46 +69,57 @@ for participant_id in range(1, len(participant_ids)+1):
 
     participants_lsd_dfs[participant_id] = copy(transfer_model_lsd_df)
 
-fig = plt.figure(figsize=(10, 7))
-ax = fig.add_subplot(111)
-
-plot_lsd_select = [1,8,9]
-legend_patch = []
-
-for subject_index in plot_lsd_select:
-    lsd_df = participants_lsd_dfs[subject_index]
-    lsd_df.boxplot(column=list(lsd_df.columns), sym='C' + str(subject_index),
-                          color='C' + str(subject_index))
-    mean = lsd_df.median(axis=0)
-
-    plt.plot(np.linspace(1.0, 5, 5), mean, alpha=.5, color='C'+str(subject_index), marker="^", markersize=20)
-
-    legend_patch.append(matplotlib.patches.Patch(color='C' + str(subject_index), label='P 2-' + str(subject_index)))
 
 
+plot_groups = [(1,2,3),(4,5,6),(7,8,9),(10,11,12),(13,14,15,16)]
+
+for plot_group in plot_groups:
+    plt.rcParams['xtick.labelsize'] = 35
+    plt.rcParams['ytick.labelsize'] = 35
+    plt.rcParams['axes.labelsize'] = 45
+    plt.rcParams['axes.titlesize'] = 45
 
 
-plt.legend(handles=legend_patch, loc='lower right', fontsize=16)
+    fig = plt.figure(figsize=(7, 5.5))
+    ax = fig.add_subplot(111)
 
-plt.xticks(fontsize=16)
-plt.yticks(fontsize=16)
-plt.ylim((0, 1))
+    legend_patch = []
+    plot_lsd_select = plot_group
+    for index, subject_index in enumerate(plot_lsd_select):
+        lsd_df = participants_lsd_dfs[subject_index]
+        lsd_df.boxplot(column=list(lsd_df.columns), sym='C' + str(subject_index),
+                              color='C' + str(index+1))
+        mean = lsd_df.median(axis=0)
+
+        plt.plot(np.linspace(1.0, 5, 5), mean, alpha=.5, color='C'+str(index+1), marker="^", markersize=20)
+
+        legend_patch.append(matplotlib.patches.Patch(color='C' + str(index+1), label='P 2-' + str(subject_index)))
 
 
-plt.yticks(np.arange(0, 1.1, 0.1))
-
-plt.xlabel('String Similarity', fontsize=18)
-plt.ylabel('Session', fontsize=18)
-# plt.title('Transfer Learning 20 Sample/Class 10 Fold', fontsize=20)
-
-plt.savefig("test",dpi=300)
-plt.show()
 
 
-participants_last_session_lsd_avg = []
-for participant in participants_lsd_dfs:
-    last_session_average = np.mean(participants_lsd_dfs[participant]['S5'])
-    participants_last_session_lsd_avg.append(last_session_average)
+    plt.legend(handles=legend_patch, loc='lower right', fontsize=16)
 
-print(np.mean(participants_last_session_lsd_avg))
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.ylim((0, 1))
+
+
+    plt.yticks(np.arange(0, 1.1, 0.1))
+
+    plt.xlabel('Session', fontsize=18)
+    plt.ylabel('String Similarity', fontsize=18)
+    # plt.title('Transfer Learning 20 Sample/Class 10 Fold', fontsize=20)
+
+    plt.savefig('lsd_'+str(plot_group[0])+'-'+str(plot_group[-1]),dpi=300)
+    plt.show()
+
+
+
+# participants_last_session_lsd_avg = []
+# for participant in participants_lsd_dfs:
+#     last_session_average = np.mean(participants_lsd_dfs[participant]['S5'])
+#     participants_last_session_lsd_avg.append(last_session_average)
+#
+# print(np.mean(participants_last_session_lsd_avg))
 

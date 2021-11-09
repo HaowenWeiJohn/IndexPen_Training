@@ -112,4 +112,26 @@ def extract_participant_info(participant_id, raw_acc_evaluation_dir, raw_predict
     return raw_prediction_dict, lsd_prediction
 
 
+def getCount(arr, n, num1, num2):
+    i=0
+    # Find num1
+    for i in range(0, n):
+        if (arr[i] == num1):
+            break
 
+    # If num1 is not present or present at end
+    if (i >= n - 1):
+        return 0
+
+    # Find num2
+    for j in range(n - 1, i + 1, -1):
+        if (arr[j] == num2):
+            break
+
+    # If num2 is not present
+    if (j == i):
+        return 0
+
+    # return number of elements between
+    # the two elements.
+    return (j - i - 1)

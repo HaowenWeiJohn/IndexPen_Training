@@ -18,7 +18,7 @@ import time
 from collections import deque
 import pandas as pd
 import sys
-from analysis.User_Study2_Analysis.info_extraction_utils import extract_participant_info
+from analysis.User_Study2_Analysis.info_extraction_utils import extract_participant_info, getCount
 
 # insert at 1, 0 is the script path (or '' in REPL)
 
@@ -40,6 +40,8 @@ participant_ids = [
 
 resign_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
+error_num = 0
+gesture_num = 0
 
 for index, participant_id in enumerate(participant_ids):
     print(participant_id)
@@ -48,7 +50,13 @@ for index, participant_id in enumerate(participant_ids):
     # print(error_recording_file)
 
     error_notes = pd.read_csv(error_recording_file, index_col=0)
-    for sentence in range(1,11):
-        for error_index, error in enumerate(error_notes.loc[str(sentence)+'_error']):
+    for sentence_index in range(20, 31):
+        sentence = error_notes.loc[str(sentence_index)]
+        gesture_num += getCount(sentence, len(sentence), num1='Nois', num2='Nois')
+        for error_index, error in enumerate(error_notes.loc[str(sentence_index)+'_error']):
             if pd.isnull(error) is False:
-                print(error)
+                error_sample = error_notes.loc[str(sentence_index)][error_index]
+                error_num +=1
+
+print(gesture_num)
+print(error_num)
