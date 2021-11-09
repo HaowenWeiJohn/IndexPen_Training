@@ -71,7 +71,7 @@ for participant_id in range(1, len(participant_ids)+1):
 
 
 
-plot_groups = [(1,2,3),(4,5,6),(7,8,9),(10,11,12),(13,14,15,16)]
+plot_groups = [(1,2,3),(4,5,6),(7,8,9),(10,11,12),(13,14,15), (16,)]
 
 for plot_group in plot_groups:
     plt.rcParams['xtick.labelsize'] = 35
@@ -87,7 +87,7 @@ for plot_group in plot_groups:
     plot_lsd_select = plot_group
     for index, subject_index in enumerate(plot_lsd_select):
         lsd_df = participants_lsd_dfs[subject_index]
-        lsd_df.boxplot(column=list(lsd_df.columns), sym='C' + str(subject_index),
+        lsd_df.boxplot(column=list(lsd_df.columns), sym='C' + str(index+1),
                               color='C' + str(index+1))
         mean = lsd_df.median(axis=0)
 
