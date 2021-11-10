@@ -18,11 +18,11 @@ from collections import deque
 import sys
 import seaborn as sns
 
-data_frame_path = 'dataframes/participant_last_session.csv'
+data_frame_path = 'dataframes/participant_session_4.csv'
 
 data_frame = pd.read_csv(data_frame_path, index_col=0)
 data_frame = np.transpose(data_frame)
-title = 'Session 5 Gestures F-1 Score'
+title = 'Session 4 Gestures F-1 Score'
 
 x_label = data_frame.columns.values.tolist()
 y_label = data_frame.index.values.tolist()
@@ -63,5 +63,5 @@ for i in range(data.shape[0]):
                 color="white" if data[i, j] > thresh else "black")
 fig.tight_layout()
 
-plt.savefig('session_5_gestures_f1_score.png', dpi=300)
+plt.savefig('session_4_gestures_f1_score.png', dpi=300)
 plt.show()

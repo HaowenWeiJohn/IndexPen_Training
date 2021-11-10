@@ -220,7 +220,7 @@ for char_group in char_split_group:
 
 # table view for session 5
 
-session_5_char_f1 = char_f1[:, -1, :]
+session_5_char_f1 = char_f1[:, 0, :]
 
 session_5_char_f1 = np.transpose(session_5_char_f1)
 
@@ -230,5 +230,5 @@ session_5_f1 = np.append(session_5_char_f1, participant_char_average, axis=0)
 
 session_5_f1 = np.append(session_5_f1, np.expand_dims(np.average(session_5_f1, axis=-1), axis=-1), axis=-1)
 
-session_5_f1_df = pd.DataFrame(session_5_f1, columns=np.append(transfer_model_f1_df.index, 'P ave'),
-                               index=np.append(indexpen_classes, 'Chars ave'))
+session_5_f1_df = pd.DataFrame(session_5_f1, columns=np.append(transfer_model_f1_df.index, 'Ave'),
+                               index=np.append(indexpen_classes, 'Ave'))
