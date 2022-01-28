@@ -1,5 +1,0 @@
-2022-01-28 13:05:27.823525: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
-Traceback (most recent call last):
-  File "training_script.py", line 155, in <module>
-    model = make_complex_model_RA_RD_combine(class_num=31, learning_rate=1e-3, decay=1e-5,
-TypeError: make_complex_model_RA_RD_combine() got an unexpected keyword argument 'filter_num'
