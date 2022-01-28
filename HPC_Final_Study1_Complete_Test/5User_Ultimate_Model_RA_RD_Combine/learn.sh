@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="5User_Ultimate_Model"
+#SBATCH --job-name="5User_Ultimate_Model_RA_RD_Combine"
 #SBATCH -D .
 #SBATCH --output=%x_%j.out
 #SBATCH --error=%x_%j.err
