@@ -506,7 +506,7 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
 
 def make_complex_model_RA_RD_combine(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample,
                        rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
-                       ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
+                       ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3), filter_num=8,
                        cv_reg=1e-6,
                        channel_mode='channels_last'):
     # creates the Time Distributed CNN for range Doppler heatmap ##########################
@@ -549,7 +549,7 @@ def make_complex_model_RA_RD_combine(class_num, learning_rate=1e-4, decay=1e-7, 
     mmw_razi_TDCNN = Sequential()
     mmw_razi_TDCNN.add(
         TimeDistributed(
-            Conv2D(filters=8, kernel_size=ra_kernel_size1, data_format=channel_mode,
+            Conv2D(filters=filter_num, kernel_size=ra_kernel_size1, data_format=channel_mode,
                    kernel_regularizer=tf.keras.regularizers.l2(l=cv_reg),
                    bias_regularizer=tf.keras.regularizers.l2(l=cv_reg),
                    activity_regularizer=tf.keras.regularizers.l2(l=cv_reg),
@@ -558,7 +558,7 @@ def make_complex_model_RA_RD_combine(class_num, learning_rate=1e-4, decay=1e-7, 
     mmw_razi_TDCNN.add(TimeDistributed(tf.keras.layers.LeakyReLU(alpha=0.1)))
     mmw_razi_TDCNN.add(TimeDistributed(BatchNormalization()))
     mmw_razi_TDCNN.add(TimeDistributed(
-        Conv2D(filters=16, kernel_size=ra_kernel_size2,
+        Conv2D(filters=filter_num*2, kernel_size=ra_kernel_size2,
                kernel_regularizer=tf.keras.regularizers.l2(l=cv_reg),
                bias_regularizer=tf.keras.regularizers.l2(l=cv_reg),
                activity_regularizer=tf.keras.regularizers.l2(l=cv_reg)
