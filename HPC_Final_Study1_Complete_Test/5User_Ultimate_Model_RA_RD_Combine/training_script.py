@@ -87,7 +87,7 @@ for subject_name in subjects_data_dict:
         X_mmw_rA_model = np.concatenate([X_mmw_rA_model, subjects_data_dict[subject_name][1]])
         Y_model = np.concatenate([Y_model, subjects_label_dict[subject_name]])
         group_model = np.concatenate([group_model, subjects_group_dict[subject_name]])
-    break
+    # break
 
 del subjects_data_dict
 del subjects_label_dict
