@@ -407,7 +407,8 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
                        rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                        ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3),
                        cv_reg=1e-6,
-                       channel_mode='channels_last'):
+                       channel_mode='channels_last',
+                       dropout=True):
     # creates the Time Distributed CNN for range Doppler heatmap ##########################
     mmw_rdpl_input = (int(points_per_sample),) + rd_shape + (1,) if channel_mode == 'channels_last' else (
                                                                                                              points_per_sample,
@@ -480,20 +481,23 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
                              recurrent_regularizer=tf.keras.regularizers.l2(l=1e-5),
                              activity_regularizer=tf.keras.regularizers.l2(l=1e-5)
                              )(merged)
-    regressive_tensor = Dropout(rate=0.5)(regressive_tensor)
+    if dropout:
+        regressive_tensor = Dropout(rate=0.5)(regressive_tensor)
     regressive_tensor = LSTM(units=32, return_sequences=False, kernel_initializer='random_uniform',
                              kernel_regularizer=tf.keras.regularizers.l2(l=1e-4),
                              recurrent_regularizer=tf.keras.regularizers.l2(l=1e-5),
                              activity_regularizer=tf.keras.regularizers.l2(l=1e-5)
                              )(regressive_tensor)
-    regressive_tensor = Dropout(rate=0.5)(regressive_tensor)
+    if dropout:
+        regressive_tensor = Dropout(rate=0.5)(regressive_tensor)
 
     regressive_tensor = Dense(units=256,
                               kernel_regularizer=tf.keras.regularizers.l2(l=1e-4),
                               bias_regularizer=tf.keras.regularizers.l2(l=1e-5),
                               activity_regularizer=tf.keras.regularizers.l2(l=1e-5)
                               )(regressive_tensor)
-    regressive_tensor = Dropout(rate=0.5)(regressive_tensor)
+    if dropout:
+        regressive_tensor = Dropout(rate=0.5)(regressive_tensor)
     regressive_tensor = Dense(class_num, activation='softmax', kernel_initializer='random_uniform')(
         regressive_tensor)
 
