@@ -19,3 +19,6 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 2022-01-28 03:35:57.836876: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1264]      
 2022-01-28 03:36:17.204148: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
 2022-01-28 03:36:17.206129: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2500000000 Hz
+/cm/local/apps/slurm/var/spool/job2046720/slurm_script: line 20: 348795 Bus error               python training_script.py
+slurmstepd: error: Exceeded step memory limit at some point.
+slurmstepd: error: Exceeded job memory limit at some point.
