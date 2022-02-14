@@ -649,7 +649,7 @@ def make_complex_model_RA_RD_combine_horizontal(class_num, learning_rate=1e-4, d
     # mmw_rdpl_TDCNN.add(TimeDistributed(Flatten()))  # this should be where layers meets
 
     # creates the Time Distributed CNN for range Azimuth heatmap ###########################
-    mmw_razi_input = (int(points_per_sample),) + horizontal_stack_shape + (2,) if channel_mode == 'channels_last' else (
+    mmw_razi_input = (int(points_per_sample),) + horizontal_stack_shape + (1,) if channel_mode == 'channels_last' else (
                                                                                                              points_per_sample,
                                                                                                              1) + ra_shape
     mmw_razi_TDCNN = Sequential()
