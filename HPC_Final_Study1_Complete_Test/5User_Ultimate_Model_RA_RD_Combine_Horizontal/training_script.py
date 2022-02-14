@@ -152,7 +152,7 @@ del Y_model
 #     random_state=random_state,
 #     shuffle=True)
 
-model = make_complex_model_RA_RD_combine(class_num=31, learning_rate=1e-3, decay=1e-5,
+model = make_complex_model_RA_RD_combine_horizontal(class_num=31, learning_rate=1e-3, decay=1e-5,
                            rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                            ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3), filter_num=8, channel_num=1,
                            cv_reg=2e-5
