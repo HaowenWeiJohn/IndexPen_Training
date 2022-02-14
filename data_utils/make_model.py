@@ -511,7 +511,7 @@ def make_complex_model(class_num, learning_rate=1e-4, decay=1e-7, points_per_sam
 def make_complex_model_RA_RD_combine(class_num, learning_rate=1e-4, decay=1e-7, points_per_sample=points_per_sample,
                        rd_kernel_size1=(3, 3), rd_kernel_size2=(3, 3),
                        ra_kernel_size1=(3, 3), ra_kernel_size2=(3, 3), filter_num=8,
-                       cv_reg=1e-6,
+                       cv_reg=1e-6, channel_num=2,
                        channel_mode='channels_last'):
     # creates the Time Distributed CNN for range Doppler heatmap ##########################
     # mmw_rdpl_input = (int(points_per_sample),) + rd_shape + (1,) if channel_mode == 'channels_last' else (
@@ -549,7 +549,7 @@ def make_complex_model_RA_RD_combine(class_num, learning_rate=1e-4, decay=1e-7, 
     # creates the Time Distributed CNN for range Azimuth heatmap ###########################
     mmw_razi_input = (int(points_per_sample),) + ra_shape + (2,) if channel_mode == 'channels_last' else (
                                                                                                              points_per_sample,
-                                                                                                             2) + ra_shape
+                                                                                                             channel_num) + ra_shape
     mmw_razi_TDCNN = Sequential()
     mmw_razi_TDCNN.add(
         TimeDistributed(
